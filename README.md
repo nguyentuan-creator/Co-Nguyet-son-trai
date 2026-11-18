@@ -1,230 +1,247 @@
 # CỔ CHÂN NHÂN: THIÊN ĐẠO VÔ TÌNH (ROLEPLAY ENGINE)
 
-Dự án game nhập vai phiêu lưu văn bản (Interactive Fiction / Text RPG) lấy bối cảnh thế giới tu chân của nguyên tác tiểu thuyết **Cổ Chân Nhân** (Gu Daoist Master / Reverend Insanity). 
+Tài liệu thiết kế kỹ thuật và kiến trúc lõi cho tựa game nhập vai phiêu lưu văn bản (Interactive Fiction / Text RPG) dựa trên nguyên tác tiểu thuyết **Cổ Chân Nhân** (Gu Daoist Master / Reverend Insanity).
 
-Game được xây dựng theo kiến trúc **Hybrid RPG Engine**: Kết hợp giữa **Code Deterministic (Python/JS)** xử lý trạng thái cứng, xúc xắc, lịch trình NPC và **Large Language Model (Gemini API)** đóng vai trò Quản trò tối cao (Game Master - GM) dẫn dắt mạch truyện biến hóa theo từng hành động của người chơi.
-
----
-
-## MỤC LỤC
-1. [Phạm Vi Màn Khởi Đầu (Thanh Mao Sơn)](#1-phạm-vi-màn-khởi-đầu-thanh-mao-sơn)
-2. [Cơ Sở Dữ Liệu Module Hóa (Modular Database)](#2-cơ-sở-dữ-liệu-module-hóa-modular-database)
-3. [Hệ Thống Độ Thiện Cảm & Hành Vi Đặc Thù Theo Từng NPC](#3-hệ-thống-độ-thiện-cảm--hành-vi-đặc-thù-theo-từng-npc)
-4. [Lịch Trình Sinh Hoạt & Ma Trận Xuất Hiện Đưa Vào Database](#4-lịch-trình-sinh-hoạt--ma-trận-xuất-hiện-đưa-vào-database)
-5. [Bản Đồ Phân Vùng & Cơ Chế "Chunk Loading"](#5-bản-đồ-phân-vùng--cơ-chế-chunk-loading)
-6. [Mô Phỏng Thế Giới Sống (Living World Engine)](#6-mô-phỏng-thế-giới-sống-living-world-engine)
-7. [Ma Trận Tác Động 2 Chiều Của Hành Động Nhân Vật](#7-ma-trận-tác-động-2-chiều-của-hành-động-nhân-vật)
-8. [Cơ Chế Phán Định Xúc Xắc d100: Đối Kháng Biên Độ Δ](#8-cơ-chế-phán-định-xúc-xắc-d100-đối-kháng-biên-độ-δ)
-9. [Cơ Chế Tính Điểm Lượt Chơi (Run Scoring System)](#9-cơ-chế-tính-điểm-lượt-chơi-run-scoring-system)
-10. [Cấu Trúc Thư Mục Kỹ Thuật Dự Kiến](#10-cấu-trúc-thư-mục-kỹ-thuật-dự-kiến)
+Game vận hành theo mô hình **Hybrid RPG Engine**: Phân định rõ ràng trách nhiệm giữa **Cơ Sở Dữ Liệu (JSON)**, **Trí Tuệ Nhân Tạo (LLM Prompt)** và **Mã Nguồn Logic Thuần (Deterministic Code)**.
 
 ---
 
-## 1. PHẠM VI MÀN KHỞI ĐẦU (THANH MAO SƠN)
+## BẢN ĐỒ PHÂN CHIA TRÁCH NHIỆM HỆ THỐNG (SEPARATION OF CONCERNS)
 
-* **Không gian hoạt động:** Thanh Mao Sơn (Nam Cương), xoay quanh cục diện Tam Đại Gia Tộc:
-  * **Cổ Nguyệt Sơn Trại:** Nguyệt đạo, Mộc đạo; gia tộc coi trọng huyết thống, nội bộ chia rẽ bè phái.
-  * **Bạch Gia Trại:** Băng đạo, Thủy đạo; lạnh lùng, hiếu chiến, sở hữu quái kiệt Bạch Ngưng Băng.
-  * **Hùng Gia Trại:** Lực đạo, Thổ đạo; chuộng cơ bắp, thô bạo, trục lợi từ xung đột của hai trại kia.
-* **Thời gian hoạt động:** Từ **Mùa Xuân Năm 1 (Khai Khiếu Đại Điển)** đến **Mùa Xuân Năm 3 (Đại biến Thanh Mao Sơn)**.
-* **Cảnh giới giới hạn:**
-  * Người chơi: Khởi đầu từ Phàm nhân $\rightarrow$ Nhất chuyển $\rightarrow$ Nhị chuyển $\rightarrow$ Cực hạn đạt Tam chuyển.
-  * Bản địa: Đệ tử/Cổ sư thông thường (1-2 chuyển), Gia lão (3 chuyển), Tộc trưởng (4 chuyển), Trùm cuối Năm 3 (5 chuyển). Không có Cổ Tiên giáng lâm.
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                       1. CƠ SỞ DỮ LIỆU (JSON DATABASE)                      │
+│ - gu_database.json    : Kho Cổ trùng, số chuyển, công năng, thức ăn, hợp luyện. │
+│ - npcs.json           : Hồ sơ NPC, tính cách, điểm yếu, phản ứng theo thiện cảm.│
+│ - npc_schedules.json  : Lịch trình sinh hoạt & ma trận xuất hiện theo canh giờ.│
+│ - world_map.json      : Danh sách Chunks bản đồ, đặc điểm địa lý, tài nguyên.  │
+│ - timeline.json       : Tuyến sự kiện cố định, điều kiện kích hoạt & rẽ nhánh. │
+└──────────────────────────────────────┬──────────────────────────────────────┘
+                                       │
+                                       ▼
+┌─────────────────────────────────────────────────────────────────────────────┐
+│             2. MÃ NGUỒN LOGIC THUẦN (DETERMINISTIC CODE - PYTHON/JS)         │
+│ - Gieo xúc xắc thật: random.randint(1, 100), tính toán biên độ Delta.        │
+│ - Bộ nạp Chunk động (Chunk Loader): Chỉ nạp ngữ cảnh vùng người chơi đứng.  │
+│ - Quản lý Đồng hồ thế giới (World Tick) & Bắt kịp thời gian (Lazy Catch-up).│
+│ - Tính toán chỉ số: Trừ Chân nguyên hải %, cập nhật Danh tiếng, Khí vận.   │
+│ - Hệ thống tính điểm tổng kết phiên chơi (Run Scoring System).               │
+└──────────────────────────────────────┬──────────────────────────────────────┘
+                                       │
+                                       ▼
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                 3. QUẢN TRÒ TỐI CAO (LLM PROMPT / GEMINI API)                │
+│ - Giao thức bảo toàn quyền điều khiển: Không nói/hành động thay người chơi.  │
+│ - Thẩm định ngữ cảnh & chất lượng lời thoại ➔ Định giá Target (1 - 100).    │
+│ - Dẫn dắt cốt truyện & miêu tả kết quả dựa trên Biên độ Delta (-99 đến +99).│
+│ - Đóng vai NPC với khẩu khí chuẩn nguyên tác theo mốc Thiện cảm & Danh tiếng.│
+└─────────────────────────────────────────────────────────────────────────────┘
+```
 
 ---
 
-## 2. CƠ SỞ DỮ LIỆU MODULE HÓA (MODULAR DATABASE)
+## PHẦN I: CƠ SỞ DỮ LIỆU (DATABASE SPECS - JSON)
+*Tất cả thông số tĩnh và dữ liệu cấu hình được lưu tại thư mục `database/` để dễ dàng tra cứu, bổ sung và tinh chỉnh mà không cần sửa code.*
 
-Tách biệt toàn bộ dữ liệu thành các tệp JSON có cấu trúc chuẩn để hệ thống dễ dàng truy xuất, bổ sung và cập nhật:
+### 1. Cơ Sở Dữ Liệu Cổ Trùng (`database/gu_database.json`)
+Cấu trúc mở để người phát triển tự do tra cứu và nạp thêm Cổ trùng theo nguyên tác:
+```json
+{
+  "id": "GU-001",
+  "name": "Nguyệt Quang Cổ",
+  "rank": 1,
+  "type": "Phàm Cổ",
+  "path": "Nguyệt đạo",
+  "category": "Công kích tầm xa",
+  "functions": {
+    "description": "Bắn ra một đạo nguyệt nhận màu lam nhạt, tầm xa 10m.",
+    "cost_per_rank": { "so_giai": "10%", "trung_giai": "7%", "cao_giai": "5%", "dinh_phong": "3%" }
+  },
+  "feeding": {
+    "food_type": "Cánh hoa Lan Trăng",
+    "cycle_days": 10,
+    "starvation_penalty": "Héo hon, mờ dần, sau 20 ngày sẽ chết"
+  },
+  "acquisition": {
+    "nature_hunt": "Vách núi trăng rọi tại Thanh Mao Sơn",
+    "refinement_recipe": null,
+    "trade_value": 150
+  }
+}
+```
 
-### A. Cấu Trúc Cơ Sở Dữ Liệu Cổ Trùng (`gu_database.json`)
-Cơ sở dữ liệu định nghĩa cấu trúc chuẩn để người phát triển tự tìm hiểu và nạp thêm Cổ trùng theo nguyên tác. Không giới hạn cứng số lượng:
-* **Mã Cổ Trùng (`id`):** Định danh duy nhất (Vd: `GU-001`, `GU-057`, `GU-081`...).
-* **Tên Cổ Trùng (`name`):** Tên Hán Việt theo nguyên tác.
-* **Số Chuyển (`rank`):** 
-  * Phàm Cổ: 1 Chuyển đến 5 Chuyển.
-  * Tiên Cổ: 6 Chuyển đến 9 Chuyển.
-* **Lưu Phái (`path`):** Nguyệt đạo, Lực đạo, Thổ đạo, Mộc đạo, Băng đạo, Viêm đạo, Lôi đạo, Biến hóa đạo, Trí đạo, Huyết đạo, Thời đạo...
-* **Phân Loại Chức Năng (`category`):** Công kích, Phòng ngự, Di động, Trị liệu, Trinh sát, Tích trữ, Phụ trợ...
-* **Chức Năng & Hao Phí (`functions`):** Miêu tả hiệu quả thực tế và lượng chân nguyên tiêu hao theo từng tiểu cảnh giới (Sơ, Trung, Cao, Đỉnh).
-* **Quy Tắc Nuôi & Thức Ăn (`feeding`):** Loại thức ăn, chu kỳ cho ăn (ngày), hậu quả khi bị bỏ đói (ngủ đông, phản phệ, chết).
-* **Các Cách Có Được (`acquisition`):** Bắt hoang dã, Phương công thức hợp luyện (Refinement Recipe), Mua bán / Đấu giá, Thừa kế truyền thừa.
-
----
-
-## 3. HỆ THỐNG ĐỘ THIỆN CẢM & HÀNH VI ĐẶC THÙ THEO TỪNG NPC
-
-Độ thiện cảm không chỉ là một con số vô hồn mà được ánh xạ trực tiếp thành **hành vi ứng xử đặc thù của từng nhân vật được lưu trong Database (`npcs.json`)**:
-
-### A. Cấu Trúc Trường Thiện Cảm Trong Hồ Sơ NPC
-Vì mỗi nhân vật có tính cách, dã tâm và thế giới quan khác nhau, cùng một mốc thiện cảm họ sẽ có cách đối xử hoàn toàn khác nhau:
-
+### 2. Hồ Sơ NPC & Hành Vi Theo Thiện Cảm (`database/npcs.json`)
+Lưu trữ thông tin nhân vật kèm theo **cách cư xử đặc thù của từng người tương ứng với từng mốc thiện cảm**:
 ```json
 {
   "id": "NPC_PHUONG_NGUYEN",
   "name": "Cổ Nguyệt Phương Nguyên",
-  "base_favor": 0,
+  "faction": "Cổ Nguyệt Gia Tộc",
+  "cultivation": "Nhất chuyển Đỉnh phong",
+  "paths": ["Lực đạo", "Thời đạo"],
+  "personality": "Lạnh lùng, thực dụng tối thượng, vô cảm trước đạo đức thông thường.",
+  "weaknesses": "Tư chất ban đầu thấp (Bính đẳng), phụ thuộc nặng vào tài nguyên.",
   "favor_behaviors": {
     "hostile": {
-      "threshold": -30,
-      "attitude": "Coi như kẻ ngáng đường",
-      "behavior": "Lạnh lùng tính kế trừ khử khi có cơ hội sinh lời, không bao giờ lộ sát khí trước mặt."
+      "max_threshold": -30,
+      "behavior": "Lạnh lùng lập mưu thủ tiêu đoạt tài sản khi có cơ hội sinh lời, không để lộ sát khí trước mặt."
     },
     "neutral": {
-      "threshold": 0,
-      "attitude": "Người qua đường / Công cụ tiềm năng",
-      "behavior": "Sòng phẳng, chỉ trao đổi khi có lợi ích ngang giá, không xen vào chuyện của người khác."
+      "min_threshold": -29,
+      "max_threshold": 30,
+      "behavior": "Sòng phẳng, chỉ trao đổi khi đôi bên cùng có lợi, không can thiệp vào chuyện sống chết của người khác."
     },
     "favorable": {
-      "threshold": 40,
-      "attitude": "Đối tác hợp tác đáng tin cậy",
-      "behavior": "Sẵn sàng chia phần lợi ích rõ ràng, chia sẻ một số thông tin tình báo có lợi cho cả hai."
+      "min_threshold": 31,
+      "max_threshold": 70,
+      "behavior": "Coi là đối tác đáng tin cậy, sẵn sàng chia chác lợi nhuận sòng phẳng, cung cấp cảnh báo nguy hiểm nếu không tốn kém."
     },
     "close_ally": {
-      "threshold": 80,
-      "attitude": "Đồng minh chiến lược hiếm hoi",
-      "behavior": "Tuyệt đối không có chuyện tình cảm mù quáng, nhưng sẽ ưu tiên phối hợp tác chiến, cảnh báo nguy hiểm trước mắt."
+      "min_threshold": 71,
+      "behavior": "Đồng minh chiến lược hiếm hoi, ưu tiên phối hợp tác chiến, nhưng tuyệt đối không hy sinh tính mạng vì đối phương."
     }
   }
 }
 ```
 
-* **So sánh ví dụ:** 
-  * Cùng đạt mốc thiện cảm cao ($+80$): **Phương Chính** sẽ ngưỡng mộ, tôn sùng, chia sẻ tâm tư thầm kín; còn **Phương Nguyên** chỉ coi là đồng minh chiến lược có giá trị lợi ích lớn; **Bạch Ngưng Băng** sẽ xem là đối thủ thú vị nhất đáng để dốc toàn lực quyết đấu một trận sinh tử!
-
----
-
-## 4. LỊCH TRÌNH SINH HOẠT & MA TRẬN XUẤT HIỆN ĐƯA VÀO DATABASE
-
-Toàn bộ lịch trình sinh hoạt và xác suất xuất hiện của NPC được lưu trực tiếp vào cơ sở dữ liệu (`npc_schedules.json`) để dễ dàng theo dõi, cân bằng và tinh chỉnh:
-
-### A. Schema Lịch Trình Sinh Hoạt
+### 3. Lịch Trình Sinh Hoạt & Ma Trận Xuất Hiện (`database/npc_schedules.json`)
+Xác suất xuất hiện của NPC theo 5 canh giờ và cơ chế ghi đè sự kiện:
 ```json
 {
-  "NPC_ID": "NPC_PHUONG_CHINH",
-  "default_schedule": {
-    "TIME_SLOT_MORNING":   { "loc_hoc_duong": 0.95, "loc_dien_vo_truong": 0.05 },
-    "TIME_SLOT_AFTERNOON": { "loc_dien_vo_truong": 0.70, "loc_khu_cho": 0.20, "loc_hoc_duong": 0.10 },
-    "TIME_SLOT_EVENING":   { "loc_nha_o_gia_dinh": 0.85, "loc_tuu_quan": 0.15 },
-    "TIME_SLOT_NIGHT":     { "loc_nha_o_gia_dinh": 1.00 }
-  },
-  "event_overrides": {
-    "EVENT_WOLF_TIDE_ACTIVE": {
-      "TIME_SLOT_ALL":     { "loc_tuong_thanh": 0.70, "loc_tram_cuu_thuong": 0.25, "loc_nha_o_gia_dinh": 0.05 }
+  "NPC_PHUONG_CHINH": {
+    "schedules": {
+      "MORNING":   { "loc_hoc_duong": 0.95, "loc_dien_vo_truong": 0.05 },
+      "AFTERNOON": { "loc_dien_vo_truong": 0.70, "loc_khu_cho": 0.20, "loc_hoc_duong": 0.10 },
+      "EVENING":   { "loc_nha_o": 0.85, "loc_tuu_quan": 0.15 },
+      "NIGHT":     { "loc_nha_o": 1.00 }
+    },
+    "event_overrides": {
+      "EVENT_WOLF_TIDE": {
+        "ALL_DAY": { "loc_tuong_thanh": 0.75, "loc_tram_cuu_thuong": 0.25 }
+      }
     }
   }
 }
 ```
-* **Lợi ích:** Code Backend chỉ cần đọc file JSON này, chạy xúc xắc ngẫu nhiên xác định vị trí NPC trước khi gọi AI. Có thể thay đổi thói quen của bất kỳ ai mà không cần sửa code logic.
+
+### 4. Bản Đồ Phân Vùng Chunks (`database/world_map.json`)
+Danh sách các Chunk tại Thanh Mao Sơn kèm tài nguyên và NPC cố định.
+
+### 5. Tuyến Sự Kiện Thế Giới & Kíp Nổ Ngầm (`database/timeline.json`)
+Danh sách mốc sự kiện cố định 3 năm tại Thanh Mao Sơn và cờ kích hoạt rẽ nhánh.
 
 ---
 
-## 5. BẢN ĐỒ PHÂN VÙNG & CƠ CHẾ "CHUNK LOADING"
+## PHẦN II: QUY TẮC ĐỊNH GIÁ & DẪN TRUYỆN DÀNH CHO LLM (AI GM PROMPT)
+*Quy chuẩn dành cho LLM đóng vai trò Quản trò, thẩm định tình huống và miêu tả kết quả.*
 
-Lấy cảm hứng từ cơ chế nạp thế giới của *Minecraft*:
-* Thế giới phân cấp thành các **Chunk (Khu vực cục bộ)**:
-  * Trong trại: *Học Đường, Diễn Võ Trường, Khu Chợ / Sòng Đổ Thạch, Tửu Quán, Khu Nhà Ở, Nội Vụ Đường, Hình Đường, Từ Đường*.
-  * Ngoài trại: *Rừng Trúc Bích Ngọc, Bãi Săn Lợn Rừng, Vách Núi Động Hoa Tửu, Thung Lũng Lang Triều, Huyết Hồ Ngầm*.
-* **Cơ chế Nạp:** Chỉ khi người chơi bước chân vào Chunk nào, Backend mới nạp thông tin Chunk đó (mô tả cảnh trí, NPC có mặt, vật phẩm tại chỗ) vào prompt.
-* **Tiết kiệm Token:** Giảm hơn **90% chi phí API**, loại bỏ tình trạng AI bị ảo giác hoặc lơ là thông tin do đọc prompt quá dài.
+### 1. Giao Thức Bảo Toàn Quyền Người Chơi (Absolute Player Agency)
+* AI **tuyệt đối không** tự ý viết lời thoại, suy nghĩ, cảm xúc, hoặc quyết định hành động thay cho nhân vật người chơi (PC).
+* Mỗi lượt, AI chỉ miêu tả bối cảnh, phản ứng của NPC/môi trường, và dừng lại chờ người chơi ra lệnh.
 
----
+### 2. Quy Tắc Thẩm Định & Định Giá Ngưỡng Thách Thức (`Target: 1 - 100`)
+Trước mỗi hành động mạo hiểm (chiến đấu, luyện Cổ, đổ thạch, đàm phán, tống tiền, lừa gạt), AI tự thẩm định bối cảnh để chốt một con số mục tiêu:
 
-## 6. MÔ PHỎNG THẾ GIỚI SỐNG (LIVING WORLD ENGINE)
+$$\text{Target} = \text{Độ Khó Nền NPC} \pm \text{Chênh Lệch Cảnh Giới} \pm \text{Chất Lượng Lời Nói / Mưu Kế} \pm \text{Ảnh Hưởng Khí Vận}$$
 
-Thế giới vận hành độc lập, không đứng yên chờ đợi người chơi:
+* **Thẩm định Chiến đấu:** So sánh tương quan cảnh giới, Cổ trùng khắc chế, vị trí địa hình.
+* **Thẩm định Đấu trí / Tống tiền / Thao túng tâm lý:**
+  * *Lời lẽ thô bạo, đe dọa khi mình yếu thế:* Phán định hành vi tự sát $\rightarrow$ Đẩy **`Target = 95 - 100`**.
+  * *Lời lẽ khéo léo, nắm đúng điểm yếu tâm lý của NPC trong database:* Giảm **`-15 đến -25 điểm Target`**.
+  * *Khí vận người chơi đang đỏ (Hồng Nhuận/Kim Quang):* Giảm thêm **`-10 đến -15 điểm Target`**.
+  * *Khí vận người chơi đang đen (Hắc Ám/Ám Đạm):* Tăng thêm **`+10 đến +20 điểm Target`**.
 
-1. **Đồng Hồ Thế Giới & Mạch Truyện Cố Định (World Timeline):**
-   * Thời gian nhảy số theo từng hành động của người chơi (nói chuyện: $+15$ phút, bế quan: $+1$ tháng).
-   * Các sự kiện nguyên tác (Án mạng Giả Kim Sinh, Lang triều, Thủy tổ thức tỉnh) vẫn sẽ tự động nổ ra đúng ngày giờ nếu người chơi không can thiệp.
-2. **Cơ Chế Bắt Kịp Khi Nạp Vùng (Lazy Catch-Up Evaluation):**
-   * Các vùng người chơi chưa ghé thăm sẽ ở trạng thái "ngủ đông" (tốn $0$ token). Khi người chơi bước vào, hàm Catch-up sẽ tự tính toán khoảng thời gian trôi qua để cập nhật trạng thái mới nhất (Vd: Bí cảnh Tam Vương tự động mở sau 3 năm).
-3. **Sóng Chấn Động Toàn Cầu (Global Ripple Bus):**
-   * Các hành động cấp vĩ mô (ở Trung Châu, Thiên Đình hay hủy diệt Giới Bích) sẽ gửi tín hiệu vào bảng cờ toàn cầu. Mọi Chunk khi được nạp đều tự động phản chiếu biến động này.
-4. **Dòng Chảy Tin Đồn & Kinh Tế (Rumor Propagation):**
-   * Người chơi không cần đến nơi xảy ra biến cố vẫn có thể nghe thấy tin tức qua: Khách đàm tiếu tại Tửu quán, Thương đội vãng lai, Bảng bố cáo gia tộc.
-   * Thị trường tự biến động theo tin tức (Vd: Tam Vương mở $\rightarrow$ Giá Cổ trị liệu tại chỗ tăng $+25\%$).
+### 3. Quy Tắc Dẫn Truyện Theo Biên Độ $\Delta$ ($-99 \rightarrow +99$)
+Sau khi nhận kết quả $\Delta = \text{Player Roll} - \text{Target}$ từ code, AI miêu tả diễn biến theo đúng 7 thang đo:
 
----
-
-## 7. MA TRẬN TÁC ĐỘNG 2 CHIỀU CỦA HÀNH ĐỘNG NHÂN VẬT
-
-Dùng để **tính toán mức độ ảnh hưởng của bất kỳ hành động nào** từ người chơi lên thế giới và quyết định việc có chỉnh sửa hay bẻ nhánh tuyến vận mệnh cố định hay không:
-
-### A. Hai Trục Tính Toán
-1. **Trục 1: Mức Độ Bại Lộ / Lan Truyền Thông Tin (Visibility - $V$):**
-   * *Tier 0:* Tuyệt mật (chỉ người chơi biết, không nhân chứng, đã xóa dấu vết).
-   * *Tier 1:* Số ít người biết (1-3 nhân chứng, tin đồn ngầm trong nội bộ).
-   * *Tier 2:* Cục bộ biết (Toàn thể sơn trại/gia tộc điều tra công khai).
-   * *Tier 3:* Khu vực biết (Thương đội đồn đại khắp Nam Cương).
-   * *Tier 4:* Thiên hạ chấn động (Cổ Tiên dòm ngó, thế lực lớn can thiệp).
-2. **Trục 2: Sức Nặng Thực Tế Lên Vận Mệnh (Structural Weight - $W$):**
-   * Từ việc nhỏ nhặt không làm thay đổi cục diện (săn lợn, mua bán đồ vặt) đến việc phá vỡ các then chốt lịch sử (cứu/giết nhân vật định mệnh, cướp đoạt truyền thừa then chốt).
-
-### B. Cơ Chế Chỉnh Sửa Tuyến Vận Mệnh Cố Định
-* **Không ảnh hưởng vĩ mô:** Khi $W$ thấp (hoặc $V=0$ và không chạm vào điểm neo lịch sử), tuyến vận mệnh chính của thế giới giữ nguyên quỹ đạo.
-* **Chỉnh sửa / Bẻ nhánh vận mệnh:** Khi hành động chạm vào các điều kiện tiên quyết (Preconditions) của sự kiện lớn, hệ thống kích hoạt rẽ nhánh (Timeline Divergence), thay đổi các sự kiện tiếp theo trong tương lai.
-* **Kíp Nổ Hẹn Giờ (Silent Fuse):** Những hành động $V=0$ nhưng $W$ cực cao (hành động bí mật động trời) sẽ âm thầm cài đặt cờ biến cố ngầm, đến đúng ngày giờ quy định mới bùng nổ cú "Twist" làm thay đổi toàn bộ kết cục.
-
----
-
-## 8. CƠ CHẾ PHÁN ĐỊNH XÚC XẮC d100: ĐỐI KHÁNG BIÊN ĐỘ Δ
-
-Sử dụng **Mô hình Đối Kháng Biên Độ $\Delta$ (Delta System)** trực quan, công bằng và kịch tính:
-
-1. **Bước 1 - AI Định Giá Thách Thức:** Dựa vào bối cảnh, thực lực đối phương và địa hình, AI thiết lập mục tiêu: **`Target` ($1 \rightarrow 100$)**.
-2. **Bước 2 - Người Chơi Gieo Xúc Xắc:** Code Backend/Client gieo xúc xắc ngẫu nhiên khách quan: **`Player Roll` ($1 \rightarrow 100$)**.
-3. **Bước 3 - Đo Độ Lệch Biên Độ $\Delta$ ($\text{Player Roll} - \text{Target}$):** Biên độ dao động từ **$-99$ đến $+99$**, quyết định trực tiếp mức độ diễn biến:
-
-| Biên Độ $\Delta$ | Trạng Thái Phán Quyết | Diễn Biến Cốt Truyện Trong Game |
+| Khoảng Biên Độ $\Delta$ | Trạng Thái Phán Quyết | Văn Phong Miêu Tả Của AI GM |
 | :---: | :---: | :--- |
-| **$+50 \rightarrow +99$** | **Nghiền Ép Tuyệt Đối** | Miêu sát, hoàn hảo không tì vết, đoạt trọn vẹn Cổ trùng và tài nguyên. |
-| **$+15 \rightarrow +49$** | **Thắng Lợi Áp Đảo** | Thắng áp đảo, hạ gục nhanh chóng, tiêu hao rất ít chân nguyên. |
-| **$+1 \rightarrow +14$** | **Thắng Hiểm / Trả Giá** | Thắng sít sao nhưng bị thương tích, cạn kiệt chân nguyên hoặc Cổ bị sứt mẻ. |
-| **$0$** | **Thế Trận Cân Bằng** | Bất phân thắng bại, bật lùi thăm dò, chuyển sang thế giằng co. |
-| **$-14 \rightarrow -1$** | **Thất Bại Kiểm Soát** | Đòn đánh bị chặn đứng, mất thế chủ động nhưng kịp thời rút lui an toàn. |
-| **$-49 \rightarrow -15$** | **Thảm Bại / Trọng Thương** | Bị phản đòn nặng nề, rạn nứt Khiếu bích, Cổ trùng bị thương, buộc tháo chạy. |
-| **$-50 \rightarrow -99$** | **Tuyệt Cảnh Sinh Tử** | Rơi vào cửa tử, trúng mai phục chí mạng; cận kề cái chết nếu không có bài tẩy. |
+| **$+50 \rightarrow +99$** | **Nghiền Ép Tuyệt Đối** | Miêu sát, hoàn hảo không tì vết, đối phương không kịp phản ứng, thu hoạch tối đa. |
+| **$+15 \rightarrow +49$** | **Thắng Lợi Áp Đảo** | Thắng lợi rõ ràng, áp đảo đối thủ, tiêu hao rất ít chân nguyên/tài nguyên. |
+| **$+1 \rightarrow +14$** | **Thắng Hiểm / Trả Giá** | Thắng sít sao nhưng phải trả giá: bị thương nhẹ, cạn chân nguyên hoặc sứt mẻ Cổ. |
+| **$0$** | **Thế Trận Cân Bằng** | Hai bên bất phân thắng bại, bật lùi thăm dò, chuyển sang thế giằng co. |
+| **$-14 \rightarrow -1$** | **Thất Bại Kiểm Soát** | Đòn đánh/lời nói bị chặn đứng, mất thế chủ động nhưng kịp thời rút lui an toàn. |
+| **$-49 \rightarrow -15$** | **Thảm Bại / Trọng Thương** | Bị phản đòn nặng nề, rạn nứt Khiếu bích, Cổ trùng bị thương, bị NPC đe dọa sát hại. |
+| **$-50 \rightarrow -99$** | **Tuyệt Cảnh Sinh Tử** | Rơi vào cửa tử! Bị cao thủ đập nát lục phủ ngũ tạng, cận kề cái chết nếu không có bài tẩy. |
 
 ---
 
-## 9. CƠ CHẾ TÍNH ĐIỂM LƯỢT CHƠI (RUN SCORING SYSTEM)
+## PHẦN III: CÁC HÀM CƠ CHẾ THUẦN (DETERMINISTIC CODE ENGINE)
+*Logic nghiệp vụ được viết bằng Python (Backend) và Javascript (Frontend), hoạt động độc lập không phụ thuộc vào LLM.*
 
-Thay vì tạo các cơ chế tăng độ khó gượng ép theo cấp bậc, game vận hành theo **Hệ Thống Đánh Giá & Tính Điểm Phiên Chơi**:
+### 1. Hệ Quy Chiếu 100 & Chỉ Số Nhân Vật
+Toàn bộ hệ thống vận hành trên cùng một hệ quy chiếu toán học đồng nhất:
 
-* **Mục tiêu:** Đánh giá tổng kết "Cuộc đời của một Cổ sư" sau khi kết thúc lượt chơi (sống sót trốn thoát, chết, hoặc đạt đến đại biến).
-* **Quy tắc Tính Điểm:**
-  * **Lối chơi trốn tránh / Thoát sớm:** Điểm đánh giá sẽ **rất thấp** (chỉ đạt danh hiệu "Kẻ hèn nhát sống sót", điểm thành tựu tối thiểu).
-  * **Cộng điểm cao cho:**
-    * Vượt qua các tình huống hiểm nghèo và nghịch cảnh.
-    * Thu thập, nuôi dưỡng và hợp luyện được nhiều Cổ trùng quý hiếm.
-    * Giải quyết các mâu thuẫn lớn, thao túng hoặc thay đổi cục diện gia tộc.
-    * Khám phá ra các bí mật ẩn sâu (Động Hoa Tửu, Huyết Hồ Nhất Đại...).
-    * Đạt cảnh giới cao trong thời gian ngắn và mưu kế tiêu diệt kẻ thù vượt cấp.
-* **Bảng Đánh Giá Cuối Run:** Xếp hạng từ Hạng C, B, A đến S, SS (Ma đầu kinh thế / Nhân vật truyền kỳ).
+* **Tư Chất Không Khiếu ($1\% - 100\%$):**
+  * Gieo ngẫu nhiên $d100$ tại Lễ Khai Khiếu một lần duy nhất:
+    * `$1 - 39$`: Vô Khiếu / Liệt Khiếu (Phế vật / Phàm nhân).
+    * `$40 - 59$`: Đinh Đẳng ($40\% - 59\%$ Chân nguyên hải).
+    * `$60 - 69$`: Bính Đẳng ($60\% - 69\%$ Chân nguyên hải - mức khởi đầu Phương Nguyên).
+    * `$70 - 79$`: Ất Đẳng ($70\% - 79\%$ Chân nguyên hải).
+    * `$80 - 99$`: Giáp Đẳng ($80\% - 99\%$ Chân nguyên hải - mức Phương Chính).
+    * `$100$`: Thập Tuyệt Thể ($100\%$ Chân nguyên hải - cơ chế tự bạo đếm ngược).
+* **Thuộc Tính Danh Tiếng ($-100 \rightarrow +100$):**
+  * Âm ($-100 \rightarrow -1$): Thiên về Ma Đạo (tàn nhẫn, phản tộc, khét tiếng).
+  * Dương ($+1 \rightarrow +100$): Thiên về Chính Đạo (trọng gia quy, bảo vệ danh dự, công đức).
+  * Code dùng chỉ số này kết hợp với `faction` của NPC để điều chỉnh giá buôn bán và thái độ tiếp đón.
+* **Thuộc Tính Khí Vận ($-100 \rightarrow +100$):**
+  * `$-100 \to -60$`: **Hắc Ám Sát Vận** (Họa vô đơn chí, nổ lò, quái thú biến dị).
+  * `$-59 \to -20$`: **Ám Đạm Suy Vận** (Vận xui đeo bám, đổ thạch toàn đá rác).
+  * `$-19 \to +19$`: **Bạch Sắc Phàm Vận** (Vận số bình thường của người phàm).
+  * `$+20 \to +59$`: **Hồng Nhuận Cát Vận** (Gặp may mắn, đi săn gặp mồi ngon, mua hời).
+  * `$+60 \to +100$`: **Kim Quang Phúc Vận** (Đại phúc duyên, kỳ ngộ hoang dã, gặp nguy hóa an).
+
+### 2. Hàm Gieo Xúc Xắc Thật & Tính Biên Độ $\Delta$
+Code đảm bảo tính khách quan tuyệt đối, không để AI tự bịa số:
+```python
+import random
+
+def resolve_action(target_dc: int) -> dict:
+    player_roll = random.randint(1, 100)
+    delta = player_roll - target_dc
+    return {
+        "target": target_dc,
+        "player_roll": player_roll,
+        "delta": delta,
+        "result_tier": get_result_tier(delta)
+    }
+```
+
+### 3. Đồng Hồ Thế Giới (World Tick) & Bắt Kịp Khi Nạp Vùng (Lazy Catch-Up)
+* Mỗi hành vi của người chơi cộng dồn thời gian thế giới.
+* Khi người chơi bước vào một Chunk mới, hàm `catch_up_chunk_state(chunk_id, current_world_time)` tự động so sánh thời gian trôi qua để cập nhật trạng thái địa điểm mà không cần tốn token mô phỏng liên tục.
+
+### 4. Ma Trận Tác Động 2 Chiều: Độ Bại Lộ ($V$) vs Sức Nặng ($W$)
+* Hàm đánh giá xem hành động vừa thực hiện có thỏa mãn điều kiện rẽ nhánh trong `timeline.json` hay không.
+* Nếu $V=0$ nhưng $W$ cao $\rightarrow$ Code cài đặt **Cờ Kíp Nổ Hẹn Giờ (Silent Fuse)** vào bộ nhớ ngầm.
+
+### 5. Hệ Thống Tính Điểm Lượt Chơi (Run Scoring System)
+* Tổng kết điểm sau khi kết thúc một cuộc đời Cổ sư:
+  * Lối chơi chỉ lo trốn chạy, né tránh thử thách $\rightarrow$ Điểm tổng kết rất thấp.
+  * Cộng điểm lớn cho: Vượt qua tử cảnh, cảnh giới đạt được, Cổ trùng quý hiếm thu thập, các mưu kế thao túng cục diện và bí mật khám phá được.
 
 ---
 
-## 10. CẤU TRÚC THƯ MỤC KỸ THUẬT DỰ KIẾN
+## CẤU TRÚC THƯ MỤC DỰ ÁN
 
 ```text
 CoChanNhanRolePlay/
-├── .env                       # API Key (GEMINI_API_KEY) & Cấu hình máy chủ
-├── .gitignore                  # Bỏ qua file nhạy cảm và cache
-├── README.md                  # Tài liệu thiết kế & Yêu cầu kỹ thuật toàn diện
+├── .env                       # Cấu hình API Key (GEMINI_API_KEY)
+├── .gitignore                  # Loại trừ file nhạy cảm và cache
+├── README.md                  # Bản đặc tả kỹ thuật và phân chia trách nhiệm
 ├── run.bat                    # Script khởi chạy nhanh trên Windows
 ├── server.py                  # Proxy Server (Python) xử lý logic, xúc xắc & gọi API
-├── database/                  # Cơ sở dữ liệu JSON chuẩn hóa
-│   ├── gu_database.json       # Danh mục Cổ trùng (Schema chuẩn, nạp dần dữ liệu)
-│   ├── npcs.json              # Hồ sơ NPC kèm bảng hành vi theo độ thiện cảm
+├── database/                  # [PHẦN I: JSON DATABASE]
+│   ├── gu_database.json       # Kho Cổ trùng & quy tắc nuôi, hợp luyện
+│   ├── npcs.json              # Hồ sơ NPC kèm bảng ứng xử theo độ thiện cảm
 │   ├── world_map.json         # Danh sách Chunks tại Thanh Mao Sơn
-│   ├── npc_schedules.json     # Thời gian biểu & Ma trận xác suất xuất hiện theo giờ
+│   ├── npc_schedules.json     # Thời gian biểu & Ma trận xuất hiện theo giờ
 │   └── timeline.json          # Tuyến sự kiện cố định & Cơ chế rẽ nhánh
-├── prompts/                   # Hệ thống System Instructions
-│   ├── core_engine.md         # Giao thức bảo toàn quyền người chơi & luật GM
-│   └── modules/               # Các mảnh prompt nạp động theo Chunk
-└── public/                    # Frontend Giao diện Web
+├── prompts/                   # [PHẦN II: LLM INSTRUCTIONS]
+│   ├── system_prompt.md       # Quản trò tối cao, thẩm định Target & miêu tả Delta
+│   └── modules/               # Các mảnh prompt ngữ cảnh nạp động theo Chunk
+└── public/                    # [PHẦN III: CLIENT / UI]
     ├── index.html             # Khung giao diện chính (Chat, HUD, Dice)
-    ├── app.js                 # Xử lý tương tác, socket, hiển thị xúc xắc
+    ├── app.js                 # Xử lý tương tác, hiệu ứng lắc xúc xắc d100
     └── styles.css             # Giao diện phong cách Hắc Ám Tiên Hiệp
 ```
