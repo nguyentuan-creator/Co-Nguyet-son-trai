@@ -36,7 +36,7 @@ Game vận hành theo mô hình **Hybrid RPG Engine**: Phân định rõ ràng t
 │ - Tuyệt đối không chiếm quyền: Không tự ý nói/hành động thay người chơi.     │
 │ - Tự do tư duy & đánh giá bối cảnh ➔ Đưa ra Target thử thách (1 - 100).     │
 │ - Miêu tả diễn biến câu chuyện bám sát kết quả bậc Delta.                    │
-│ - Tự đánh giá thời điểm thích hợp để gọi hàm cập nhật thuộc tính/tài nguyên. │
+│ - Tự phân tích nhân quả & chủ động gọi hàm cập nhật trạng thái khi cần.      │
 └─────────────────────────────────────────────────────────────────────────────┘
 ```
 
@@ -93,11 +93,10 @@ Sau khi nhận kết quả $\Delta = \text{Player Roll} - \text{Target}$ từ co
 | **$-49 \rightarrow -15$** | **Thất bại nặng** |
 | **$-99 \rightarrow -50$** | **Thảm bại** |
 
-### 4. Tự Đánh Giá Khi Nào Cần Gọi Hàm (Tool / Function Calling)
-* AI tự nhận định khi nào hành vi trong cốt truyện đủ sức nặng để làm biến động các thuộc tính và phát lệnh gọi hàm:
-  * Khi người chơi có hành vi quang minh chính đại hoặc ma đạo tàn độc $\rightarrow$ Gọi hàm thay đổi **Danh Tiếng**.
-  * Khi người chơi làm việc nghịch thiên, cướp đoạt cơ duyên lớn hoặc gặp đại họa $\rightarrow$ Gọi hàm thay đổi **Khí Vận**.
-  * Khi người chơi kích hoạt Cổ, mua bán, trị thương $\rightarrow$ Gọi hàm cập nhật **Chân Nguyên, Tiền Tệ, Vật Phẩm**.
+### 4. Chỉ Dẫn AI Tự Phán Đoán Gọi Hàm (Autonomous Function Calling Prompt)
+Đoạn prompt chỉ thị dành riêng cho AI tự động phân tích nhân quả và chủ động phát lệnh gọi hàm:
+
+> *"Trong vai trò Quản trò, hãy liên tục phân tích hành vi và diễn biến thực tế của người chơi. Bất cứ khi nào nhận thấy tình huống dẫn đến sự thay đổi khách quan về trạng thái nhân vật (như chân nguyên tiêu hao, tài sản dịch chuyển, thương tích, hay hành vi làm thay đổi bản chất danh tiếng và khí vận), bạn hãy tự mình đánh giá mức độ biến động hợp lý và chủ động phát lệnh gọi các hàm tương ứng để cập nhật hệ thống theo đúng luật nhân quả của thế giới."*
 
 ---
 
