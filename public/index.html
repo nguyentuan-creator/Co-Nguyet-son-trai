@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cổ Chân Nhân — Thiên Đạo Vô Tình</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/dompurify@3.1.6/dist/purify.min.js" defer></script>
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark">蛊</div>
+        <div class="brand-text">
+          <h1>CỔ CHÂN NHÂN</h1>
+          <p>Thiên Đạo Vô Tình · Ver 2.3</p>
+        </div>
+      </div>
+
+      <div class="side-block">
+        <button id="new-session" class="side-btn danger">Phiên mới</button>
+        <button id="export-save" class="side-btn">Tải bản lưu</button>
+      </div>
+
+      <div class="side-block meta">
+        <div class="meta-row"><span>Model</span><strong id="model-name">…</strong></div>
+        <div class="meta-row"><span>API key</span><strong id="key-status" class="pending">Đang kiểm tra…</strong></div>
+        <div class="meta-row"><span>Lượt</span><strong id="turn-count">0</strong></div>
+      </div>
+
+      <div class="side-block note" id="key-hint" hidden>
+        <strong>Chưa có API key</strong>
+        <p>Mở file <code>.env</code>, dán key vào <code>GEMINI_API_KEY</code>, rồi khởi động lại server.</p>
+      </div>
+
+      <p class="side-foot">Key nằm trong <code>.env</code> phía server — trình duyệt không thấy key.</p>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div class="topbar-title">Thiên Đạo Vô Tình <span>· Quản trò tối cao</span></div>
+        <div class="topbar-right"><span id="model-badge" class="badge">…</span></div>
+      </header>
+
+      <section id="chat" class="chat">
+        <div id="welcome" class="welcome">
+          <div class="welcome-card">
+            <p class="eyebrow">BẮT ĐẦU CUỘC ĐỜI MỚI</p>
+            <h2>Chọn cách khởi tạo</h2>
+            <p class="lead">
+              Quản trò sẽ gieo xúc xắc, dựng thẻ nhân vật và hỏi xác nhận Khóa Cấp Độ trước Lượt 1.
+              Không có hào quang nhân vật chính, không có đường tắt.
+            </p>
+
+            <div class="section">
+              <h3>A · Sáu gói khởi đầu dựng sẵn</h3>
+              <div class="presets" id="presets"></div>
+            </div>
+
+            <div class="section">
+              <h3>B &amp; C · Hoặc để số phận quyết định</h3>
+              <div class="start-grid">
+                <button class="start-card" id="start-custom">
+                  <span class="start-tag">Cách B</span>
+                  <strong>Tự chỉnh thông số</strong>
+                  <span>Điền tên, tuổi, vùng đất, cảnh giới, tư chất… rồi gửi.</span>
+                </button>
+                <button class="start-card" id="start-random">
+                  <span class="start-tag">Cách C</span>
+                  <strong>Ngẫu nhiên 8 xúc xắc</strong>
+                  <span>Gieo d100 cho độ khó, chế độ, thân phận, xuất thân, khu vực, tư chất, lưu phái, cơ duyên.</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="messages" class="messages"></div>
+      </section>
+
+      <footer class="composer-wrap">
+        <div class="quick" id="quick"></div>
+        <div class="composer">
+          <textarea id="input" rows="1" placeholder="Viết hành động, lời nói hoặc lệnh… (vd: /hud)"></textarea>
+          <button id="send" class="send" type="button">Gửi</button>
+        </div>
+        <p class="hint">Enter để gửi · Shift+Enter xuống dòng</p>
+      </footer>
+    </main>
+  </div>
+</body>
+</html>
