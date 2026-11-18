@@ -2,7 +2,7 @@
   "GU_001": {
     "name": "Nguyệt Quang Cổ",
     "rank": 1,
-    "path": "Nguyệt đạo",
+    "path": "Quang đạo",
     "category": "Công kích",
     "cost_pct": 10,
     "effect": "Bắn ra một đạo nguyệt nhận lam nhạt tầm xa 10m, mang tính sắc bén cắt đứt da thịt.",
@@ -10,5 +10,65 @@
     "feed_days": 10,
     "recipe": null,
     "note": "Cổ bản mệnh mặc định của tộc nhân Cổ Nguyệt, được gia tộc cấp phát tại Học Đường sau 7 ngày khai khiếu."
+  },
+  "GU_002": {
+    "name": "Tiểu Quang Cổ",
+    "rank": 1,
+    "path": "Quang đạo",
+    "category": "Phụ trợ",
+    "cost_pct": 5,
+    "effect": "Tăng cường uy lực cho các Cổ trùng hệ Quang đạo, đồng thời có thể phát sáng để soi đường trong bóng tối.",
+    "food": "Dầu thông trắng (Bạch Tùng Du)",
+    "feed_days": 12,
+    "recipe": null,
+    "note": "Cổ phụ trợ phổ biến, nguyên liệu cốt lõi để hợp luyện tiến giai Nguyệt Quang Cổ."
+  },
+  "GU_003": {
+    "name": "Huyền Ảnh Quang Cổ",
+    "rank": 1,
+    "path": "Quang đạo",
+    "category": "Phụ trợ",
+    "cost_pct": 8,
+    "effect": "Phát xạ ánh sáng đặc biệt tạo ra các ảo ảnh quang học đánh lừa thị giác kẻ địch.",
+    "food": "Nến sáp hoa dạ quang",
+    "feed_days": 10,
+    "recipe": null,
+    "note": "Thích hợp cho chiến thuật nghi binh, quấy rối và tạo sơ hở để tập kích hoặc tẩu thoát."
+  },
+  "GU_004": {
+    "name": "Nguyệt Mang Cổ",
+    "rank": 2,
+    "path": "Quang đạo",
+    "category": "Công kích",
+    "cost_pct": 15,
+    "effect": "Bắn ra lưỡi đao trăng kéo dài như một tia sáng, sắc bén như một mũi kiếm để đâm xuyên, dùng tốt cho cả cận chiến lẫn tầm trung.",
+    "food": "Cánh hoa Lan Trăng tươi",
+    "feed_days": 8,
+    "recipe": "GU_001 (Nguyệt Quang Cổ) + GU_002 (Tiểu Quang Cổ)",
+    "note": "Tiến giai Nhị chuyển của Nguyệt Quang Cổ theo hướng tối đa hóa sức công phá và khả năng đâm xuyên."
+  },
+  "GU_005": {
+    "name": "Nguyệt Toàn Cổ",
+    "rank": 2,
+    "path": "Quang đạo",
+    "category": "Công kích",
+    "cost_pct": 15,
+    "effect": "Bắn ra lưỡi đao trăng xoay tròn dữ dội xé rách mục tiêu và có thể bay lượn quay trở về tay người dùng.",
+    "food": "Cánh hoa Lan Trăng tươi",
+    "feed_days": 8,
+    "recipe": "GU_001 (Nguyệt Quang Cổ) + Cổ hệ Xoay / Phong",
+    "note": "Tiến giai Nhị chuyển của Nguyệt Quang Cổ theo hướng công kích liên hoàn và thu hồi."
+  },
+  "GU_006": {
+    "name": "Nguyệt Nghê Cổ",
+    "rank": 2,
+    "path": "Quang đạo",
+    "category": "Công kích",
+    "cost_pct": 15,
+    "effect": "Bắn ra nguyệt nhận có khả năng biến đổi và bẻ cong quỹ đạo bay linh hoạt giữa chừng để lách qua vật chắn hoặc đánh lén góc hiểm.",
+    "food": "Cánh hoa Lan Trăng tươi",
+    "feed_days": 8,
+    "recipe": "GU_001 (Nguyệt Quang Cổ) + Cổ biến đổi quỹ đạo",
+    "note": "Tiến giai Nhị chuyển của Nguyệt Quang Cổ theo hướng quỹ đạo hiểm hóc, khó phán đoán né tránh."
   }
 }
