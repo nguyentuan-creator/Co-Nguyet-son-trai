@@ -35,7 +35,7 @@ Game vận hành theo mô hình **Hybrid RPG Engine**: Phân định rõ ràng t
 │                 3. QUẢN TRÒ TỐI CAO (LLM PROMPT / GEMINI API)                │
 │ - Tuyệt đối không chiếm quyền: Không tự ý nói/hành động thay người chơi.     │
 │ - Tự do tư duy & đánh giá bối cảnh ➔ Đưa ra Target thử thách (1 - 100).     │
-│ - Miêu tả diễn biến sáng tạo dựa theo các bậc định tính của Delta.           │
+│ - Miêu tả diễn biến câu chuyện bám sát kết quả bậc Delta.                    │
 │ - Tự đánh giá thời điểm thích hợp để gọi hàm cập nhật thuộc tính/tài nguyên. │
 └─────────────────────────────────────────────────────────────────────────────┘
 ```
@@ -68,31 +68,30 @@ Game vận hành theo mô hình **Hybrid RPG Engine**: Phân định rõ ràng t
 ---
 
 ## PHẦN II: NGUYÊN TẮC QUẢN TRÒ DÀNH CHO LLM (AI GM RULES)
-*Các hướng dẫn mang tính tổng quát để LLM tự do tư duy, đánh giá ngữ cảnh và sáng tạo lời dẫn truyện mà không bị gò bó công thức.*
+*Các hướng dẫn mang tính tổng quát để LLM tự do tư duy, đánh giá ngữ cảnh và sáng tạo lời dẫn truyện.*
 
 ### 1. Nguyên Tắc Tối Cao: Bảo Toàn Quyền Người Chơi
 * AI quản lý thế giới, NPC, môi trường và hậu quả khách quan.
 * **Tuyệt đối không nói, suy nghĩ hay hành động thay cho nhân vật người chơi (PC).** Luôn dừng lại ở thời điểm cần người chơi đưa ra quyết định.
 
 ### 2. Tư Duy Đánh Giá & Định Giá Ngưỡng Thách Thức (`Target: 1 - 100`)
-Thay vì áp dụng công thức cộng trừ cứng nhắc, AI được toàn quyền **suy nghĩ và đánh giá tổng thể tình huống** để đưa ra một con số thử thách hợp lý ($1 \rightarrow 100$):
+AI được toàn quyền suy nghĩ và đánh giá tổng thể tình huống để đưa ra một con số thử thách hợp lý ($1 \rightarrow 100$):
 * **Tương quan thực lực:** Chênh lệch cảnh giới, Cổ trùng sở hữu, lợi thế địa hình.
 * **Tính hợp lý & Khéo léo:** Lời lẽ người chơi nói ra có thuyết phục không? Kế hoạch có chặt chẽ hay liều lĩnh tự sát? Nắm đúng thóp đối phương hay đe dọa mù quáng?
 * **Yếu tố Khí vận & Danh tiếng:** Cân nhắc xem khí vận hiện tại của người chơi có tạo ra may mắn hay xui xẻo bất ngờ nào cho tình huống đó không.
 * $\rightarrow$ **AI chốt một con số `Target`:** Dễ thì $20 - 40$, trung bình $50 - 60$, khó $70 - 80$, thập tử nhất sinh / nghịch thiên thì $90 - 100$.
 
-### 3. Dẫn Truyện Theo Các Bậc Định Tính Của Biên Độ $\Delta$
-Sau khi nhận kết quả $\Delta = \text{Player Roll} - \text{Target}$ từ code, AI **tự do sáng tạo diễn biến** phù hợp với ngữ cảnh cụ thể (chiến đấu, đàm phán, đổ thạch, tẩu thoát...) dựa trên các tầng kết quả tổng quát:
+### 3. Bậc Kết Quả Của Biên Độ $\Delta$
+Sau khi nhận kết quả $\Delta = \text{Player Roll} - \text{Target}$ từ code, AI tự do miêu tả diễn biến câu chuyện bám sát các bậc kết quả:
 
-| Khoảng $\Delta$ | Bậc Định Tính | Định Hướng Dẫn Truyện Của AI |
-| :---: | :---: | :--- |
-| **$+50 \rightarrow +99$** | **Thắng Lợi Mỹ Mãn / Hoàn Hảo** | Đạt được mục tiêu một cách xuất sắc nhất, vượt ngoài mong đợi, không tì vết, đối phương hoàn toàn bị khuất phục hoặc vô hiệu hóa. |
-| **$+15 \rightarrow +49$** | **Thắng Lợi Rõ Ràng** | Đạt được ý định một cách an toàn, làm chủ tình thế, tiêu hao tài nguyên ở mức tối thiểu. |
-| **$+1 \rightarrow +14$** | **Thành Công Có Trả Giá / Sít Sao** | Đạt được mục đích nhưng phải đánh đổi: bị thương tích, tốn nhiều chân nguyên, sứt mẻ vật phẩm, hoặc để lại sự nghi ngờ. |
-| **$0$** | **Bất Phân Thắng Bại / Giằng Co** | Thế trận cân bằng, đôi bên tạm thời lùi lại thăm dò, tình thế chưa ngã ngũ. |
-| **$-14 \rightarrow -1$** | **Thất Bại Nhẹ / Bị Cản Trở** | Hành động không thành, kế hoạch bị chệch hướng hoặc bị chặn đứng, nhưng vẫn kịp bảo toàn lực lượng rút lui. |
-| **$-49 \rightarrow -15$** | **Thất Bại Nặng / Trọng Thương** | Kế hoạch đổ bể, bị phản đòn đau đớn, chịu tổn thất lớn về thân thể hoặc Cổ trùng, rơi vào thế bị động nguy hiểm. |
-| **$-50 \rightarrow -99$** | **Thảm Bại / Nguy Nan Cận Kề** | Họa sát thân! Rơi vào tuyệt cảnh sinh tử, hậu quả khôn lường nếu không có bài tẩy cứu mạng đặc biệt. |
+| Khoảng Biên Độ $\Delta$ | Kết Quả Phán Quyết |
+| :---: | :--- |
+| **$+50 \rightarrow +99$** | **Thành công vượt trội** |
+| **$+15 \rightarrow +49$** | **Thành công trong dự kiến** |
+| **$0 \rightarrow +14$**   | **Thành công suýt soát** |
+| **$-14 \rightarrow -1$**  | **Thất bại suýt soát** |
+| **$-49 \rightarrow -15$** | **Thất bại nặng** |
+| **$-99 \rightarrow -50$** | **Thảm bại** |
 
 ### 4. Tự Đánh Giá Khi Nào Cần Gọi Hàm (Tool / Function Calling)
 * AI tự nhận định khi nào hành vi trong cốt truyện đủ sức nặng để làm biến động các thuộc tính và phát lệnh gọi hàm:
@@ -106,7 +105,7 @@ Sau khi nhận kết quả $\Delta = \text{Player Roll} - \text{Target}$ từ co
 *Logic nghiệp vụ thuần túy bằng Python/JS: Đơn giản, trực tiếp, lấy giá trị cũ cộng biến đổi và kẹp biên độ.*
 
 ### 1. Các Hàm Cập Nhật Chỉ Số Nhân Vật (Trực Tiếp & Tinh Gọn)
-Không viết rườm rà, các hàm cập nhật chỉ số trực tiếp lấy giá trị cũ cộng biến đổi và giới hạn trong phạm vi chuẩn:
+Các hàm cập nhật chỉ số trực tiếp lấy giá trị cũ cộng biến đổi và giới hạn trong phạm vi chuẩn:
 
 ```python
 # Cập nhật Danh tiếng (Kẹp trong khoảng -100 đến +100)
