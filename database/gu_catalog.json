@@ -1,0 +1,14 @@
+{
+  "GU_001": {
+    "name": "Nguyệt Quang Cổ",
+    "rank": 1,
+    "path": "Nguyệt đạo",
+    "category": "Công kích",
+    "cost_pct": 10,
+    "effect": "Bắn ra một đạo nguyệt nhận lam nhạt tầm xa 10m, mang tính sắc bén cắt đứt da thịt.",
+    "food": "Cánh hoa Lan Trăng (Nguyệt Lan Thảo)",
+    "feed_days": 10,
+    "recipe": null,
+    "note": "Cổ bản mệnh mặc định của tộc nhân Cổ Nguyệt, được gia tộc cấp phát tại Học Đường sau 7 ngày khai khiếu."
+  }
+}
