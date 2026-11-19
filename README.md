@@ -1,5 +1,9 @@
 # CỔ CHÂN NHÂN: THIÊN ĐẠO VÔ TÌNH (ROLEPLAY ENGINE)
 
+> **🚀 Chạy nhanh Web Game (Windows):** Chạy đúp [run.bat](run.bat) hoặc mở terminal chạy `python server.py` rồi vào `http://127.0.0.1:8000`.
+> - Cài thư viện (nếu chưa có): `pip install -r requirements.txt`
+> - Kết nối **Google AI Studio (Gemini Quản Trò)**: bấm nút **🔑 AI Studio API** ngay trên góc phải Web Game để dán API Key & Model ID, hoặc tạo file `.env` với `GEMINI_API_KEY=...` và `GEMINI_MODEL=gemini-2.5-flash`. Chưa có key vẫn chơi được ngay bằng **Quản Trò Cục Bộ**.
+
 Tài liệu thiết kế kiến trúc lõi cho tựa game nhập vai phiêu lưu văn bản (Interactive Fiction / Text RPG) dựa trên nguyên tác **Cổ Chân Nhân**.
 
 Game vận hành theo mô hình **Hybrid RPG Engine**: Phân định rõ ràng trách nhiệm giữa **Cơ Sở Dữ Liệu (JSON)**, **Trí Tuệ Nhân Tạo (LLM)** và **Mã Nguồn Logic Thuần (Deterministic Code)**.

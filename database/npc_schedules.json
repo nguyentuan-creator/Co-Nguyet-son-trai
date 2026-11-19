@@ -1,0 +1,101 @@
+{
+  "metadata": {
+    "description": "Ma trận xác suất xuất hiện NPC (0.0 - 1.0) theo Canh giờ và Địa điểm. Code thuần tung d100 mỗi khi người chơi bước vào vùng hoặc chạy canh giờ.",
+    "canh_gio": [
+      { "name": "Tý", "start_hour": 23, "end_hour": 1 },
+      { "name": "Sửu", "start_hour": 1, "end_hour": 3 },
+      { "name": "Dần", "start_hour": 3, "end_hour": 5 },
+      { "name": "Mão", "start_hour": 5, "end_hour": 7 },
+      { "name": "Thìn", "start_hour": 7, "end_hour": 9 },
+      { "name": "Tỵ", "start_hour": 9, "end_hour": 11 },
+      { "name": "Ngọ", "start_hour": 11, "end_hour": 13 },
+      { "name": "Mùi", "start_hour": 13, "end_hour": 15 },
+      { "name": "Thân", "start_hour": 15, "end_hour": 17 },
+      { "name": "Dậu", "start_hour": 17, "end_hour": 19 },
+      { "name": "Tuất", "start_hour": 19, "end_hour": 21 },
+      { "name": "Hợi", "start_hour": 21, "end_hour": 23 }
+    ]
+  },
+  "schedules": {
+    "phuong_nguyen": {
+      "hoc_duong": { "Thìn": 0.55, "Tỵ": 0.55, "Ngọ": 0.45 },
+      "dong_mon": { "Mùi": 0.25, "Thân": 0.3, "Dậu": 0.35, "Tuất": 0.3 },
+      "khu_pho": { "Mùi": 0.2, "Dậu": 0.25 },
+      "quang_truong": { "Mùi": 0.2, "Thân": 0.25 },
+      "rung_truc": { "Mùi": 0.3, "Thân": 0.35, "Tuất": 0.25 },
+      "dong_hoa_tuu": { "Tuất": 0.45, "Hợi": 0.5, "Tý": 0.4 }
+    },
+    "phuong_chinh": {
+      "hoc_duong": { "Thìn": 0.85, "Tỵ": 0.85, "Mùi": 0.35 },
+      "tu_duong": { "Thân": 0.4, "Dậu": 0.35 },
+      "khu_pho": { "Ngọ": 0.35, "Dậu": 0.3 },
+      "ky_tuc_xa": { "Mão": 0.3, "Tuất": 0.3 }
+    },
+    "mac_bac": {
+      "hoc_duong": { "Thìn": 0.75, "Tỵ": 0.75, "Ngọ": 0.35 },
+      "khu_pho": { "Mùi": 0.45, "Thân": 0.4, "Dậu": 0.35 },
+      "quang_truong": { "Mùi": 0.35, "Thân": 0.35 }
+    },
+    "xich_thanh": {
+      "hoc_duong": { "Thìn": 0.75, "Tỵ": 0.75, "Ngọ": 0.35 },
+      "quang_truong": { "Mùi": 0.4, "Thân": 0.35 },
+      "duoc_duong": { "Mùi": 0.25, "Dậu": 0.2 }
+    },
+    "kim_chau": {
+      "hoc_duong": { "Thìn": 0.8, "Tỵ": 0.8 },
+      "ky_tuc_xa": { "Mão": 0.35, "Dậu": 0.35, "Tuất": 0.4 },
+      "duoc_duong": { "Mùi": 0.3, "Thân": 0.3 },
+      "khu_pho": { "Ngọ": 0.25, "Thân": 0.25 }
+    },
+    "co_nguyet_bang": {
+      "hoc_duong": { "Thìn": 0.8, "Tỵ": 0.8 },
+      "ky_tuc_xa": { "Mão": 0.4, "Ngọ": 0.35, "Tuất": 0.45 },
+      "khu_pho": { "Mùi": 0.3, "Thân": 0.3 }
+    },
+    "hoc_duong_gia_lao": {
+      "hoc_duong": { "Mão": 0.4, "Thìn": 0.95, "Tỵ": 0.95, "Mùi": 0.35 },
+      "tu_duong": { "Thân": 0.35, "Dậu": 0.3 }
+    },
+    "co_nguyet_bac": {
+      "tu_duong": { "Thìn": 0.35, "Tỵ": 0.35, "Thân": 0.3 },
+      "hoc_duong": { "Thìn": 0.08 }
+    },
+    "mac_tran": {
+      "tu_duong": { "Thìn": 0.25, "Tỵ": 0.25 },
+      "khu_pho": { "Mùi": 0.2, "Thân": 0.2 }
+    },
+    "xich_luyen": {
+      "tu_duong": { "Thìn": 0.25, "Tỵ": 0.25 },
+      "hoc_duong": { "Mùi": 0.15 }
+    },
+    "hinh_duong_gia_lao": {
+      "hinh_duong": { "Thìn": 0.65, "Tỵ": 0.65, "Mùi": 0.6, "Thân": 0.6 },
+      "dong_mon": { "Dậu": 0.2, "Tuất": 0.2 }
+    },
+    "duoc_co": {
+      "duoc_duong": { "Thìn": 0.5, "Tỵ": 0.5, "Mùi": 0.45, "Thân": 0.4 }
+    },
+    "giac_tam": {
+      "dong_mon": { "Thân": 0.35, "Dậu": 0.55, "Tuất": 0.5 },
+      "rung_truc": { "Mùi": 0.2 }
+    },
+    "dong_tho": {
+      "khu_pho": { "Mão": 0.5, "Thìn": 0.6, "Tỵ": 0.65, "Ngọ": 0.75, "Mùi": 0.65, "Thân": 0.65, "Dậu": 0.75, "Tuất": 0.6 }
+    },
+    "lao_duoc_si": {
+      "khu_pho": { "Mão": 0.6, "Thìn": 0.8, "Tỵ": 0.85, "Ngọ": 0.8, "Mùi": 0.85, "Thân": 0.85, "Dậu": 0.7, "Tuất": 0.35 }
+    },
+    "co_phu": {
+      "quang_truong": { "Thìn": 0.55, "Tỵ": 0.6, "Mùi": 0.55, "Thân": 0.5 },
+      "tu_duong": { "Dậu": 0.25 }
+    },
+    "co_kim_sinh": {
+      "quang_truong": { "Thìn": 0.7, "Tỵ": 0.75, "Ngọ": 0.6, "Mùi": 0.75, "Thân": 0.7 },
+      "dong_mon": { "Dậu": 0.45, "Tuất": 0.5 }
+    },
+    "vuong_dai": {
+      "rung_truc": { "Dậu": 0.35, "Tuất": 0.5, "Hợi": 0.55, "Tý": 0.4 },
+      "dong_mon": { "Tuất": 0.2, "Hợi": 0.25 }
+    }
+  }
+}

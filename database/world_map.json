@@ -1,0 +1,206 @@
+{
+  "metadata": {
+    "source": "ban_do_2d_thanh_mao_son.md & suKien1Nam.md (quyen1.md)",
+    "region": "Cổ Nguyệt Sơn Trại & Phụ Cận Thanh Mao Sơn (Năm Thứ Nhất)",
+    "time_unit": "minutes (1 khắc = 15 phút, 1 canh giờ = 120 phút)"
+  },
+  "zones": [
+    {
+      "id": "ky_tuc_xa",
+      "name": "Ký Túc Xá Học Đường",
+      "short_name": "Ký Túc Xá",
+      "region": "Nội Trại",
+      "coords": { "x": 1.2, "y": 0.8, "z": 1.0 },
+      "svg": { "x": 165, "y": 145 },
+      "description": "Dãy nhà sàn mâu trúc dành cho 57 học viên khóa mới ở lại. Phòng hẹp, chỉ có giường gỗ cứng, bàn thấp và một khung cửa sổ nhìn ra rừng trúc phía sườn núi.",
+      "ambient_danger": 5,
+      "cultivation_bonus": 1.15,
+      "features": ["rest", "cultivate", "feed_gu"],
+      "hidden": false,
+      "neighbors": {
+        "hoc_duong": 10,
+        "duoc_duong": 15,
+        "hinh_duong": 15
+      }
+    },
+    {
+      "id": "hoc_duong",
+      "name": "Học Đường & Võ Trường",
+      "short_name": "Học Đường",
+      "region": "Nội Trại",
+      "coords": { "x": 1.5, "y": 0.5, "z": 1.0 },
+      "svg": { "x": 255, "y": 195 },
+      "description": "Khu giảng đường gỗ rộng và sân võ trường lát đá xanh — nơi 57 thiếu niên nghe Học Đường Gia Lão truyền đạo, luyện bắn Nguyệt Nhận vào bia thảo nhân và tranh tài trên lôi đài Niên Mạt Khảo Hạch.",
+      "ambient_danger": 15,
+      "cultivation_bonus": 1.0,
+      "features": ["class", "spar", "academy_stipend"],
+      "hidden": false,
+      "neighbors": {
+        "ky_tuc_xa": 10,
+        "tu_duong": 15,
+        "quang_truong": 15,
+        "duoc_duong": 15
+      }
+    },
+    {
+      "id": "tu_duong",
+      "name": "Gia Tộc Từ Đường & Linh Tuyền",
+      "short_name": "Từ Đường",
+      "region": "Trung Tâm Trại",
+      "coords": { "x": 2.0, "y": 1.0, "z": 1.0 },
+      "svg": { "x": 310, "y": 95 },
+      "description": "Tòa lầu các ba tầng uy nghiêm thờ bài vị tổ tiên Cổ Nguyệt nhất tộc. Sâu dưới lòng đất là Chân Nguyên Thủy Tuyền sản sinh nguyên thạch nuôi sống cả sơn trại — nơi diễn ra Đại Điển Khai Khiếu.",
+      "ambient_danger": 5,
+      "cultivation_bonus": 1.0,
+      "features": ["ceremony", "faction_hall"],
+      "hidden": false,
+      "neighbors": {
+        "hoc_duong": 15,
+        "hinh_duong": 15,
+        "quang_truong": 15
+      }
+    },
+    {
+      "id": "hinh_duong",
+      "name": "Hình Đường Gia Tộc",
+      "short_name": "Hình Đường",
+      "region": "Nội Trại",
+      "coords": { "x": 1.0, "y": 1.5, "z": 1.0 },
+      "svg": { "x": 180, "y": 65 },
+      "description": "Trụ sở chấp pháp âm trầm, tường đá xám lạnh lẽo. Mọi vụ điều tra vi phạm tộc quy hay án mạng liên quan thương đội đều đi qua nơi này.",
+      "ambient_danger": 10,
+      "cultivation_bonus": 0.8,
+      "features": ["law", "rumor_source"],
+      "hidden": false,
+      "neighbors": {
+        "ky_tuc_xa": 15,
+        "tu_duong": 15,
+        "dong_hoa_tuu": 30
+      }
+    },
+    {
+      "id": "duoc_duong",
+      "name": "Dược Đường Cổ Nguyệt",
+      "short_name": "Dược Đường",
+      "region": "Nội Trại",
+      "coords": { "x": 1.0, "y": -0.5, "z": 1.0 },
+      "svg": { "x": 160, "y": 275 },
+      "description": "Khuôn viên nồng nặc mùi thảo dược của phe phái Dược Cơ. Có vườn trồng Nguyệt Lan Thảo và phòng chữa trị thương tích bằng Cổ trùng trị liệu.",
+      "ambient_danger": 5,
+      "cultivation_bonus": 1.0,
+      "features": ["heal", "herb_shop", "part_time_work"],
+      "hidden": false,
+      "neighbors": {
+        "ky_tuc_xa": 15,
+        "hoc_duong": 15,
+        "khu_pho": 20
+      }
+    },
+    {
+      "id": "quang_truong",
+      "name": "Quảng Trường Sơn Trại",
+      "short_name": "Quảng Trường",
+      "region": "Trung Tâm Trại",
+      "coords": { "x": 2.5, "y": 0.0, "z": 1.0 },
+      "svg": { "x": 365, "y": 200 },
+      "description": "Bãi đất lát đá rộng lớn giữa sơn trại. Ngày thường tấp nập tộc nhân qua lại; vào Mùa Hạ, thương đội Cổ Phú hạ trại dựng lều bạt, bày sạp Cổ trùng và bãi Đổ Thạch ồn ào.",
+      "ambient_danger": 12,
+      "cultivation_bonus": 0.85,
+      "features": ["market", "caravan_hub", "gamble_stone", "rumor_source"],
+      "hidden": false,
+      "neighbors": {
+        "tu_duong": 15,
+        "hoc_duong": 15,
+        "khu_pho": 15,
+        "dong_mon": 20
+      }
+    },
+    {
+      "id": "khu_pho",
+      "name": "Khu Phố Thương Nghiệp & Khách Sạn",
+      "short_name": "Khu Phố",
+      "region": "Trung Trại",
+      "coords": { "x": 3.0, "y": -0.5, "z": 1.0 },
+      "svg": { "x": 310, "y": 300 },
+      "description": "Con phố nhà sàn treo đèn lồng đỏ rực về đêm. Tập trung sạp thảo dược, tiệm tạp hóa, quán cơm bình dân và Khách Sạn Cổ Nguyệt do gia đình cữu phụ Đống Thổ quản lý.",
+      "ambient_danger": 15,
+      "cultivation_bonus": 0.9,
+      "features": ["shop", "inn", "part_time_work", "rumor_source"],
+      "hidden": false,
+      "neighbors": {
+        "duoc_duong": 20,
+        "quang_truong": 15,
+        "dong_mon": 15
+      }
+    },
+    {
+      "id": "dong_mon",
+      "name": "Đông Môn & Đông Môn Tửu Quán",
+      "short_name": "Đông Môn",
+      "region": "Ngoại Trại",
+      "coords": { "x": 4.0, "y": 0.0, "z": 1.0 },
+      "svg": { "x": 485, "y": 205 },
+      "description": "Cổng chính phía Đông trồng ken dày Thiết Đằng Cổ làm hàng rào gai thép. Sát cổng là Đông Môn Tửu Quán — nơi các Cổ sư tiền bối Nhị chuyển hay tụ tập uống rượu bàn chuyện sơn mạch.",
+      "ambient_danger": 20,
+      "cultivation_bonus": 0.85,
+      "features": ["tavern", "gate", "rumor_source"],
+      "hidden": false,
+      "neighbors": {
+        "quang_truong": 20,
+        "khu_pho": 15,
+        "rung_truc": 25,
+        "ruong_bac_thang": 30
+      }
+    },
+    {
+      "id": "rung_truc",
+      "name": "Rừng Mâu Trúc & Sườn Núi Hoang Dã",
+      "short_name": "Rừng Trúc",
+      "region": "Ngoại Trại (Dã Ngoại)",
+      "coords": { "x": 3.5, "y": 1.5, "z": 1.2 },
+      "svg": { "x": 455, "y": 95 },
+      "description": "Rừng Mâu Trúc mọc dày đặc như giáo mác hướng lên trời. Nơi sinh sống của bầy heo rừng, rắn độc và dã cổ. Học viên có giấy phép thường ra đây săn bắn rèn thực chiến và kiếm thịt tươi.",
+      "ambient_danger": 45,
+      "cultivation_bonus": 0.95,
+      "features": ["hunt", "forage"],
+      "hidden": false,
+      "neighbors": {
+        "dong_mon": 25,
+        "dong_hoa_tuu": 25
+      }
+    },
+    {
+      "id": "ruong_bac_thang",
+      "name": "Sơn Đạo & Ruộng Bậc Thang Chân Núi",
+      "short_name": "Ruộng Bậc Thang",
+      "region": "Chân Núi",
+      "coords": { "x": 5.0, "y": -3.0, "z": 0.5 },
+      "svg": { "x": 470, "y": 325 },
+      "description": "Tầng tầng lớp lớp ruộng lúa xanh rì trải xuống thôn phàm nhân và chi lưu Hoàng Long Giang. Tuyến Sơn Đạo chính nơi thương đội Cổ Phú dẫn giáp long thú đi lên núi.",
+      "ambient_danger": 25,
+      "cultivation_bonus": 0.85,
+      "features": ["forage", "part_time_work"],
+      "hidden": false,
+      "neighbors": {
+        "dong_mon": 30
+      }
+    },
+    {
+      "id": "dong_hoa_tuu",
+      "name": "Khe Hở Cự Thạch (Thác Nhỏ Hoa Tửu)",
+      "short_name": "Động Hoa Tửu",
+      "region": "Hậu Sơn (Bí Mật)",
+      "coords": { "x": 0.5, "y": 0.8, "z": 0.8 },
+      "svg": { "x": 80, "y": 100 },
+      "description": "Kẽ nứt đá tự nhiên ẩn sau rèm thác nước nhỏ phía sườn sau sơn trại. Trong không khí ẩm lạnh thoang thoảng hương rượu thanh nhã kỳ lạ — cửa vào di sản bị chôn vùi của ma đầu Hoa Tửu Hành Giả.",
+      "ambient_danger": 55,
+      "cultivation_bonus": 1.1,
+      "features": ["secret", "explore"],
+      "hidden": true,
+      "neighbors": {
+        "hinh_duong": 30,
+        "rung_truc": 25
+      }
+    }
+  ]
+}

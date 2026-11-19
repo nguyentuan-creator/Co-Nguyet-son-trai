@@ -1,0 +1,119 @@
+{
+  "metadata": {
+    "source": "quyen1.md & database/chan_nguyen.py",
+    "description": "Cấu hình mô phỏng sâu kinh tế, tu luyện Thanh Đồng/Xích Thiết chân nguyên, nuôi Cổ và sinh hoạt."
+  },
+  "academy": {
+    "weekly_stipend_stones": 3,
+    "stipend_day_interval": 7,
+    "class_start_minute": 420,
+    "class_end_minute": 660,
+    "class_weekdays": [1, 2, 3, 4, 5, 6],
+    "tardy_fine_stones": 1,
+    "absent_affinity_penalty": -4,
+    "first_refine_bonus_stones": 15
+  },
+  "living_costs": {
+    "daily_food_cost": 0.2,
+    "orphan_starting_stones": 2,
+    "commoner_starting_stones": 8,
+    "orphan_monthly_family_support": 0,
+    "commoner_monthly_family_support": 2
+  },
+  "cultivation": {
+    "base_recovery_ratio_per_hour": 0.16,
+    "stone_recovery_boost_thanh": 2.5,
+    "wall_progress_per_thanh_raw": 1.35,
+    "wall_progress_stone_multiplier": 2.4,
+    "realm_progression": [
+      { "rank": 1, "sub_realm": "sơ giai", "wall_required": 100, "combat_power": 15 },
+      { "rank": 1, "sub_realm": "trung giai", "wall_required": 160, "combat_power": 28 },
+      { "rank": 1, "sub_realm": "cao giai", "wall_required": 240, "combat_power": 44 },
+      { "rank": 1, "sub_realm": "đỉnh phong", "wall_required": 340, "combat_power": 64 },
+      { "rank": 2, "sub_realm": "sơ giai", "wall_required": 500, "combat_power": 95 }
+    ],
+    "aptitude_breakthrough_bonus": {
+      "Đinh": 0.72,
+      "Bính": 1.0,
+      "Ất": 1.32,
+      "Giáp": 1.65
+    }
+  },
+  "shop_items": [
+    {
+      "id": "nguyet_lan_thao",
+      "name": "Cánh Hoa Nguyệt Lan Thảo (1 phần)",
+      "category": "gu_food",
+      "base_price": 1,
+      "feeds_gu": ["GU_R1_01"],
+      "description": "2 cánh hoa Nguyệt Lan Thảo tươi nuôi Nguyệt Quang Cổ no trong 10 ngày."
+    },
+    {
+      "id": "bui_huynh_quang",
+      "name": "Bụi Đá Huỳnh Quang (1 gói)",
+      "category": "gu_food",
+      "base_price": 1,
+      "feeds_gu": ["GU_R1_02"],
+      "description": "Thức ăn cho Tiểu Quang Cổ, duy trì 7 ngày."
+    },
+    {
+      "id": "ruou_xanh",
+      "name": "Bình Rượu Xanh Thượng Hạng",
+      "category": "gu_food",
+      "base_price": 3,
+      "feeds_gu": ["GU_R1_22"],
+      "description": "Rượu thơm nuôi Tửu Trùng 7 ngày hoặc làm mồi dụ Cổ trùng trong Động Hoa Tửu."
+    },
+    {
+      "id": "thit_heo_rung",
+      "name": "Thịt Heo Rừng Tươi",
+      "category": "gu_food",
+      "base_price": 2,
+      "feeds_gu": ["GU_R1_06", "GU_R1_07", "GU_R1_08"],
+      "description": "Thịt tươi nuôi Bạch Thỉ Cổ / Hắc Thỉ Cổ / Hoa Thỉ Cổ 7 ngày."
+    },
+    {
+      "id": "mat_dong_thao_duoc",
+      "name": "Gói Thức Ăn Cổ Tổng Hợp",
+      "category": "gu_food",
+      "base_price": 2,
+      "feeds_gu": ["ANY"],
+      "description": "Hỗn hợp bột đồng, ngọc vụn và linh thảo dùng nuôi đa số Cổ Nhất chuyển trong 7 ngày."
+    },
+    {
+      "id": "thuoc_tri_thuong",
+      "name": "Cao Dược Thảo Trị Thương",
+      "category": "medicine",
+      "base_price": 3,
+      "heal_hp": 35,
+      "description": "Thuốc mỡ của Dược Đường giúp hồi phục 35 điểm Sinh Lực."
+    },
+    {
+      "id": "luong_kho",
+      "name": "Lương Khô Hành Quân (5 ngày)",
+      "category": "supply",
+      "base_price": 1,
+      "stamina_restore": 35,
+      "description": "Lương khô đơn giản giúp hồi phục Thể Lực khi đi dã ngoại hoặc tiết kiệm tiền ăn."
+    }
+  ],
+  "market_gu_catalog": [
+    { "gu_id": "GU_R1_02", "base_price": 25, "season_only": null },
+    { "gu_id": "GU_R1_03", "base_price": 30, "season_only": null },
+    { "gu_id": "GU_R1_15", "base_price": 45, "season_only": null },
+    { "gu_id": "GU_R1_14", "base_price": 70, "season_only": null },
+    { "gu_id": "GU_R1_20", "base_price": 55, "season_only": null },
+    { "gu_id": "GU_R1_04", "base_price": 65, "season_only": "Hạ" },
+    { "gu_id": "GU_R1_12", "base_price": 160, "season_only": "Hạ" },
+    { "gu_id": "GU_R1_23", "base_price": 180, "season_only": "Hạ" }
+  ],
+  "gu_feeding_defaults": {
+    "GU_R1_01": { "interval_days": 10, "food_id": "nguyet_lan_thao", "food_name": "Cánh Hoa Nguyệt Lan Thảo" },
+    "GU_R1_02": { "interval_days": 7, "food_id": "bui_huynh_quang", "food_name": "Bụi Đá Huỳnh Quang" },
+    "GU_R1_03": { "interval_days": 999, "food_id": null, "food_name": "Tiêu hao 1 lần (không cần ăn)" },
+    "GU_R1_06": { "interval_days": 7, "food_id": "thit_heo_rung", "food_name": "Thịt Heo Rừng Tươi" },
+    "GU_R1_07": { "interval_days": 7, "food_id": "thit_heo_rung", "food_name": "Thịt Heo Rừng Tươi" },
+    "GU_R1_22": { "interval_days": 7, "food_id": "ruou_xanh", "food_name": "Bình Rượu Xanh" },
+    "DEFAULT": { "interval_days": 8, "food_id": "mat_dong_thao_duoc", "food_name": "Gói Thức Ăn Cổ Tổng Hợp" }
+  }
+}
