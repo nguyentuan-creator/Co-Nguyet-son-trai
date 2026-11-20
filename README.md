@@ -131,9 +131,9 @@ Trước khi chốt `baseDC` (1–100), quản trò AI phân tích nhanh 3 lớp
   - Hành động có tung dice hoặc chiến đấu: tối đa **2 bước** (Bước 1 xuất JSON rất ngắn để code chạy `dice100`/`essenceCalc`/`timeTick`; Bước 2 kể chuyện theo kết quả đã chốt).
 - **Context Caching:** Tách cố định phần System Prompt (luật thế giới, văn phong *Cổ Chân Nhân*, quy tắc chống phá game) khỏi ngữ cảnh động (`contextLoader`) để tận dụng Context Caching của Gemini.
 - **An toàn khi lỗi mạng / Rate Limit (429):** Ghi state theo kiểu transaction (chỉ lưu khi lượt hoàn tất); lỗi giữa chừng không trừ oan chân nguyên hay thời gian, cho phép thử lại lượt hoặc đổi model/API key ngay lập tức.
-- **Định hướng nền tảng & Giao diện (dự kiến cho giai đoạn lập trình):**
-  - **Web App chạy cục bộ trên trình duyệt** (HTML/TS/React + Vite, không cần server backend phức tạp; dữ liệu tĩnh nằm trong thư mục `database/*.json`, file save lưu cục bộ ở `localStorage`/`IndexedDB` kèm xuất/nhập `.json`).
-  - **Bố cục UI cơ bản:** Khung truyện & nhập lệnh ở trung tâm; bảng trạng thái nhanh (HP, Chân nguyên, Mệt mỏi, Khí lực, Nguyên thạch, Ngày/Canh giờ); các tab phụ cho Túi đồ, Cổ trùng (kèm thanh `hunger`), Bản đồ 2D theo tầng `Z`, Nhân vật/Quan hệ và Nhật ký ký ức.
+- **Định hướng nền tảng & Giao diện:**
+  - **Web App chạy cục bộ trên trình duyệt** (TypeScript + React + Vite, không cần server backend; dữ liệu tĩnh nằm trong thư mục `database/*.json`, file save lưu cục bộ ở `localStorage`/`IndexedDB` kèm xuất/nhập `.json`).
+  - **Bố cục UI:** Thiết kế theo phong cách Chatbox AI 2 cột (thanh điều hướng thu gọn bên trái + khung chat đọc truyện ở giữa), mặc định Dark Mode dịu mắt (chi tiết xem mục **11.4**).
 
 ---
 
@@ -416,4 +416,23 @@ Sử dụng mô hình **Static Database (Read-only) + 1 File Save Động (Delta
 
 **Tầng 4 — Giao diện Người chơi (UI Layer):**
 13. Màn hình Thiết lập API & Khởi tạo nhân vật.
-14. Màn hình Chơi chính (bố cục, phong cách và thành phần chi tiết sẽ thiết kế theo thảo luận cụ thể trước khi lập trình).
+14. Màn hình Chơi chính (thiết kế chi tiết ở mục **11.4**).
+
+### 11.4. Thiết kế Giao diện Người dùng (UI/UX)
+- **Phong cách & Màu sắc:** Mặc định **Dark Mode dịu mắt** (nền than chì trầm không đen gắt, chữ xám ngà dễ đọc truyện dài, điểm nhấn cổ phong nhẹ bằng sắc ngọc bích / vàng đồng trầm).
+- **Bố cục tổng thể (giống Chatbox AI — 2 cột):**
+  - **Thanh điều hướng bên trái (Sidebar có thể thu gọn/mở rộng):**
+    - Toàn thanh có nút đóng/mở gọn gàng để ưu tiên không gian đọc truyện khi cần.
+    - Các nhóm thông tin nhân vật đặt thành nút điều hướng dạng **xổ xuống khi bấm / thu gọn khi nhấn lại (Accordion)** ngay trong sidebar, không che khung chat:
+      1. *Nhân vật & Chỉ số* (Cảnh giới, Tư chất, Khí lực, Trạng thái không khiếu, `statusEffects`, `fatigue`, Điểm cống hiến & Danh vọng 4 phe Hội Đồng Gia Lão).
+      2. *Cổ trùng & Cổ phương* (danh sách `ownedGu`, đánh dấu Bản Mệnh Cổ, trạng thái luyện hóa, thanh `hunger`, cổ phương & sát chiêu đã biết).
+      3. *Túi đồ* (Nguyên thạch, sức chứa `capacity`, danh sách vật phẩm).
+      4. *NPC & Quan hệ* (chỉ hiển thị `publicImage`, thái độ & ghi chú riêng đã biết).
+      5. *Ký ức & Tin đồn* (`memoryLog`, tin đồn đang lan truyền, nghĩa vụ học đường/gia tộc).
+    - **Nút Bản đồ:** Mặc định **thu gọn / đóng kín** khi không mở; khi bấm mới bật **Popup (Modal)** hiển thị bản đồ 2D có chuyển tầng `Z` (`-1` hầm ngầm → `3` đỉnh núi), vị trí hiện tại, các địa điểm liền kề và thời gian di chuyển (`travelMinutes`); đóng lại sẽ thu về nút gọn như cũ.
+    - **Nút Cài đặt & Save (đáy sidebar):** Mở Popup quản lý Gemini API Key, chọn model (Flash/Pro), kiểm tra kết nối, ước lượng token, Xuất/Nhập `save.json` và Xóa để chơi lại.
+  - **Khu vực chính bên phải (Khung Chatbox AI):**
+    - **Thanh mỏng trên đỉnh khung chat:** Hiển thị **Ngày / Mùa / Canh giờ (giờ:phút)**, **Địa điểm hiện tại** (bấm vào tên địa điểm có thể mở nhanh Popup Bản đồ) và 2 chỉ số sinh tồn siêu gọn (`HP` · `Chân nguyên`) để dễ quan sát khi giao tranh.
+    - **Luồng kể chuyện (Chat Stream):** Tập trung đọc thuần như tiểu thuyết. Toàn bộ **thông tin hệ thống** (`d100`, độ khó `targetDC`, chân nguyên tiêu hao, thời gian trôi qua, thay đổi chỉ số/vật phẩm) **mặc định ẩn hoàn toàn**, chỉ bung ra khi người chơi bấm vào nút chi tiết nhỏ/mờ bên dưới lượt kể chuyện tương ứng.
+    - **Ô nhập lệnh ở đáy khung chat:** Nhập hành động tự do (Enter gửi, Shift+Enter xuống dòng), kèm chỉ báo đang xử lý và nút **Thử lại** khi gặp lỗi mạng hoặc rate limit (`429`).
+- **Màn hình Khởi tạo (khi chưa có Save):** 2 bước gọn trên cùng nền Dark Mode — Bước 1 dán Gemini API Key & chọn model, Bước 2 tạo nhân vật 15 tuổi (tên, ngoại hình, xuất thân, tư chất `20–79%`, khí vận `-50..50`, tiểu sử ban đầu).
