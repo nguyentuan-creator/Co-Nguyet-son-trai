@@ -1,0 +1,326 @@
+[
+  {
+    "eventId": "evt_day01_khai_hoc",
+    "name": "Ngày đầu nhập học sau Khai Khiếu Đại Điển",
+    "triggerDay": 1,
+    "recurrenceDays": 0,
+    "isMajor": true,
+    "condition": null,
+    "summary": "Sáng hôm sau Khai Khiếu Đại Điển, 57 thiếu niên 15 tuổi tập trung tại Học Đường Cổ Nguyệt. Thiên tài Giáp đẳng Phương Chính trở thành tâm điểm, trong khi Phương Nguyên tỏ ra trầm mặc lạ thường. Học Đường Gia Lão bắt đầu dạy pháp minh tưởng tuần đầu tiên.",
+    "worldEffects": [],
+    "status": "Active"
+  },
+  {
+    "eventId": "evt_day07_co_that",
+    "name": "Mở Cổ Thất chọn Bản Mệnh Cổ",
+    "triggerDay": 7,
+    "recurrenceDays": 0,
+    "isMajor": true,
+    "condition": null,
+    "summary": "Kết thúc tuần minh tưởng đầu tiên, Học Đường Gia Lão mở cửa Cổ Thất 60m² ngay cạnh Học Đường để 57 đệ tử chọn con cổ Nhất chuyển đầu tiên làm Bản Mệnh Cổ, đồng thời treo thưởng 20 khối nguyên thạch cho người luyện hóa thành công đầu tiên.",
+    "worldEffects": [
+      {
+        "type": "setFlag",
+        "flagId": "flag_co_that_opened",
+        "description": "Cổ Thất Học Đường đã mở, cuộc đua luyện hóa Bản Mệnh Cổ (thưởng 20 nguyên thạch) bắt đầu."
+      }
+    ],
+    "status": "Pending"
+  },
+  {
+    "eventId": "evt_day12_tuu_trung",
+    "name": "Di sản Hoa Tửu Tầng 1 — Tửu Trùng",
+    "triggerDay": 12,
+    "recurrenceDays": 0,
+    "isMajor": false,
+    "condition": "!flag_player_took_tuu_trung",
+    "summary": "Đêm mưa to tạnh, Phương Nguyên dùng Thanh Trúc Tửu lần theo bãi sông đá cuội sau núi và phát hiện lối vào Tầng 1 Động Hoa Tửu, bắt lấy Tửu Trùng hoang dã cùng 15 khối nguyên thạch di tàng.",
+    "worldEffects": [
+      {
+        "type": "takeNode",
+        "nodeId": "node_tuu_trung",
+        "takenBy": "npc_phuong_nguyen"
+      },
+      {
+        "type": "giveNpcGu",
+        "npcId": "npc_phuong_nguyen",
+        "guId": "gu_tuu_trung"
+      }
+    ],
+    "status": "Pending"
+  },
+  {
+    "eventId": "evt_day15_luyen_hoa_xong",
+    "name": "Công bố Hạng Nhất Luyện Hóa Bản Mệnh Cổ",
+    "triggerDay": 15,
+    "recurrenceDays": 0,
+    "isMajor": true,
+    "condition": null,
+    "summary": "Học Đường Gia Lão kiểm tra kết quả luyện hóa Bản Mệnh Cổ và trao 20 khối nguyên thạch cho đệ tử về nhất (nếu người chơi không vượt trước, Phương Nguyên sẽ bất ngờ vượt mặt Phương Chính đoạt giải).",
+    "worldEffects": [
+      {
+        "type": "giveNpcGu",
+        "npcId": "npc_phuong_nguyen",
+        "guId": "gu_nguyet_quang"
+      },
+      {
+        "type": "giveNpcGu",
+        "npcId": "npc_phuong_chinh",
+        "guId": "gu_nguyet_quang"
+      }
+    ],
+    "status": "Pending"
+  },
+  {
+    "eventId": "evt_day20_ban_bia_thao_nhan",
+    "name": "Kiểm tra bắn bia Thảo Nhân & Công bố chức Ban Đầu",
+    "triggerDay": 20,
+    "recurrenceDays": 0,
+    "isMajor": true,
+    "condition": null,
+    "summary": "Học đường tổ chức kiểm tra kỹ năng phóng Nguyệt Nhận vào bia Thảo Nhân. Cuối buổi, Học Đường Gia Lão công bố: trong 3 tháng tới ai đột phá Nhất chuyển trung giai đầu tiên nhận thưởng 30 nguyên thạch + quyền ưu tiên chọn cổ thứ 2; sau đó lập Ban Đầu (10 NT/tuần) và 2 Phó Ban Đầu (5 NT/tuần).",
+    "worldEffects": [
+      {
+        "type": "setFlag",
+        "flagId": "flag_race_rank2_minor_started",
+        "description": "Cuộc đua tấn chức Nhất chuyển trung giai (thưởng 30 NT & ghế Ban Đầu) chính thức khởi động."
+      }
+    ],
+    "status": "Pending"
+  },
+  {
+    "eventId": "evt_day28_chan_cong_hoc_duong",
+    "name": "Bá quyền cổng Học Đường",
+    "triggerDay": 28,
+    "recurrenceDays": 0,
+    "isMajor": true,
+    "condition": "!flag_phuong_nguyen_defeated",
+    "summary": "Vào ngày phát trợ cấp 3 nguyên thạch cuối tuần, Phương Nguyên chặn ngay cổng Học Đường dùng quyền cước đánh gục từng bạn học (kể cả Phương Chính, Mạc Bắc, Xích Thành) để thu 'phí bảo kê' 1 nguyên thạch mỗi tuần.",
+    "worldEffects": [
+      {
+        "type": "setFlag",
+        "flagId": "flag_extortion_started",
+        "description": "Phương Nguyên bắt đầu chặn cổng Học Đường thu 1 nguyên thạch/tuần."
+      }
+    ],
+    "status": "Pending"
+  },
+  {
+    "eventId": "evt_day105_thuong_doi_co_phu",
+    "name": "Thương Đội Cổ Phú tiến vào Cổ Nguyệt Sơn Trại (Tháng 5)",
+    "triggerDay": 105,
+    "recurrenceDays": 0,
+    "isMajor": true,
+    "condition": null,
+    "summary": "Chuyển giao Xuân – Hạ (tháng 5), thương đội Cổ gia do Tứ chuyển Cổ Phú cưỡi Bảo Khí Hoàng Đồng Thiềm tiến theo Sơn Đạo vào Quảng Trường Sơn Trại. Chợ phiên, sạp cổ trùng và Đổ Thạch Tràng của Cổ Kim Sinh mở cửa náo nhiệt.",
+    "worldEffects": [
+      {
+        "type": "setFlag",
+        "flagId": "flag_caravan_arrived",
+        "description": "Thương đội Cổ Phú đang hạ trại tại Quảng Trường Sơn Trại."
+      }
+    ],
+    "status": "Pending"
+  },
+  {
+    "eventId": "evt_day115_an_mang_co_kim_sinh",
+    "name": "Đổ Thạch Lại Thổ Cáp Mô & Án mạng Cổ Kim Sinh",
+    "triggerDay": 115,
+    "recurrenceDays": 0,
+    "isMajor": true,
+    "condition": null,
+    "summary": "Sau bê bối bán Thối Thí Phì Trùng giả làm Hắc Thỉ Cổ, nhị thiếu gia Cổ Kim Sinh đột ngột mất tích không dấu vết. Cổ Phú gây sức ép nặng nề lên Tộc trưởng Cổ Nguyệt Bác; Hình Đường Gia Lão bắt đầu rà soát toàn trại.",
+    "worldEffects": [
+      {
+        "type": "takeNode",
+        "nodeId": "node_lai_tho_cap_mo",
+        "takenBy": "npc_phuong_nguyen"
+      },
+      {
+        "type": "setNpcStatus",
+        "npcId": "npc_co_kim_sinh",
+        "status": "Missing"
+      },
+      {
+        "type": "setFlag",
+        "flagId": "flag_hinh_duong_investigating",
+        "description": "Hình Đường đang mật thám điều tra vụ mất tích của Cổ Kim Sinh."
+      }
+    ],
+    "status": "Pending"
+  },
+  {
+    "eventId": "evt_day135_tan_chuc_trung_giai",
+    "name": "Đột phá Nhất chuyển Trung giai & Phân định Ban Đầu",
+    "triggerDay": 135,
+    "recurrenceDays": 0,
+    "isMajor": true,
+    "condition": null,
+    "summary": "Bất chấp vụ việc đánh phế hai thị vệ học đường Vương Đại – Ngô Nhị, Phương Nguyên gây chấn động khi trở thành người đầu tiên tấn chức Nhất chuyển trung giai (nếu người chơi chưa vượt trước), lĩnh 30 nguyên thạch và chọn Tiểu Quang Cổ làm cổ thứ 2.",
+    "worldEffects": [
+      {
+        "type": "setNpcRank",
+        "npcId": "npc_phuong_nguyen",
+        "rank": 2
+      },
+      {
+        "type": "giveNpcGu",
+        "npcId": "npc_phuong_nguyen",
+        "guId": "gu_tieu_quang"
+      },
+      {
+        "type": "setNpcRank",
+        "npcId": "npc_phuong_chinh",
+        "rank": 2
+      },
+      {
+        "type": "giveNpcGu",
+        "npcId": "npc_phuong_chinh",
+        "guId": "gu_ngoc_bi"
+      }
+    ],
+    "status": "Pending"
+  },
+  {
+    "eventId": "evt_day150_bach_thi_co",
+    "name": "Bí mật Tầng 2 Động Hoa Tửu — Bạch Thỉ Cổ",
+    "triggerDay": 150,
+    "recurrenceDays": 0,
+    "isMajor": false,
+    "condition": "!flag_player_took_bach_thi",
+    "summary": "Phương Nguyên phá vỡ ảnh bích trong Động Hoa Tửu, đào lên Địa Tàng Hoa Cổ và đoạt được thượng phẩm Bạch Thỉ Cổ rồi bắt đầu đi săn sơn trư dưới chân núi để luyện lực.",
+    "worldEffects": [
+      {
+        "type": "takeNode",
+        "nodeId": "node_bach_thi_co",
+        "takenBy": "npc_phuong_nguyen"
+      },
+      {
+        "type": "giveNpcGu",
+        "npcId": "npc_phuong_nguyen",
+        "guId": "gu_bach_thi"
+      }
+    ],
+    "status": "Pending"
+  },
+  {
+    "eventId": "evt_day175_nien_trung_khao_hach",
+    "name": "Niên Trung Khảo Hạch — Săn Răng Lợn Rừng",
+    "triggerDay": 175,
+    "recurrenceDays": 0,
+    "isMajor": true,
+    "condition": null,
+    "summary": "Cuối tháng 6 nắng gắt, Học đường tổ chức Niên Trung Khảo Hạch thực chiến: các đệ tử được cấp phép ra rừng săn sơn trư và nộp Răng Nanh Lợn Rừng để tính điểm đổi thưởng nguyên thạch.",
+    "worldEffects": [
+      {
+        "type": "setFlag",
+        "flagId": "flag_midterm_hunt_active",
+        "description": "Niên Trung Khảo Hạch săn lợn rừng đang diễn ra."
+      }
+    ],
+    "status": "Pending"
+  },
+  {
+    "eventId": "evt_day195_vuong_dai_am_sat",
+    "name": "Án mạng nhà thợ săn Vương Lão Hán & Ma đạo Vương Đại báo thù",
+    "triggerDay": 195,
+    "recurrenceDays": 0,
+    "isMajor": true,
+    "condition": null,
+    "summary": "Cuối mùa hạ, cả gia đình thợ săn Vương Lão Hán bị sát hại ngoài chân núi. Người con cả mất tích 3 năm là Ma đạo Nhị chuyển Vương Đại mang theo U Ảnh Tùy Hành Cổ và Ái Sinh Ly lẻn về rừng Thanh Mao phục kích báo thù.",
+    "worldEffects": [
+      {
+        "type": "setNpcStatus",
+        "npcId": "npc_vuong_lao_han",
+        "status": "Dead"
+      },
+      {
+        "type": "setNpcStatus",
+        "npcId": "npc_vuong_nhi",
+        "status": "Dead"
+      },
+      {
+        "type": "setFlag",
+        "flagId": "flag_vuong_dai_active",
+        "description": "Ma đạo Cổ sư Nhị chuyển Vương Đại đang ẩn nấp phục kích quanh sườn núi."
+      }
+    ],
+    "status": "Pending"
+  },
+  {
+    "eventId": "evt_day260_ngoc_bi_co_tang2",
+    "name": "Cửa đá 1 Trư Lực — Ngọc Bì Cổ Tầng 2 Động Hoa Tửu",
+    "triggerDay": 260,
+    "recurrenceDays": 0,
+    "isMajor": false,
+    "condition": "!flag_player_took_ngoc_bi",
+    "summary": "Giữa mùa thu, sau khi luyện đủ 1 trư lực và đột phá Nhất chuyển cao giai, Phương Nguyên đẩy mở cửa đá nặng ở Động Hoa Tửu, thu phục Ngọc Bì Cổ hoang dã và phát hiện khu vực Ngọc Nhãn Thạch Hầu.",
+    "worldEffects": [
+      {
+        "type": "takeNode",
+        "nodeId": "node_ngoc_bi_co",
+        "takenBy": "npc_phuong_nguyen"
+      },
+      {
+        "type": "setNpcRank",
+        "npcId": "npc_phuong_nguyen",
+        "rank": 3
+      },
+      {
+        "type": "setNpcRank",
+        "npcId": "npc_phuong_chinh",
+        "rank": 4
+      }
+    ],
+    "status": "Pending"
+  },
+  {
+    "eventId": "evt_day340_tuyet_dau_mua",
+    "name": "Tuyết đầu mùa & Thông báo Niên Mạt Khảo Hạch",
+    "triggerDay": 340,
+    "recurrenceDays": 0,
+    "isMajor": true,
+    "condition": null,
+    "summary": "Gió đông tràn về Thanh Mao Sơn, tuyết nhẹ bắt đầu rơi. Học Đường Gia Lão thông báo chuẩn bị Đại Hội Niên Mạt Khảo Hạch; tin đồn Phương Chính đã đột phá Nhị chuyển sơ giai lan khắp sơn trại.",
+    "worldEffects": [
+      {
+        "type": "setNpcRank",
+        "npcId": "npc_phuong_nguyen",
+        "rank": 4
+      },
+      {
+        "type": "setNpcRank",
+        "npcId": "npc_phuong_chinh",
+        "rank": 5
+      },
+      {
+        "type": "setNpcRank",
+        "npcId": "npc_mac_bac",
+        "rank": 4
+      },
+      {
+        "type": "setNpcRank",
+        "npcId": "npc_xich_thanh",
+        "rank": 4
+      }
+    ],
+    "status": "Pending"
+  },
+  {
+    "eventId": "evt_day360_nien_mat_khao_hach",
+    "name": "Đại Hội Niên Mạt Khảo Hạch (Kết thúc Năm 1)",
+    "triggerDay": 360,
+    "recurrenceDays": 0,
+    "isMajor": true,
+    "condition": null,
+    "summary": "Tộc trưởng Cổ Nguyệt Bác cùng toàn thể Hội Đồng Gia Lão dự khán Đại Hội Niên Mạt Khảo Hạch tại Diễn Võ Trường. Gồm Vòng 1 đo tu vi không khiếu và Vòng 2 lôi đài đối kháng 1v1; Quán quân thưởng đúng 100 khối nguyên thạch, quyền ưu tiên chọn cổ trùng và lời mời gia nhập tiểu tổ dựa theo thành tích và thiện cảm phe phái.",
+    "worldEffects": [
+      {
+        "type": "setFlag",
+        "flagId": "flag_year1_exam_started",
+        "description": "Đại hội Niên Mạt Khảo Hạch cuối Năm 1 đã chính thức bắt đầu."
+      }
+    ],
+    "status": "Pending"
+  }
+]

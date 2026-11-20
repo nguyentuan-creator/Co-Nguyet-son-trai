@@ -1,0 +1,72 @@
+[
+  {
+    "moveId": "move_cuong_hoa_nguyet_nhan",
+    "name": "Quang Mang Nguyệt Nhận",
+    "rank": 1,
+    "path": "Quang đạo",
+    "category": "Attack",
+    "coreGuId": "gu_nguyet_quang",
+    "supportGuIds": ["gu_tieu_quang"],
+    "effect": "Dùng Tiểu Quang Cổ phụ trợ trực tiếp vào Nguyệt Quang Cổ, khiến lưỡi đao trăng sáng rực và tăng 30% uy lực xuyên phá trong phạm vi 10 mét.",
+    "essenceCost": { "amount": 1.5, "baseRank": 1 },
+    "activationTime": "Tức thời (1 nhịp thở)",
+    "baseDifficulty": 42,
+    "backlash": "Độ sáng chói lệch hướng làm tê rát lòng bàn tay, mất chân nguyên vô ích."
+  },
+  {
+    "moveId": "move_ngoc_bi_nguyet_tranh",
+    "name": "Ngọc Quang Thủ Phản",
+    "rank": 1,
+    "path": "Quang đạo",
+    "category": "Defense",
+    "coreGuId": "gu_ngoc_bi",
+    "supportGuIds": ["gu_nguyet_quang"],
+    "effect": "Dựng màng phòng ngự ánh ngọc bích đón đỡ đòn công kích đồng thời phóng Nguyệt Nhận phản công ở cự ly trung bình.",
+    "essenceCost": { "amount": 2.0, "baseRank": 2 },
+    "activationTime": "Tức thời (1 nhịp thở)",
+    "baseDifficulty": 50,
+    "backlash": "Chân nguyên xung đột khiến lớp ngọc quang vỡ sớm, hở sườn trước đòn cận chiến."
+  },
+  {
+    "moveId": "move_dong_bi_hoa_thi_xung",
+    "name": "Đồng Bì Trư Xung",
+    "rank": 1,
+    "path": "Lực đạo",
+    "category": "Attack",
+    "coreGuId": "gu_hoa_thi",
+    "supportGuIds": ["gu_dong_bi"],
+    "effect": "Hóa da đồng cứng cáp kết hợp bộc phát 1 trư lực lao thẳng vào đối thủ, gây sát thương cận chiến hạng nặng.",
+    "essenceCost": { "amount": 1.6, "baseRank": 1 },
+    "activationTime": "Cần 1 nhịp thở lấy đà",
+    "baseDifficulty": 48,
+    "backlash": "Rách cơ vai và tốn sức mạnh, tăng nhanh độ mệt mỏi."
+  },
+  {
+    "moveId": "move_am_buoc_dot_tap",
+    "name": "Ẩn Tức Ám Tập",
+    "rank": 1,
+    "path": "Ám đạo",
+    "category": "Movement",
+    "coreGuId": "gu_tieu_buoc",
+    "supportGuIds": ["gu_khoa_khi"],
+    "effect": "Thu liễm hoàn toàn khí tức lẫn tiếng bước chân để tiếp cận hoặc thoát khỏi tầm mắt kẻ địch ban đêm.",
+    "essenceCost": { "amount": 1.1, "baseRank": 1 },
+    "activationTime": "Cần 2 nhịp thở ổn định hơi thở",
+    "baseDifficulty": 45,
+    "backlash": "Lộ dao động chân nguyên khiến kẻ địch lập tức cảnh giác."
+  },
+  {
+    "moveId": "move_u_anh_doc_sat",
+    "name": "U Ảnh Ái Sinh Ly",
+    "rank": 2,
+    "path": "Độc đạo",
+    "category": "Attack",
+    "coreGuId": "gu_ai_sinh_ly",
+    "supportGuIds": ["gu_u_anh_tuy_hanh"],
+    "effect": "Ẩn thân trong bóng tối tiếp cận từ điểm mù rồi phóng độc Ái Sinh Ly kết liễu mục tiêu. Bị khắc chế bởi cường quang.",
+    "essenceCost": { "amount": 2.2, "baseRank": 5 },
+    "activationTime": "Cần 2 nhịp thở ẩn ảnh",
+    "baseDifficulty": 64,
+    "backlash": "Độc khí phản phệ làm cổ sư trúng độc nhẹ và lộ thân hình."
+  }
+]

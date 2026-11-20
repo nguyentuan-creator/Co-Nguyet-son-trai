@@ -1,0 +1,153 @@
+{
+  "saveVersion": "1.0.0",
+  "dice": {
+    "minRoll": 1,
+    "maxRoll": 100,
+    "luckDivisor": 5,
+    "maxLuckModifier": 10,
+    "fatiguePenalty70": 10,
+    "fatiguePenalty90": 25,
+    "dcBands": {
+      "easy": [20, 35],
+      "medium": [40, 55],
+      "hard": [60, 75],
+      "veryHard": [80, 92],
+      "desperate": [93, 99],
+      "impossible": [100, 100]
+    }
+  },
+  "essence": {
+    "sameTierHigherDiscount": 0.15,
+    "sameTierMinMultiplier": 0.55,
+    "sameTierLowerPenalty": 0.25,
+    "crossTierHigherFactor": 0.25,
+    "crossTierLowerFactor": 4.0,
+    "naturalRegenFractionPerShichen": 0.08,
+    "stoneRegenPerShichen": 1.75
+  },
+  "time": {
+    "minutesPerShichen": 120,
+    "shichensPerDay": 12,
+    "daysPerYear": 365,
+    "shichenNames": [
+      "Tý",
+      "Sửu",
+      "Dần",
+      "Mão",
+      "Thìn",
+      "Tỵ",
+      "Ngọ",
+      "Mùi",
+      "Thân",
+      "Dậu",
+      "Tuất",
+      "Hợi"
+    ],
+    "seasonDayRanges": {
+      "Spring": [1, 95],
+      "Summer": [96, 195],
+      "Autumn": [196, 290],
+      "Winter": [291, 365]
+    },
+    "fatigueWarningThreshold": 90,
+    "hungerWarningThreshold": 20,
+    "healthDangerThreshold": 30,
+    "rumorCrystallizeThreshold": 70,
+    "rumorDecayPerDay": 2
+  },
+  "cultivation": {
+    "baseProgressPerShichen": 4.5,
+    "breakthroughMinorBaseDC": 52,
+    "breakthroughMajorBaseDC": 78,
+    "failedBreakthroughProgressLoss": 20,
+    "wineWormMultiplier": 1.45,
+    "maxRankYear1": 8
+  },
+  "starterGuPool": [
+    "gu_nguyet_quang",
+    "gu_dong_bi",
+    "gu_thach_bi",
+    "gu_thiet_bi",
+    "gu_da_thu",
+    "gu_hoa_thi",
+    "gu_phan_thi",
+    "gu_cay_manh_thien_nguu",
+    "gu_hoang_lac_thien_nguu",
+    "gu_sinh_tuc_thao",
+    "gu_tieu_quang",
+    "gu_on_ti_chu",
+    "gu_tui_com_thao"
+  ],
+  "statusEffectTemplates": [
+    {
+      "effectId": "eff_ngoai_thuong",
+      "name": "Ngoại thương",
+      "severity": "Mild",
+      "hpDeltaPerShichen": -1,
+      "fatigueDeltaPerShichen": 2,
+      "dcPenalty": 5,
+      "durationShichen": 12,
+      "cureCondition": "Băng bó nghỉ ngơi hoặc dùng thuốc Dược Đường / cổ trị liệu"
+    },
+    {
+      "effectId": "eff_trong_thuong",
+      "name": "Trọng thương",
+      "severity": "Severe",
+      "hpDeltaPerShichen": -4,
+      "fatigueDeltaPerShichen": 5,
+      "dcPenalty": 18,
+      "durationShichen": -1,
+      "cureCondition": "Trị liệu tại Dược Đường hoặc thúc giục Sinh Tức Thảo / cổ trị liệu"
+    },
+    {
+      "effectId": "eff_trung_doc",
+      "name": "Trúng độc",
+      "severity": "Moderate",
+      "hpDeltaPerShichen": -3,
+      "fatigueDeltaPerShichen": 4,
+      "dcPenalty": 12,
+      "durationShichen": -1,
+      "cureCondition": "Dùng thuốc giải độc hoặc cổ trị liệu thanh tẩy"
+    },
+    {
+      "effectId": "eff_kiet_suc",
+      "name": "Kiệt sức",
+      "severity": "Moderate",
+      "hpDeltaPerShichen": 0,
+      "fatigueDeltaPerShichen": 0,
+      "dcPenalty": 15,
+      "durationShichen": 6,
+      "cureCondition": "Ngủ nghỉ tại nơi an toàn đến khi mệt mỏi xuống dưới 50"
+    },
+    {
+      "effectId": "eff_chan_thuong_khong_khieu",
+      "name": "Chấn thương không khiếu",
+      "severity": "Severe",
+      "hpDeltaPerShichen": -2,
+      "fatigueDeltaPerShichen": 4,
+      "dcPenalty": 15,
+      "durationShichen": -1,
+      "cureCondition": "Tĩnh dưỡng nhiều ngày hoặc mời cổ sư trị liệu ổn định không khiếu"
+    },
+    {
+      "effectId": "eff_doi_khat",
+      "name": "Đói khát",
+      "severity": "Mild",
+      "hpDeltaPerShichen": -1,
+      "fatigueDeltaPerShichen": 4,
+      "dcPenalty": 8,
+      "durationShichen": -1,
+      "cureCondition": "Ăn lương khô, uống nước hoặc dùng bữa tại sơn trại"
+    },
+    {
+      "effectId": "eff_ban_menh_phan_phe",
+      "name": "Phản phệ Bản Mệnh Cổ",
+      "severity": "Severe",
+      "hpDeltaPerShichen": -5,
+      "fatigueDeltaPerShichen": 6,
+      "dcPenalty": 22,
+      "durationShichen": -1,
+      "cureCondition": "Trị liệu khẩn cấp tại Dược Đường và điều dưỡng Bản Mệnh Cổ"
+    }
+  ]
+}

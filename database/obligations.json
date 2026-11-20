@@ -1,0 +1,74 @@
+[
+  {
+    "obligationId": "ob_hoc_duong_hang_ngay",
+    "name": "Điểm danh & Lên lớp Học Đường",
+    "locationId": "loc_hoc_duong",
+    "frequency": "Daily",
+    "requiredDays": [1, 2, 3, 4, 5, 6, 7],
+    "shichenRange": [5, 6],
+    "maxMissedAllowed": 2,
+    "missedCount": 0,
+    "isExcused": false,
+    "penaltyNote": "Vắng quá 2 buổi không có Giấy Phép Ra Trại sẽ khiến Học Đường Gia Lão cử thị vệ đi tìm, trừ điểm cống hiến, giảm thiện cảm phe Tộc Trưởng và sinh tin đồn khả nghi."
+  },
+  {
+    "obligationId": "ob_tro_cap_tuan",
+    "name": "Nhận trợ cấp 3 nguyên thạch cuối tuần",
+    "locationId": "loc_hoc_duong",
+    "frequency": "Weekly",
+    "requiredDays": [7],
+    "shichenRange": [5, 7],
+    "maxMissedAllowed": 1,
+    "missedCount": 0,
+    "isExcused": false,
+    "penaltyNote": "Bỏ lỡ buổi phát trợ cấp sẽ bị giữ lại nguyên thạch tuần đó (chú ý nguy cơ bị Phương Nguyên chặn cổng thu phí sau ngày 28)."
+  },
+  {
+    "obligationId": "ob_chon_ban_menh_co",
+    "name": "Vào Cổ Thất chọn Bản Mệnh Cổ",
+    "locationId": "loc_co_that",
+    "frequency": "OneTime",
+    "requiredDays": [7],
+    "shichenRange": [5, 7],
+    "maxMissedAllowed": 0,
+    "missedCount": 0,
+    "isExcused": false,
+    "penaltyNote": "Bỏ lỡ buổi mở Cổ Thất ngày 7 sẽ mất quyền tự do chọn cổ khởi đầu và bị Gia lão khiển trách."
+  },
+  {
+    "obligationId": "ob_kiem_tra_thao_nhan",
+    "name": "Kiểm tra phóng Nguyệt Nhận (Bia Thảo Nhân)",
+    "locationId": "loc_hoc_duong",
+    "frequency": "OneTime",
+    "requiredDays": [20],
+    "shichenRange": [5, 7],
+    "maxMissedAllowed": 0,
+    "missedCount": 0,
+    "isExcused": false,
+    "penaltyNote": "Vắng kiểm tra kỹ năng cơ bản sẽ bị đánh rớt điểm rèn luyện và mất cơ hội nhận thưởng."
+  },
+  {
+    "obligationId": "ob_nien_trung_khao_hach",
+    "name": "Niên Trung Khảo Hạch (Săn Răng Lợn Rừng)",
+    "locationId": "loc_hoc_duong",
+    "frequency": "OneTime",
+    "requiredDays": [175],
+    "shichenRange": [5, 8],
+    "maxMissedAllowed": 0,
+    "missedCount": 0,
+    "isExcused": false,
+    "penaltyNote": "Không nộp chiến lợi phẩm đúng hạn sẽ tụt hạng giữa năm và mất phần thưởng nguyên thạch."
+  },
+  {
+    "obligationId": "ob_nien_mat_khao_hach",
+    "name": "Đại Hội Niên Mạt Khảo Hạch (Đo Tu Vi & Lôi Đài)",
+    "locationId": "loc_hoc_duong",
+    "frequency": "OneTime",
+    "requiredDays": [360],
+    "shichenRange": [5, 9],
+    "maxMissedAllowed": 0,
+    "missedCount": 0,
+    "isExcused": false,
+    "penaltyNote": "Kỳ thi quyết định phân bổ tiểu tổ cuối Năm 1; vắng mặt coi như bị giáng vào nhóm hậu cần hạng chót."
+  }
+]

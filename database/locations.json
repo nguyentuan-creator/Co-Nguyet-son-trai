@@ -1,0 +1,466 @@
+[
+  {
+    "locationId": "loc_ky_tuc_xa",
+    "name": "Ký Túc Xá Học Đường",
+    "regionName": "Cổ Nguyệt Sơn Trại",
+    "coordinates": { "x": 1.2, "y": -0.2, "z": 1 },
+    "description": "Dãy nhà sàn mâu trúc dành cho các đệ tử mới khai khiếu lưu trú. Phòng riêng đơn sơ yên tĩnh, thích hợp nghỉ ngơi, minh tưởng ôn dưỡng không khiếu và nuôi cổ.",
+    "dangerLevel": 0,
+    "connectedLocations": [
+      { "targetLocationId": "loc_hoc_duong", "travelMinutes": 5 },
+      { "targetLocationId": "loc_quang_truong", "travelMinutes": 8 },
+      { "targetLocationId": "loc_duoc_duong", "travelMinutes": 8 }
+    ],
+    "resourceNodes": []
+  },
+  {
+    "locationId": "loc_hoc_duong",
+    "name": "Học Đường & Diễn Võ Trường",
+    "regionName": "Cổ Nguyệt Sơn Trại",
+    "coordinates": { "x": 1.0, "y": 0.6, "z": 1 },
+    "description": "Nơi 57 thiếu niên 15 tuổi học lý thuyết cổ sư, nhận trợ cấp 3 nguyên thạch mỗi tuần và tập luyện phóng Nguyệt Nhận trên diễn võ trường vây tường trúc cao.",
+    "dangerLevel": 0,
+    "connectedLocations": [
+      { "targetLocationId": "loc_ky_tuc_xa", "travelMinutes": 5 },
+      { "targetLocationId": "loc_co_that", "travelMinutes": 2 },
+      { "targetLocationId": "loc_tu_duong", "travelMinutes": 10 },
+      { "targetLocationId": "loc_quang_truong", "travelMinutes": 10 },
+      { "targetLocationId": "loc_hinh_duong", "travelMinutes": 12 }
+    ],
+    "resourceNodes": [
+      {
+        "nodeId": "node_thao_nhan_shop",
+        "name": "Quầy bán Con Rối Thảo Nhân (Giang Nha)",
+        "resourceType": "Service",
+        "refId": "item_thao_nhan_con_roi",
+        "isUnique": false,
+        "isTaken": false,
+        "takenBy": null,
+        "respawnDays": 1,
+        "hiddenDifficulty": 10
+      }
+    ]
+  },
+  {
+    "locationId": "loc_co_that",
+    "name": "Cổ Thất Học Đường",
+    "regionName": "Cổ Nguyệt Sơn Trại",
+    "coordinates": { "x": 0.4, "y": 1.0, "z": 1 },
+    "description": "Căn phòng rộng khoảng 60 mét vuông nằm ngay bên cạnh Học Đường (nguyên tác quyển 1). Bốn vách đá đục hàng trăm hốc đặt đĩa bạc, bồn đá, hũ tử sa chứa cổ trùng Nhất chuyển cho đệ tử chọn Bản Mệnh Cổ.",
+    "dangerLevel": 0,
+    "connectedLocations": [
+      { "targetLocationId": "loc_hoc_duong", "travelMinutes": 2 }
+    ],
+    "resourceNodes": [
+      {
+        "nodeId": "node_hoang_lac_thien_nguu",
+        "name": "Hoàng Lạc Thiên Ngưu Cổ (hốc duy nhất Cổ Thất)",
+        "resourceType": "Gu",
+        "refId": "gu_hoang_lac_thien_nguu",
+        "isUnique": true,
+        "isTaken": false,
+        "takenBy": null,
+        "respawnDays": 0,
+        "hiddenDifficulty": 35
+      }
+    ]
+  },
+  {
+    "locationId": "loc_tu_duong",
+    "name": "Gia Tộc Từ Đường",
+    "regionName": "Cổ Nguyệt Sơn Trại",
+    "coordinates": { "x": 2.0, "y": 1.3, "z": 1 },
+    "description": "Tòa lầu các 3 tầng uy nghiêm nhất trung tâm Cổ Nguyệt Sơn Trại, thờ phụng bài vị liệt tổ và là nơi hội họp của Tộc trưởng Cổ Nguyệt Bác cùng Hội Đồng Gia Lão.",
+    "dangerLevel": 0,
+    "connectedLocations": [
+      { "targetLocationId": "loc_hoc_duong", "travelMinutes": 10 },
+      { "targetLocationId": "loc_quang_truong", "travelMinutes": 10 },
+      { "targetLocationId": "loc_hinh_duong", "travelMinutes": 8 },
+      { "targetLocationId": "loc_linh_tuyen", "travelMinutes": 5 }
+    ],
+    "resourceNodes": []
+  },
+  {
+    "locationId": "loc_hinh_duong",
+    "name": "Hình Đường Gia Tộc",
+    "regionName": "Cổ Nguyệt Sơn Trại",
+    "coordinates": { "x": 1.2, "y": 1.9, "z": 1 },
+    "description": "Trụ sở chấp pháp âm u nghiêm ngặt của Hình Đường Gia Lão, phụ trách tra xét án mạng, giam giữ tội nhân và giám sát tộc nhân có hành tung khả nghi.",
+    "dangerLevel": 0,
+    "connectedLocations": [
+      { "targetLocationId": "loc_tu_duong", "travelMinutes": 8 },
+      { "targetLocationId": "loc_hoc_duong", "travelMinutes": 12 },
+      { "targetLocationId": "loc_rung_truc_sau_trai", "travelMinutes": 15 }
+    ],
+    "resourceNodes": []
+  },
+  {
+    "locationId": "loc_duoc_duong",
+    "name": "Dược Đường & Vườn Nguyệt Lan",
+    "regionName": "Cổ Nguyệt Sơn Trại",
+    "coordinates": { "x": 1.0, "y": -1.2, "z": 1 },
+    "description": "Khuôn viên trị liệu và kho thảo dược dưới quyền Cổ Nguyệt Dược Cơ, bên cạnh là vườn trồng Nguyệt Lan Thảo cung cấp cánh hoa nuôi Nguyệt Quang Cổ.",
+    "dangerLevel": 0,
+    "connectedLocations": [
+      { "targetLocationId": "loc_ky_tuc_xa", "travelMinutes": 8 },
+      { "targetLocationId": "loc_quang_truong", "travelMinutes": 10 }
+    ],
+    "resourceNodes": [
+      {
+        "nodeId": "node_vuon_nguyet_lan",
+        "name": "Quầy bán Cánh hoa Nguyệt Lan & Thuốc Dược Đường",
+        "resourceType": "Service",
+        "refId": "item_canh_hoa_nguyet_lan",
+        "isUnique": false,
+        "isTaken": false,
+        "takenBy": null,
+        "respawnDays": 1,
+        "hiddenDifficulty": 10
+      }
+    ]
+  },
+  {
+    "locationId": "loc_quang_truong",
+    "name": "Quảng Trường Sơn Trại",
+    "regionName": "Cổ Nguyệt Sơn Trại",
+    "coordinates": { "x": 2.6, "y": 0.0, "z": 1 },
+    "description": "Bãi lát đá xanh rộng lớn trung tâm Cổ Nguyệt Sơn Trại, bao quanh bởi các dãy trúc lâu thanh mâu trúc, trạm tuần tra vệ đội và vài quầy trao đổi vật tư hàng ngày của tộc nhân.",
+    "dangerLevel": 0,
+    "connectedLocations": [
+      { "targetLocationId": "loc_ky_tuc_xa", "travelMinutes": 8 },
+      { "targetLocationId": "loc_hoc_duong", "travelMinutes": 10 },
+      { "targetLocationId": "loc_tu_duong", "travelMinutes": 10 },
+      { "targetLocationId": "loc_duoc_duong", "travelMinutes": 10 },
+      { "targetLocationId": "loc_khach_san", "travelMinutes": 6 },
+      { "targetLocationId": "loc_dong_mon", "travelMinutes": 12 }
+    ],
+    "resourceNodes": [
+      {
+        "nodeId": "node_lai_tho_cap_mo",
+        "name": "Khối đá màu hoàng nê ẩn Lại Thổ Cáp Mô (Đổ Thạch Tràng tháng 5)",
+        "resourceType": "Gu",
+        "refId": "gu_lai_tho_cap_mo",
+        "isUnique": true,
+        "isTaken": false,
+        "takenBy": null,
+        "respawnDays": 0,
+        "hiddenDifficulty": 88
+      }
+    ]
+  },
+  {
+    "locationId": "loc_khach_san",
+    "name": "Khu Phố, Khách Sạn Cổ Nguyệt & 3 Tửu Quán",
+    "regionName": "Cổ Nguyệt Sơn Trại",
+    "coordinates": { "x": 3.3, "y": -0.7, "z": 1 },
+    "description": "Khu buôn bán náo nhiệt nhất nội trại gồm khách sạn lớn của gia đình Cổ Nguyệt Đống Thổ, 3 tửu quán bán rượu gạo/Thanh Trúc Tửu, tiệm rèn và sạp thịt.",
+    "dangerLevel": 0,
+    "connectedLocations": [
+      { "targetLocationId": "loc_quang_truong", "travelMinutes": 6 },
+      { "targetLocationId": "loc_dong_mon", "travelMinutes": 8 }
+    ],
+    "resourceNodes": [
+      {
+        "nodeId": "node_thanh_truc_tuu",
+        "name": "Quầy bán Thanh Trúc Tửu & Rượu Gạo",
+        "resourceType": "Service",
+        "refId": "item_thanh_truc_tuu",
+        "isUnique": false,
+        "isTaken": false,
+        "takenBy": null,
+        "respawnDays": 1,
+        "hiddenDifficulty": 10
+      }
+    ]
+  },
+  {
+    "locationId": "loc_dong_mon",
+    "name": "Đông Môn & Đông Môn Tửu Quán",
+    "regionName": "Cổ Nguyệt Sơn Trại",
+    "coordinates": { "x": 4.2, "y": 0.0, "z": 1 },
+    "description": "Cổng chính dẫn ra sơn đạo xuống chân núi, có chòi canh tộc nhân trực gác và tường rào trồng Thiết Đằng Cổ. Cạnh cổng là Đông Môn Tửu Quán.",
+    "dangerLevel": 0,
+    "connectedLocations": [
+      { "targetLocationId": "loc_quang_truong", "travelMinutes": 12 },
+      { "targetLocationId": "loc_khach_san", "travelMinutes": 8 },
+      { "targetLocationId": "loc_son_dao_ruong_bac_thang", "travelMinutes": 15 },
+      { "targetLocationId": "loc_rung_truc_sau_trai", "travelMinutes": 20 }
+    ],
+    "resourceNodes": []
+  },
+  {
+    "locationId": "loc_rung_truc_sau_trai",
+    "name": "Rừng Thanh Mâu Trúc & Sơn Khê Hậu Sơn",
+    "regionName": "Thanh Mao Sơn",
+    "coordinates": { "x": -0.5, "y": 2.4, "z": 1 },
+    "description": "Rừng trúc xanh mọc thẳng như giáo mác bao bọc phía sau Cổ Nguyệt Sơn Trại, có con suối nhỏ uốn lượn chảy về phía nhánh thác Hậu Sơn. Thường có dã thú nhỏ và thảo dược.",
+    "dangerLevel": 25,
+    "connectedLocations": [
+      { "targetLocationId": "loc_hinh_duong", "travelMinutes": 15 },
+      { "targetLocationId": "loc_dong_mon", "travelMinutes": 20 },
+      { "targetLocationId": "loc_bai_song_khe_hoa_tuu", "travelMinutes": 15 },
+      { "targetLocationId": "loc_bach_gia_trai", "travelMinutes": 180 },
+      { "targetLocationId": "loc_dinh_thanh_mao", "travelMinutes": 120 }
+    ],
+    "resourceNodes": [
+      {
+        "nodeId": "node_duoc_thao_rung_truc",
+        "name": "Bụi Thảo Dược Sinh Cơ & Lá Mâu Trúc non",
+        "resourceType": "Herb",
+        "refId": "item_duoc_thao_sinh_co",
+        "isUnique": false,
+        "isTaken": false,
+        "takenBy": null,
+        "respawnDays": 4,
+        "hiddenDifficulty": 30
+      }
+    ]
+  },
+  {
+    "locationId": "loc_bai_song_khe_hoa_tuu",
+    "name": "Bãi Sông Đá Cuội & Rèm Thác Mini",
+    "regionName": "Thanh Mao Sơn",
+    "coordinates": { "x": -1.6, "y": 3.5, "z": 1 },
+    "description": "Bãi sông đá cuội nông (thường khô cạn, mùa mưa to tích nước nông) cuối nhánh nhỏ của Đại Thác Nước Hậu Sơn. Một rèm thác mảnh đổ xuống tảng cự thạch tựa vách đá che giấu khe hở bí mật.",
+    "dangerLevel": 30,
+    "connectedLocations": [
+      { "targetLocationId": "loc_rung_truc_sau_trai", "travelMinutes": 15 },
+      { "targetLocationId": "loc_dong_hoa_tuu_t1", "travelMinutes": 10 }
+    ],
+    "resourceNodes": [
+      {
+        "nodeId": "node_khe_hoa_tuu_entrance",
+        "name": "Khe hở cự thạch sau rèm thác mini (Lối vào Động Hoa Tửu)",
+        "resourceType": "Inheritance",
+        "refId": null,
+        "isUnique": false,
+        "isTaken": false,
+        "takenBy": null,
+        "respawnDays": 0,
+        "hiddenDifficulty": 75
+      }
+    ]
+  },
+  {
+    "locationId": "loc_bach_gia_trai",
+    "name": "Vùng Ven Bạch Gia Sơn Trại & Thâm Đàm",
+    "regionName": "Hậu Sơn Thanh Mao",
+    "coordinates": { "x": -1.0, "y": 7.0, "z": 1 },
+    "description": "Mặt sau núi ẩm lạnh sương mù quanh năm, cạnh hồ sâu Thâm Đàm dưới chân Đại Thác Nước. Lãnh địa của Bạch Gia Sơn Trại — tộc nhân Cổ Nguyệt tự ý xâm nhập sẽ bị coi là gián điệp.",
+    "dangerLevel": 65,
+    "connectedLocations": [
+      { "targetLocationId": "loc_rung_truc_sau_trai", "travelMinutes": 180 },
+      { "targetLocationId": "loc_dai_thac_nuoc", "travelMinutes": 25 }
+    ],
+    "resourceNodes": []
+  },
+  {
+    "locationId": "loc_linh_tuyen",
+    "name": "Địa Hạ Nguyên Tuyền (Cấm Địa)",
+    "regionName": "Cổ Nguyệt Sơn Trại",
+    "coordinates": { "x": 2.0, "y": 1.3, "z": 0 },
+    "description": "Mạch suối linh tuyền ngầm ngay bên dưới Gia Tộc Từ Đường, nơi phun ra nguyên thạch nuôi sống toàn tộc và tổ chức Khai Khiếu Đại Điển. Canh phòng cực kỳ nghiêm ngặt.",
+    "dangerLevel": 80,
+    "connectedLocations": [
+      { "targetLocationId": "loc_tu_duong", "travelMinutes": 5 }
+    ],
+    "resourceNodes": []
+  },
+  {
+    "locationId": "loc_son_dao_ruong_bac_thang",
+    "name": "Sơn Đạo Chính & Ruộng Bậc Thang",
+    "regionName": "Chân Núi Thanh Mao",
+    "coordinates": { "x": 5.2, "y": -2.0, "z": 0 },
+    "description": "Con đường núi uốn lượn qua từng tầng ruộng bậc thang lúa non xanh mướt do nông dân phàm nhân cày cấy. Đây là tuyến đường duy nhất thương đội Cổ Phú đi lên trại.",
+    "dangerLevel": 20,
+    "connectedLocations": [
+      { "targetLocationId": "loc_dong_mon", "travelMinutes": 15 },
+      { "targetLocationId": "loc_thon_pham_nhan", "travelMinutes": 15 }
+    ],
+    "resourceNodes": []
+  },
+  {
+    "locationId": "loc_thon_pham_nhan",
+    "name": "Thôn Trang Phàm Nhân Ven Sông",
+    "regionName": "Chân Núi Thanh Mao",
+    "coordinates": { "x": 6.6, "y": -4.0, "z": 0 },
+    "description": "Cụm thôn trang phàm nhân nương theo dòng sông nhỏ dưới chân núi (cách Cổ Nguyệt Sơn Trại khoảng 30 phút đi bộ). Nơi cư ngụ của nông phu và các gia đình thợ săn như nhà Vương Lão Hán.",
+    "dangerLevel": 25,
+    "connectedLocations": [
+      { "targetLocationId": "loc_son_dao_ruong_bac_thang", "travelMinutes": 15 },
+      { "targetLocationId": "loc_rung_san_heo_rung", "travelMinutes": 20 }
+    ],
+    "resourceNodes": [
+      {
+        "nodeId": "node_bun_vang_ven_song",
+        "name": "Bãi Bùn Vàng Ven Sông Nhỏ",
+        "resourceType": "Material",
+        "refId": "item_bun_vang_linh",
+        "isUnique": false,
+        "isTaken": false,
+        "takenBy": null,
+        "respawnDays": 5,
+        "hiddenDifficulty": 40
+      }
+    ]
+  },
+  {
+    "locationId": "loc_rung_san_heo_rung",
+    "name": "Sườn Rừng Săn Lợn Rừng",
+    "regionName": "Thanh Mao Sơn",
+    "coordinates": { "x": 5.0, "y": -5.8, "z": 0 },
+    "description": "Khu rừng rậm hoang dã tiếp giáp thôn phàm nhân, nơi xuất hiện nhiều sơn trư hung dữ và dấu vết săn bắn — địa bàn chính cho Niên Trung Khảo Hạch săn răng lợn rừng.",
+    "dangerLevel": 45,
+    "connectedLocations": [
+      { "targetLocationId": "loc_thon_pham_nhan", "travelMinutes": 20 },
+      { "targetLocationId": "loc_hung_gia_trai", "travelMinutes": 150 }
+    ],
+    "resourceNodes": [
+      {
+        "nodeId": "node_dan_son_tru",
+        "name": "Bãi kiếm ăn Sơn Trư (Thịt & Răng Lợn Rừng)",
+        "resourceType": "Beast",
+        "refId": "item_thit_lon_rung",
+        "isUnique": false,
+        "isTaken": false,
+        "takenBy": null,
+        "respawnDays": 2,
+        "hiddenDifficulty": 35
+      },
+      {
+        "nodeId": "node_doc_thao_khe_am",
+        "name": "Khe đá ẩm mọc Độc Thảo Đêm",
+        "resourceType": "Herb",
+        "refId": "item_huyet_doc_thao",
+        "isUnique": false,
+        "isTaken": false,
+        "takenBy": null,
+        "respawnDays": 6,
+        "hiddenDifficulty": 55
+      }
+    ]
+  },
+  {
+    "locationId": "loc_dong_hoa_tuu_t1",
+    "name": "Động Hoa Tửu — Tầng 1 (Khe Cự Thạch)",
+    "regionName": "Địa Hạ Hoa Tửu",
+    "coordinates": { "x": -1.6, "y": 3.5, "z": -1 },
+    "description": "Lối đá hẹp chỉ vừa một người lách qua, thoang thoảng hương rượu thanh nhã và di hài Hoa Tửu Hành Giả. Nơi ẩn náu của Tửu Trùng hoang dã và một bức ảnh bích kỳ lạ.",
+    "dangerLevel": 20,
+    "connectedLocations": [
+      { "targetLocationId": "loc_bai_song_khe_hoa_tuu", "travelMinutes": 10 },
+      { "targetLocationId": "loc_dong_hoa_tuu_t2", "travelMinutes": 15 }
+    ],
+    "resourceNodes": [
+      {
+        "nodeId": "node_tuu_trung",
+        "name": "Tửu Trùng hoang dã (bị dụ bởi Thanh Trúc Tửu)",
+        "resourceType": "Gu",
+        "refId": "gu_tuu_trung",
+        "isUnique": true,
+        "isTaken": false,
+        "takenBy": null,
+        "respawnDays": 0,
+        "hiddenDifficulty": 65
+      }
+    ]
+  },
+  {
+    "locationId": "loc_dong_hoa_tuu_t2",
+    "name": "Động Hoa Tửu — Tầng 2 (Ảnh Bích & Cửa Đá)",
+    "regionName": "Địa Hạ Hoa Tửu",
+    "coordinates": { "x": -0.4, "y": 2.9, "z": -1 },
+    "description": "Đường hầm phát ánh hồng quang sau khi phá ảnh bích. Nền đất chôn Địa Tàng Hoa Cổ (chứa Bạch Thỉ Cổ), sâu bên trong có cửa đá cực nặng (cần 1 trư lực mới đẩy nổi) dẫn tới Ngọc Bì Cổ và đàn Ngọc Nhãn Thạch Hầu.",
+    "dangerLevel": 40,
+    "connectedLocations": [
+      { "targetLocationId": "loc_dong_hoa_tuu_t1", "travelMinutes": 15 }
+    ],
+    "resourceNodes": [
+      {
+        "nodeId": "node_bach_thi_co",
+        "name": "Địa Tàng Hoa Cổ chứa Bạch Thỉ Cổ",
+        "resourceType": "Gu",
+        "refId": "gu_bach_thi",
+        "isUnique": true,
+        "isTaken": false,
+        "takenBy": null,
+        "respawnDays": 0,
+        "hiddenDifficulty": 75
+      },
+      {
+        "nodeId": "node_ngoc_bi_co",
+        "name": "Ngọc Bì Cổ hoang dã (sau cửa đá 1 trư lực)",
+        "resourceType": "Gu",
+        "refId": "gu_ngoc_bi",
+        "isUnique": true,
+        "isTaken": false,
+        "takenBy": null,
+        "respawnDays": 0,
+        "hiddenDifficulty": 85
+      },
+      {
+        "nodeId": "node_ngoc_nhan_thach_hau",
+        "name": "Khu vực Ngọc Nhãn Thạch Hầu (Quặng Ngọc Thạch)",
+        "resourceType": "Beast",
+        "refId": "item_quang_ngoc_thach",
+        "isUnique": false,
+        "isTaken": false,
+        "takenBy": null,
+        "respawnDays": 7,
+        "hiddenDifficulty": 70
+      }
+    ]
+  },
+  {
+    "locationId": "loc_hung_gia_trai",
+    "name": "Tiền Sơn — Vùng Ven Hùng Gia Sơn Trại",
+    "regionName": "Tiền Sơn Thanh Mao",
+    "coordinates": { "x": -4.0, "y": -6.0, "z": 2 },
+    "description": "Mặt trước núi dốc đá dựng đứng hiểm trở, bao quanh bởi rừng gấu ngựa hoang dữ. Lãnh địa của Hùng Gia Sơn Trại — rất nguy hiểm với đệ tử Nhất chuyển đơn độc.",
+    "dangerLevel": 65,
+    "connectedLocations": [
+      { "targetLocationId": "loc_rung_san_heo_rung", "travelMinutes": 150 },
+      { "targetLocationId": "loc_dinh_thanh_mao", "travelMinutes": 120 }
+    ],
+    "resourceNodes": []
+  },
+  {
+    "locationId": "loc_dai_thac_nuoc",
+    "name": "Vách Đá Đại Thác Nước Hậu Sơn",
+    "regionName": "Hậu Sơn Thanh Mao",
+    "coordinates": { "x": -1.0, "y": 8.5, "z": 2 },
+    "description": "Dòng thác khổng lồ đổ từ đỉnh núi phía bắc xuống Thâm Đàm, tiếng nước vang rền, hơi lạnh thấu xương và có nhiều nhánh nước rẽ sang sườn núi.",
+    "dangerLevel": 50,
+    "connectedLocations": [
+      { "targetLocationId": "loc_bach_gia_trai", "travelMinutes": 25 },
+      { "targetLocationId": "loc_dinh_thanh_mao", "travelMinutes": 90 }
+    ],
+    "resourceNodes": [
+      {
+        "nodeId": "node_nuoc_linh_suoi",
+        "name": "Mạch Nước Suối Tinh Khiết Vách Thác",
+        "resourceType": "Material",
+        "refId": "item_nuoc_linh_suoi",
+        "isUnique": false,
+        "isTaken": false,
+        "takenBy": null,
+        "respawnDays": 2,
+        "hiddenDifficulty": 25
+      }
+    ]
+  },
+  {
+    "locationId": "loc_dinh_thanh_mao",
+    "name": "Đỉnh Thanh Mao Sơn",
+    "regionName": "Thanh Mao Sơn",
+    "coordinates": { "x": -2.0, "y": 2.0, "z": 3 },
+    "description": "Đỉnh núi cao nhất lộng gió, phóng tầm mắt nhìn bao quát toàn cảnh ba đại sơn trại Cổ Nguyệt, Bạch Gia, Hùng Gia và các thôn trang chân núi.",
+    "dangerLevel": 55,
+    "connectedLocations": [
+      { "targetLocationId": "loc_rung_truc_sau_trai", "travelMinutes": 120 },
+      { "targetLocationId": "loc_dai_thac_nuoc", "travelMinutes": 90 },
+      { "targetLocationId": "loc_hung_gia_trai", "travelMinutes": 120 }
+    ],
+    "resourceNodes": []
+  }
+]

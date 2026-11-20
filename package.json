@@ -1,0 +1,19 @@
+{
+  "name": "co-nguyet-son-trai",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --port 5173",
+    "typecheck": "tsc --noEmit --target ES2022 --module ESNext --moduleResolution bundler --resolveJsonModule --strict --skipLibCheck src/vite-env.d.ts src/chatApp.ts src/db.ts src/engine.ts src/geminiTools.ts src/mapModal.ts src/types.ts",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@google/genai": "^3.6.1"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.2",
+    "vite": "^6.0.7"
+  }
+}

@@ -1,0 +1,82 @@
+[
+  {
+    "recipeId": "rec_nguyet_mang",
+    "name": "Cổ phương Nguyệt Mang Cổ",
+    "resultGuId": "gu_nguyet_mang",
+    "rank": 2,
+    "path": "Quang đạo",
+    "requiredGu": [
+      { "guId": "gu_nguyet_quang", "quantity": 1 },
+      { "guId": "gu_tieu_quang", "quantity": 1 }
+    ],
+    "materials": [
+      { "itemId": "item_canh_hoa_nguyet_lan", "quantity": 10 },
+      { "itemId": "item_bot_da_huynh_quang", "quantity": 2 }
+    ],
+    "baseDifficulty": 58,
+    "essenceRequirement": { "amount": 3.0, "baseRank": 4 },
+    "timeRequiredShichen": 2,
+    "failurePenalty": "Mất toàn bộ vật liệu và Tiểu Quang Cổ phụ liệu bị nổ chết; cổ sư chịu phản phệ nhẹ. Nếu Nguyệt Quang Cổ là Bản Mệnh Cổ thì không chết mà chuyển sang trạng thái Injured.",
+    "sourceNote": "Cổ phương gia truyền cơ bản của tộc Cổ Nguyệt."
+  },
+  {
+    "recipeId": "rec_bach_ngoc",
+    "name": "Cổ phương Bạch Ngọc Cổ",
+    "resultGuId": "gu_bach_ngoc",
+    "rank": 2,
+    "path": "Biến hóa đạo",
+    "requiredGu": [
+      { "guId": "gu_bach_thi", "quantity": 1 },
+      { "guId": "gu_ngoc_bi", "quantity": 1 }
+    ],
+    "materials": [
+      { "itemId": "item_quang_ngoc_thach", "quantity": 2 },
+      { "itemId": "item_thit_lon_rung", "quantity": 2 }
+    ],
+    "baseDifficulty": 68,
+    "essenceRequirement": { "amount": 4.0, "baseRank": 4 },
+    "timeRequiredShichen": 3,
+    "failurePenalty": "Mất vật liệu và một cổ phụ liệu nổ chết, cổ sư bị chấn thương nhẹ. Bản Mệnh Cổ không chết mà chuyển sang trạng thái Injured.",
+    "sourceNote": "Bí phương hiếm lưu truyền trong giới cổ sư Nam Cương."
+  },
+  {
+    "recipeId": "rec_hac_tong",
+    "name": "Cổ phương Hắc Tông Cổ",
+    "resultGuId": "gu_hac_tong",
+    "rank": 2,
+    "path": "Biến hóa đạo",
+    "requiredGu": [
+      { "guId": "gu_hac_thi", "quantity": 1 },
+      { "guId": "gu_thanh_ti", "quantity": 1 }
+    ],
+    "materials": [
+      { "itemId": "item_toc_den_linh", "quantity": 3 },
+      { "itemId": "item_thit_lon_rung", "quantity": 2 }
+    ],
+    "baseDifficulty": 62,
+    "essenceRequirement": { "amount": 3.5, "baseRank": 4 },
+    "timeRequiredShichen": 2,
+    "failurePenalty": "Thanh Ti Cổ và vật liệu bị hủy, cổ sư chịu phản phệ nhẹ. Bản Mệnh Cổ không chết mà chuyển sang trạng thái Injured.",
+    "sourceNote": "Bí phương thương đội lưu truyền."
+  },
+  {
+    "recipeId": "rec_tu_vi_tuu_trung",
+    "name": "Cổ phương Tứ Vị Tửu Trùng",
+    "resultGuId": "gu_tu_vi_tuu_trung",
+    "rank": 2,
+    "path": "Thực đạo",
+    "requiredGu": [
+      { "guId": "gu_tuu_trung", "quantity": 2 }
+    ],
+    "materials": [
+      { "itemId": "item_ruou_gao", "quantity": 1 },
+      { "itemId": "item_thanh_truc_tuu", "quantity": 1 },
+      { "itemId": "item_hau_nhi_tuu", "quantity": 1 }
+    ],
+    "baseDifficulty": 74,
+    "essenceRequirement": { "amount": 4.5, "baseRank": 5 },
+    "timeRequiredShichen": 4,
+    "failurePenalty": "Tiêu hủy toàn bộ rượu và một con Tửu Trùng phụ liệu; cổ sư chịu phản phệ chấn động không khiếu. Bản Mệnh Cổ không chết mà chuyển sang Injured.",
+    "sourceNote": "Bí phương cực hiếm."
+  }
+]

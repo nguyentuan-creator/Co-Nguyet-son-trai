@@ -1,0 +1,914 @@
+[
+  {
+    "npcId": "npc_co_nguyet_bac",
+    "name": "Cổ Nguyệt Bác",
+    "age": 48,
+    "rank": 13,
+    "aptitude": 82,
+    "currentEssence": 8.2,
+    "strength": 0.6,
+    "health": 100,
+    "status": "Alive",
+    "statusEffects": [],
+    "faction": "clanLeader",
+    "role": "Tộc trưởng Cổ Nguyệt nhất tộc",
+    "personality": "Thâm trầm, lão luyện chính trị, luôn cân bằng quyền lực giữa các mạch phái và đặt hưng thịnh gia tộc lên hàng đầu.",
+    "goals": "Bồi dưỡng thiên tài Giáp đẳng Cổ Nguyệt Phương Chính làm trụ cột tương lai, kiềm chế Xích Mạch và Mạc Mạch.",
+    "locationId": "loc_tu_duong",
+    "schedule": [
+      { "shichenRange": [4, 10], "locationId": "loc_tu_duong", "activity": "Xử lý gia vụ và tiếp kiến gia lão" }
+    ],
+    "bio": "Tứ chuyển sơ giai Cổ sư, tộc trưởng đương nhiệm. Bí mật cấp tài nguyên và Ngọc Bì Cổ cho Phương Chính để tạo đối trọng với Bạch Ngưng Băng.",
+    "knowledge": {
+      "paths": [{ "path": "Quang đạo", "mastery": "Master" }],
+      "recipes": [{ "recipeId": "rec_nguyet_mang", "completeness": 100 }],
+      "killerMoves": [{ "moveId": "move_ngoc_bi_nguyet_tranh", "proficiency": 95 }]
+    },
+    "ownedGu": [
+      { "guId": "gu_nguyet_mang", "isVital": false },
+      { "guId": "gu_nguyet_y", "isVital": false }
+    ],
+    "inventory": { "capacity": 50, "primevalStones": 5000, "items": [] },
+    "publicImage": {
+      "appearance": "Nam nhân trung niên uy nghiêm, trường bào trắng viền lam, ánh mắt sâu thẳm khó đoán.",
+      "apparentRank": 13,
+      "apparentAptitude": 82,
+      "regionRep": [
+        {
+          "regionTier": "Clan",
+          "regionName": "Cổ Nguyệt Sơn Trại",
+          "publicBio": "Tộc trưởng Tứ chuyển của Cổ Nguyệt nhất tộc, uy vọng tối cao.",
+          "rep": 98
+        }
+      ]
+    }
+  },
+  {
+    "npcId": "npc_hoc_duong_gia_lao",
+    "name": "Học Đường Gia Lão",
+    "age": 62,
+    "rank": 9,
+    "aptitude": 68,
+    "currentEssence": 6.8,
+    "strength": 0.4,
+    "health": 100,
+    "status": "Alive",
+    "statusEffects": [],
+    "faction": "clanLeader",
+    "role": "Gia lão phụ trách Học Đường",
+    "personality": "Nghiêm khắc, trọng quy củ và thể diện học đường, nhưng thưởng phạt minh bạch và âm thầm quan sát thiên phú đệ tử.",
+    "goals": "Đào tạo khóa 57 học viên mới trưởng thành đúng quy củ, chọn ra Ban Đầu và hạt giống tốt cho gia tộc.",
+    "locationId": "loc_hoc_duong",
+    "schedule": [
+      { "shichenRange": [4, 9], "locationId": "loc_hoc_duong", "activity": "Giảng dạy, điểm danh và chấm khảo hạch" },
+      { "shichenRange": [10, 11], "locationId": "loc_tu_duong", "activity": "Báo cáo tình hình học đường với Tộc trưởng" }
+    ],
+    "bio": "Tam chuyển sơ giai Cổ sư, nắm giữ Nguyệt Y Cổ trị liệu; thường nhân cơ hội chữa thương để kiểm tra ngầm không khiếu đệ tử.",
+    "knowledge": {
+      "paths": [{ "path": "Quang đạo", "mastery": "Ordinary" }],
+      "recipes": [{ "recipeId": "rec_nguyet_mang", "completeness": 100 }],
+      "killerMoves": []
+    },
+    "ownedGu": [
+      { "guId": "gu_nguyet_y", "isVital": true },
+      { "guId": "gu_nguyet_mang", "isVital": false }
+    ],
+    "inventory": { "capacity": 30, "primevalStones": 800, "items": [] },
+    "publicImage": {
+      "appearance": "Lão giả râu tóc hoa râm, gương mặt nghiêm nghị, mặc trường sam học đường.",
+      "apparentRank": 9,
+      "apparentAptitude": 68,
+      "regionRep": [
+        {
+          "regionTier": "Clan",
+          "regionName": "Cổ Nguyệt Sơn Trại",
+          "publicBio": "Gia lão Tam chuyển quản lý học đường nhiều khóa, uy nghiêm khó phạm.",
+          "rep": 85
+        }
+      ]
+    }
+  },
+  {
+    "npcId": "npc_xich_luyen",
+    "name": "Cổ Nguyệt Xích Luyện",
+    "age": 60,
+    "rank": 10,
+    "aptitude": 72,
+    "currentEssence": 7.2,
+    "strength": 0.6,
+    "health": 100,
+    "status": "Alive",
+    "statusEffects": [],
+    "faction": "chiFaction",
+    "role": "Thủ lĩnh Xích Mạch (Gia lão Tam chuyển)",
+    "personality": "Tính tình nóng nảy, cực kỳ bao che con cháu trong mạch, đối đầu quyết liệt với Mạc Trần.",
+    "goals": "Duy trì ảnh hưởng 5 ghế Hội Đồng của Xích Mạch và bí mật che giấu việc gian lận tư chất cho cháu nội Xích Thành.",
+    "locationId": "loc_tu_duong",
+    "schedule": [
+      { "shichenRange": [5, 8], "locationId": "loc_tu_duong", "activity": "Họp Hội Đồng Gia Lão" }
+    ],
+    "bio": "Thủ lĩnh Xích Mạch, từng hao tổn tâm sức dùng thủ đoạn gian lận giúp cháu nội Xích Thành vượt qua kỳ đo tư chất Ất đẳng.",
+    "knowledge": { "paths": [{ "path": "Quang đạo", "mastery": "Ordinary" }], "recipes": [], "killerMoves": [] },
+    "ownedGu": [{ "guId": "gu_nguyet_mang", "isVital": true }],
+    "inventory": { "capacity": 30, "primevalStones": 1500, "items": [] },
+    "publicImage": {
+      "appearance": "Lão giả tóc đỏ rực, dáng người vạm vỡ, khí thế nóng nảy bức người.",
+      "apparentRank": 10,
+      "apparentAptitude": 72,
+      "regionRep": [
+        {
+          "regionTier": "Clan",
+          "regionName": "Cổ Nguyệt Sơn Trại",
+          "publicBio": "Đứng đầu Xích Mạch, thế lực hàng đầu trong Hội Đồng Gia Lão.",
+          "rep": 88
+        }
+      ]
+    }
+  },
+  {
+    "npcId": "npc_mac_tran",
+    "name": "Cổ Nguyệt Mạc Trần",
+    "age": 61,
+    "rank": 10,
+    "aptitude": 74,
+    "currentEssence": 7.4,
+    "strength": 0.4,
+    "health": 100,
+    "status": "Alive",
+    "statusEffects": [],
+    "faction": "moFaction",
+    "role": "Thủ lĩnh Mạc Mạch (Gia lão Tam chuyển)",
+    "personality": "Âm trầm mưu mô, tính toán lợi ích chặt chẽ, giỏi thao túng kinh tế và quan hệ gia tộc.",
+    "goals": "Mở rộng thế lực Mạc Mạch, bồi dưỡng Mạc Bắc lên làm Ban Đầu học đường và chèn ép Xích Mạch.",
+    "locationId": "loc_khach_san",
+    "schedule": [
+      { "shichenRange": [5, 8], "locationId": "loc_tu_duong", "activity": "Dự họp Hội Đồng Gia Lão" },
+      { "shichenRange": [9, 11], "locationId": "loc_khach_san", "activity": "Kiểm tra sản nghiệp kinh doanh" }
+    ],
+    "bio": "Thủ lĩnh Mạc Mạch, kiểm soát phần lớn điền trang, quán trọ và mạng lưới buôn bán trong sơn trại.",
+    "knowledge": { "paths": [{ "path": "Quang đạo", "mastery": "Ordinary" }], "recipes": [], "killerMoves": [] },
+    "ownedGu": [{ "guId": "gu_nguyet_mang", "isVital": true }],
+    "inventory": { "capacity": 35, "primevalStones": 2200, "items": [] },
+    "publicImage": {
+      "appearance": "Lão giả gầy gò mặc áo dài màu mực, ánh mắt sắc bén tính toán.",
+      "apparentRank": 10,
+      "apparentAptitude": 74,
+      "regionRep": [
+        {
+          "regionTier": "Clan",
+          "regionName": "Cổ Nguyệt Sơn Trại",
+          "publicBio": "Đứng đầu Mạc Mạch, nắm huyết mạch kinh tế Cổ Nguyệt Sơn Trại.",
+          "rep": 88
+        }
+      ]
+    }
+  },
+  {
+    "npcId": "npc_hinh_duong_gia_lao",
+    "name": "Hình Đường Gia Lão",
+    "age": 55,
+    "rank": 10,
+    "aptitude": 70,
+    "currentEssence": 7.0,
+    "strength": 0.5,
+    "health": 100,
+    "status": "Alive",
+    "statusEffects": [],
+    "faction": "neutral",
+    "role": "Chưởng quản Hình Đường",
+    "personality": "Thiết diện vô tư, lạnh lẽo, đa nghi và truy xét manh mối cực kỳ gắt gao.",
+    "goals": "Duy trì tộc quy, điều tra vụ mất tích của Cổ Kim Sinh và các hành vi mờ ám trong trại.",
+    "locationId": "loc_hinh_duong",
+    "schedule": [
+      { "shichenRange": [4, 11], "locationId": "loc_hinh_duong", "activity": "Xử lý vụ án và giám sát chấp pháp" }
+    ],
+    "bio": "Chấp pháp gia lão khét tiếng nghiêm khắc, có tầm ảnh hưởng phía sau tiểu tổ Giang Hạc.",
+    "knowledge": { "paths": [{ "path": "Quang đạo", "mastery": "Ordinary" }], "recipes": [], "killerMoves": [] },
+    "ownedGu": [{ "guId": "gu_nguyet_mang", "isVital": true }],
+    "inventory": { "capacity": 25, "primevalStones": 1000, "items": [] },
+    "publicImage": {
+      "appearance": "Nam nhân mặt lạnh như sắt, mặc hắc bào Hình Đường, ánh mắt soi mói.",
+      "apparentRank": 10,
+      "apparentAptitude": 70,
+      "regionRep": [
+        {
+          "regionTier": "Clan",
+          "regionName": "Cổ Nguyệt Sơn Trại",
+          "publicBio": "Chủ sự Hình Đường, khiến bất kỳ đệ tử phạm lỗi nào cũng khiếp sợ.",
+          "rep": 82
+        }
+      ]
+    }
+  },
+  {
+    "npcId": "npc_duoc_co",
+    "name": "Cổ Nguyệt Dược Cơ",
+    "age": 66,
+    "rank": 10,
+    "aptitude": 71,
+    "currentEssence": 7.1,
+    "strength": 0.3,
+    "health": 100,
+    "status": "Alive",
+    "statusEffects": [],
+    "faction": "neutral",
+    "role": "Chưởng quản Dược Đường",
+    "personality": "Sắc sảo, thực dụng, trọng lợi ích phe phái Dược Đường và yêu thương cháu gái Dược Nhạc.",
+    "goals": "Nắm độc quyền dược liệu và cổ trị liệu trong sơn trại.",
+    "locationId": "loc_duoc_duong",
+    "schedule": [
+      { "shichenRange": [4, 10], "locationId": "loc_duoc_duong", "activity": "Quản lý Dược Đường và điều chế thuốc" }
+    ],
+    "bio": "Đứng đầu Dược Đường, giàu có nhờ cung cấp thuốc men và cổ trị liệu cho toàn tộc.",
+    "knowledge": { "paths": [{ "path": "Mộc đạo", "mastery": "Master" }], "recipes": [], "killerMoves": [] },
+    "ownedGu": [
+      { "guId": "gu_nguyet_y", "isVital": true },
+      { "guId": "gu_tinh_thuy", "isVital": false }
+    ],
+    "inventory": {
+      "capacity": 40,
+      "primevalStones": 1800,
+      "items": [
+        { "itemId": "item_thuoc_kim_sang", "quantity": 20 },
+        { "itemId": "item_thuoc_giai_doc", "quantity": 10 }
+      ]
+    },
+    "publicImage": {
+      "appearance": "Lão phụ nhân nhỏ nhắn nhưng ánh mắt tinh anh, thoang thoảng mùi thảo dược.",
+      "apparentRank": 10,
+      "apparentAptitude": 71,
+      "regionRep": [
+        {
+          "regionTier": "Clan",
+          "regionName": "Cổ Nguyệt Sơn Trại",
+          "publicBio": "Trưởng lão Dược Đường, vị y sư tối cao của Cổ Nguyệt Sơn Trại.",
+          "rep": 84
+        }
+      ]
+    }
+  },
+  {
+    "npcId": "npc_phuong_nguyen",
+    "name": "Cổ Nguyệt Phương Nguyên",
+    "age": 15,
+    "rank": 1,
+    "aptitude": 44,
+    "currentEssence": 4.4,
+    "strength": 0.25,
+    "health": 100,
+    "status": "Alive",
+    "statusEffects": [],
+    "faction": "neutral",
+    "role": "Học viên cùng khóa (Bính đẳng 44%)",
+    "personality": "Lạnh lùng, thâm trầm, quyết đoán tuyệt đối, đặt lợi ích và đường trường sinh lên trên mọi luân thường tình cảm.",
+    "goals": "Đoạt di sản Hoa Tửu Hành Giả (Tửu Trùng, Bạch Thỉ Cổ, Ngọc Bì Cổ), tích lũy nguyên thạch nhanh nhất có thể và nâng tu vi vượt trội.",
+    "locationId": "loc_hoc_duong",
+    "schedule": [
+      { "shichenRange": [5, 6], "locationId": "loc_hoc_duong", "activity": "Dự lớp học đường (thường ngủ gật hoặc quan sát)" },
+      { "shichenRange": [7, 8], "locationId": "loc_khach_san", "activity": "Uống rượu, thu thập thông tin tại tửu quán" },
+      { "shichenRange": [10, 12], "locationId": "loc_rung_truc_sau_trai", "activity": "Bí mật thăm dò ngoại trại" }
+    ],
+    "bio": "Ma đầu trọng sinh từ 500 năm sau, mang Xuân Thu Thiền ngủ say trong không khiếu (không ai phát hiện được). Kinh nghiệm chiến đấu và mưu lược vượt xa thiếu niên 15 tuổi.",
+    "knowledge": {
+      "paths": [
+        { "path": "Luyện đạo", "mastery": "Master" },
+        { "path": "Quang đạo", "mastery": "Ordinary" }
+      ],
+      "recipes": [
+        { "recipeId": "rec_nguyet_mang", "completeness": 100 },
+        { "recipeId": "rec_bach_ngoc", "completeness": 100 }
+      ],
+      "killerMoves": []
+    },
+    "ownedGu": [],
+    "inventory": {
+      "capacity": 20,
+      "primevalStones": 6,
+      "items": [{ "itemId": "item_thanh_truc_tuu", "quantity": 1 }]
+    },
+    "publicImage": {
+      "appearance": "Thiếu niên 15 tuổi dung mạo thanh tú, đôi mắt đen sâu thẳm lạnh lẽo như vực không đáy.",
+      "apparentRank": 1,
+      "apparentAptitude": 44,
+      "regionRep": [
+        {
+          "regionTier": "Clan",
+          "regionName": "Cổ Nguyệt Sơn Trại",
+          "publicBio": "Từng nổi danh thần đồng làm thơ thuở nhỏ nhưng chỉ khai khiếu ra tư chất Bính đẳng 44%.",
+          "rep": 45
+        }
+      ]
+    }
+  },
+  {
+    "npcId": "npc_phuong_chinh",
+    "name": "Cổ Nguyệt Phương Chính",
+    "age": 15,
+    "rank": 1,
+    "aptitude": 99,
+    "currentEssence": 9.9,
+    "strength": 0.2,
+    "health": 100,
+    "status": "Alive",
+    "statusEffects": [],
+    "faction": "clanLeader",
+    "role": "Học viên cùng khóa (Thiên tài Giáp đẳng 99%)",
+    "personality": "Nhút nhát thuở đầu, khao khát được công nhận, dễ tự mãn khi được tung hô nhưng tâm lý yếu khi bị anh trai đè ép.",
+    "goals": "Chứng minh bản thân vượt qua cái bóng của anh trai Phương Nguyên và đáp lại kỳ vọng của Tộc trưởng.",
+    "locationId": "loc_hoc_duong",
+    "schedule": [
+      { "shichenRange": [5, 7], "locationId": "loc_hoc_duong", "activity": "Chăm chỉ nghe giảng và luyện tập" },
+      { "shichenRange": [8, 9], "locationId": "loc_tu_duong", "activity": "Được Tộc trưởng Cổ Nguyệt Bác chỉ điểm riêng" }
+    ],
+    "bio": "Em trai song sinh của Phương Nguyên, sở hữu tư chất Giáp đẳng 99% cực hiếm; được cữu phụ cữu mẫu lẫn Tộc trưởng dồn tài nguyên nuôi dưỡng.",
+    "knowledge": { "paths": [{ "path": "Quang đạo", "mastery": "Ordinary" }], "recipes": [], "killerMoves": [] },
+    "ownedGu": [],
+    "inventory": { "capacity": 20, "primevalStones": 15, "items": [] },
+    "publicImage": {
+      "appearance": "Thiếu niên 15 tuổi giống hệt Phương Nguyên nhưng ánh mắt non nớt, ăn mặc tươm tất mới mẻ.",
+      "apparentRank": 1,
+      "apparentAptitude": 99,
+      "regionRep": [
+        {
+          "regionTier": "Clan",
+          "regionName": "Cổ Nguyệt Sơn Trại",
+          "publicBio": "Thiên tài Giáp đẳng 99% vừa thức tỉnh, niềm hy vọng lớn của Cổ Nguyệt nhất tộc.",
+          "rep": 78
+        }
+      ]
+    }
+  },
+  {
+    "npcId": "npc_mac_bac",
+    "name": "Cổ Nguyệt Mạc Bắc",
+    "age": 15,
+    "rank": 1,
+    "aptitude": 75,
+    "currentEssence": 7.5,
+    "strength": 0.25,
+    "health": 100,
+    "status": "Alive",
+    "statusEffects": [],
+    "faction": "moFaction",
+    "role": "Học viên cùng khóa (Thiếu gia Mạc Mạch)",
+    "personality": "Kiêu ngạo, trọng thể diện, có chí tiến thủ và trung thành với lợi ích Mạc Mạch.",
+    "goals": "Đoạt vị trí Ban Đầu học đường và vượt mặt Xích Thành.",
+    "locationId": "loc_hoc_duong",
+    "schedule": [
+      { "shichenRange": [5, 7], "locationId": "loc_hoc_duong", "activity": "Lên lớp và tụ tập nhóm đệ tử Mạc Mạch" }
+    ],
+    "bio": "Cháu trai Mạc Trần và em trai Mạc Nhan, tư chất Ất đẳng ưu tú, nguồn lực gia đình dồi dào.",
+    "knowledge": { "paths": [{ "path": "Quang đạo", "mastery": "Ordinary" }], "recipes": [], "killerMoves": [] },
+    "ownedGu": [],
+    "inventory": { "capacity": 20, "primevalStones": 25, "items": [] },
+    "publicImage": {
+      "appearance": "Thiếu niên tuấn tú mặc cẩm bào thêu viền bạc, dáng vẻ tự phụ.",
+      "apparentRank": 1,
+      "apparentAptitude": 75,
+      "regionRep": [
+        {
+          "regionTier": "Clan",
+          "regionName": "Cổ Nguyệt Sơn Trại",
+          "publicBio": "Thiếu gia Mạc Mạch, tư chất Ất đẳng.",
+          "rep": 55
+        }
+      ]
+    }
+  },
+  {
+    "npcId": "npc_xich_thanh",
+    "name": "Cổ Nguyệt Xích Thành",
+    "age": 15,
+    "rank": 1,
+    "aptitude": 48,
+    "currentEssence": 4.8,
+    "strength": 0.25,
+    "health": 100,
+    "status": "Alive",
+    "statusEffects": [],
+    "faction": "chiFaction",
+    "role": "Học viên cùng khóa (Thiếu gia Xích Mạch)",
+    "personality": "Nóng nảy, háo thắng, ưa sĩ diện nhưng bên trong lo sợ bị lộ bí mật tư chất thật.",
+    "goals": "Giữ vững danh tiếng thiên tài Ất đẳng Xích Mạch và không để Mạc Bắc qua mặt.",
+    "locationId": "loc_hoc_duong",
+    "schedule": [
+      { "shichenRange": [5, 7], "locationId": "loc_hoc_duong", "activity": "Lên lớp và khoa trương cùng nhóm Xích Mạch" }
+    ],
+    "bio": "Cháu nội Xích Luyện. Tư chất thật chỉ là Bính đẳng 48%, nhưng được ông nội gian lận khi Khai Khiếu và thường xuyên bí mật truyền chân nguyên hỗ trợ để giả làm Ất đẳng.",
+    "knowledge": { "paths": [{ "path": "Quang đạo", "mastery": "Ordinary" }], "recipes": [], "killerMoves": [] },
+    "ownedGu": [],
+    "inventory": { "capacity": 20, "primevalStones": 25, "items": [] },
+    "publicImage": {
+      "appearance": "Thiếu niên tóc ánh đỏ, dáng vẻ hiên ngang, giọng nói lớn tiếng.",
+      "apparentRank": 1,
+      "apparentAptitude": 72,
+      "regionRep": [
+        {
+          "regionTier": "Clan",
+          "regionName": "Cổ Nguyệt Sơn Trại",
+          "publicBio": "Thiếu gia Xích Mạch, công khai là tư chất Ất đẳng.",
+          "rep": 55
+        }
+      ]
+    }
+  },
+  {
+    "npcId": "npc_kim_chau",
+    "name": "Cổ Nguyệt Kim Châu",
+    "age": 15,
+    "rank": 1,
+    "aptitude": 58,
+    "currentEssence": 5.8,
+    "strength": 0.18,
+    "health": 100,
+    "status": "Alive",
+    "statusEffects": [],
+    "faction": "neutral",
+    "role": "Học viên cùng khóa (Hướng trị liệu)",
+    "personality": "Điềm đạm, cẩn thận, biết giữ hòa khí với bạn học để tạo lợi thế chọn tiểu tổ.",
+    "goals": "Rèn luyện thuần thục Sinh Tức Thảo để trở thành cổ sư trị liệu được các tiểu tổ trọng dụng.",
+    "locationId": "loc_hoc_duong",
+    "schedule": [
+      { "shichenRange": [5, 7], "locationId": "loc_hoc_duong", "activity": "Học tập tại học đường" },
+      { "shichenRange": [8, 9], "locationId": "loc_duoc_duong", "activity": "Học hỏi kinh nghiệm trị thương" }
+    ],
+    "bio": "Nữ đệ tử cùng khóa chọn Sinh Tức Thảo làm Bản Mệnh Cổ, là nhân tố trị liệu hiếm hoi trong lớp.",
+    "knowledge": { "paths": [{ "path": "Mộc đạo", "mastery": "Ordinary" }], "recipes": [], "killerMoves": [] },
+    "ownedGu": [],
+    "inventory": { "capacity": 18, "primevalStones": 8, "items": [] },
+    "publicImage": {
+      "appearance": "Thiếu nữ gọn gàng dịu mắt, thường mang theo túi thảo dược nhỏ.",
+      "apparentRank": 1,
+      "apparentAptitude": 58,
+      "regionRep": [
+        {
+          "regionTier": "Clan",
+          "regionName": "Cổ Nguyệt Sơn Trại",
+          "publicBio": "Học viên cùng khóa thân thiện, theo hướng trị liệu.",
+          "rep": 25
+        }
+      ]
+    }
+  },
+  {
+    "npcId": "npc_giang_nha",
+    "name": "Giang Nha",
+    "age": 21,
+    "rank": 3,
+    "aptitude": 46,
+    "currentEssence": 4.6,
+    "strength": 0.35,
+    "health": 100,
+    "status": "Alive",
+    "statusEffects": [],
+    "faction": "neutral",
+    "role": "Tiền bối Cổ sư Nhất chuyển & Chủ sạp Thảo Nhân",
+    "personality": "Khôn lanh, coi thường phàm nhân nhưng rất khéo léo với đồng tộc có nguyên thạch.",
+    "goals": "Kiếm thêm nguyên thạch bằng việc bán con rối Thảo Nhân và giao thiệp trong sơn trại.",
+    "locationId": "loc_khach_san",
+    "schedule": [
+      { "shichenRange": [5, 7], "locationId": "loc_hoc_duong", "activity": "Bán con rối Thảo Nhân cho học viên mới" },
+      { "shichenRange": [8, 11], "locationId": "loc_khach_san", "activity": "Uống rượu trò chuyện tại tửu quán" }
+    ],
+    "bio": "Cổ sư đàn anh đeo đai đồng khắc chữ Nhất, bán con rối Thảo Nhân giá 3 nguyên thạch mỗi con.",
+    "knowledge": { "paths": [{ "path": "Mộc đạo", "mastery": "Ordinary" }], "recipes": [], "killerMoves": [] },
+    "ownedGu": [
+      { "guId": "gu_thao_nhan", "isVital": true },
+      { "guId": "gu_nguyet_quang", "isVital": false }
+    ],
+    "inventory": {
+      "capacity": 25,
+      "primevalStones": 45,
+      "items": [{ "itemId": "item_thao_nhan_con_roi", "quantity": 10 }]
+    },
+    "publicImage": {
+      "appearance": "Thanh niên cổ sư đeo thanh bố đai lưng khảm miếng đồng khắc chữ 'Nhất'.",
+      "apparentRank": 3,
+      "apparentAptitude": 46,
+      "regionRep": [
+        {
+          "regionTier": "Clan",
+          "regionName": "Cổ Nguyệt Sơn Trại",
+          "publicBio": "Đàn anh Nhất chuyển hay bán dụng cụ tập luyện quanh học đường.",
+          "rep": 30
+        }
+      ]
+    }
+  },
+  {
+    "npcId": "npc_cuu_phu",
+    "name": "Cổ Nguyệt Đống Thổ",
+    "age": 44,
+    "rank": 5,
+    "aptitude": 45,
+    "currentEssence": 4.5,
+    "strength": 0.4,
+    "health": 100,
+    "status": "Alive",
+    "statusEffects": [],
+    "faction": "neutral",
+    "role": "Chủ Khách Sạn Cổ Nguyệt (Cữu phụ Phương Nguyên)",
+    "personality": "Thực dụng, coi trọng tài sản và thế lực, lạnh nhạt với kẻ yếu nhưng nịnh nọt người có tương lai.",
+    "goals": "Giữ sản nghiệp khách sạn và nhờ bóng thiên tài Phương Chính để nâng vị thế gia đình.",
+    "locationId": "loc_tu_duong",
+    "schedule": [
+      { "shichenRange": [5, 9], "locationId": "loc_tu_duong", "activity": "Xã giao, thăm viếng và bàn bạc quan hệ với các Gia Lão" }
+    ],
+    "bio": "Cổ sư Nhị chuyển đã lui về kinh doanh khách sạn duy nhất trong sơn trại; lập tức lạnh nhạt với Phương Nguyên sau khi biết hắn chỉ là Bính đẳng.",
+    "knowledge": { "paths": [{ "path": "Quang đạo", "mastery": "Ordinary" }], "recipes": [], "killerMoves": [] },
+    "ownedGu": [{ "guId": "gu_nguyet_quang", "isVital": true }],
+    "inventory": {
+      "capacity": 35,
+      "primevalStones": 350,
+      "items": [{ "itemId": "item_thanh_truc_tuu", "quantity": 12 }]
+    },
+    "publicImage": {
+      "appearance": "Trung niên hơi đẫy đà mặc trường sam gọn gàng, khuôn mặt hay nở nụ cười thương nhân.",
+      "apparentRank": 5,
+      "apparentAptitude": 45,
+      "regionRep": [
+        {
+          "regionTier": "Clan",
+          "regionName": "Cổ Nguyệt Sơn Trại",
+          "publicBio": "Chủ khách sạn Cổ Nguyệt, cữu phụ của thiên tài Phương Chính.",
+          "rep": 50
+        }
+      ]
+    }
+  },
+  {
+    "npcId": "npc_thanh_thu",
+    "name": "Cổ Nguyệt Thanh Thư",
+    "age": 24,
+    "rank": 8,
+    "aptitude": 78,
+    "currentEssence": 7.8,
+    "strength": 0.5,
+    "health": 100,
+    "status": "Alive",
+    "statusEffects": [],
+    "faction": "clanLeader",
+    "role": "Tổ trưởng Thanh Thư Tổ (Đệ nhất Nhị chuyển)",
+    "personality": "Ôn hòa, rộng lượng, chính trực nhưng quyết đoán trong chiến đấu.",
+    "goals": "Bảo vệ gia tộc và tuyển chọn tân binh ưu tú cho Thanh Thư Tổ sau Niên Mạt Khảo Hạch.",
+    "locationId": "loc_bach_gia_trai",
+    "schedule": [
+      { "shichenRange": [4, 12], "locationId": "loc_bach_gia_trai", "activity": "Dẫn Thanh Thư Tổ làm nhiệm vụ dã ngoại nhiều ngày ngoài Thanh Mao Sơn" }
+    ],
+    "bio": "Tâm phúc của Tộc trưởng, đứng đầu Thanh Thư Tổ — một trong ba tiểu tổ ưu tú nhất gia tộc.",
+    "knowledge": {
+      "paths": [{ "path": "Mộc đạo", "mastery": "Ordinary" }],
+      "recipes": [],
+      "killerMoves": []
+    },
+    "ownedGu": [{ "guId": "gu_nguyet_mang", "isVital": true }],
+    "inventory": { "capacity": 25, "primevalStones": 400, "items": [] },
+    "publicImage": {
+      "appearance": "Thanh niên nho nhã mặc áo xanh, nụ cười ấm áp đầy khí chất.",
+      "apparentRank": 8,
+      "apparentAptitude": 78,
+      "regionRep": [
+        {
+          "regionTier": "Clan",
+          "regionName": "Cổ Nguyệt Sơn Trại",
+          "publicBio": "Cổ sư Nhị chuyển đỉnh phong, đệ nhất thanh niên cường giả của tộc Cổ Nguyệt.",
+          "rep": 86
+        }
+      ]
+    }
+  },
+  {
+    "npcId": "npc_xich_son",
+    "name": "Cổ Nguyệt Xích Sơn",
+    "age": 26,
+    "rank": 7,
+    "aptitude": 72,
+    "currentEssence": 7.2,
+    "strength": 1.2,
+    "health": 100,
+    "status": "Alive",
+    "statusEffects": [],
+    "faction": "chiFaction",
+    "role": "Tổ trưởng Xích Sơn Tổ",
+    "personality": "Trầm ổn, thẳng thắn, tự hào về sức mạnh trời sinh.",
+    "goals": "Dẫn dắt Xích Sơn Tổ khẳng định uy thế của Xích Mạch.",
+    "locationId": "loc_rung_san_heo_rung",
+    "schedule": [
+      { "shichenRange": [4, 12], "locationId": "loc_rung_san_heo_rung", "activity": "Dẫn Xích Sơn Tổ đi săn và làm nhiệm vụ dã ngoại nhiều ngày" }
+    ],
+    "bio": "Cường giả Nhị chuyển cao giai đại diện Xích Mạch, nổi tiếng khắp trại vì trời sinh thần lực hơn người.",
+    "knowledge": { "paths": [{ "path": "Lực đạo", "mastery": "Ordinary" }], "recipes": [], "killerMoves": [] },
+    "ownedGu": [{ "guId": "gu_nguyet_mang", "isVital": true }],
+    "inventory": { "capacity": 25, "primevalStones": 350, "items": [] },
+    "publicImage": {
+      "appearance": "Hán tử cao lớn gần hai mét, cơ bắp cuồn cuộn tỏa hơi nóng như lò lửa.",
+      "apparentRank": 7,
+      "apparentAptitude": 72,
+      "regionRep": [
+        {
+          "regionTier": "Clan",
+          "regionName": "Cổ Nguyệt Sơn Trại",
+          "publicBio": "Tổ trưởng Xích Sơn Tổ, nổi danh thần lực bẩm sinh.",
+          "rep": 76
+        }
+      ]
+    }
+  },
+  {
+    "npcId": "npc_mac_nhan",
+    "name": "Cổ Nguyệt Mạc Nhan",
+    "age": 22,
+    "rank": 7,
+    "aptitude": 74,
+    "currentEssence": 7.4,
+    "strength": 0.4,
+    "health": 100,
+    "status": "Alive",
+    "statusEffects": [],
+    "faction": "moFaction",
+    "role": "Tổ trưởng Mạc Nhan Tổ",
+    "personality": "Sắc bén, lạnh lùng, hết mực quan tâm và kỳ vọng vào em trai Mạc Bắc.",
+    "goals": "Hỗ trợ Mạc Bắc trưởng thành và tuyển thêm người giỏi vào Mạc Nhan Tổ.",
+    "locationId": "loc_hung_gia_trai",
+    "schedule": [
+      { "shichenRange": [4, 12], "locationId": "loc_hung_gia_trai", "activity": "Dẫn Mạc Nhan Tổ tuần tra tiền sơn và làm nhiệm vụ dã ngoại nhiều ngày" }
+    ],
+    "bio": "Chị gái Mạc Bắc, nữ cường giả Nhị chuyển đại diện Mạc Mạch.",
+    "knowledge": { "paths": [{ "path": "Quang đạo", "mastery": "Ordinary" }], "recipes": [], "killerMoves": [] },
+    "ownedGu": [{ "guId": "gu_nguyet_mang", "isVital": true }],
+    "inventory": { "capacity": 25, "primevalStones": 380, "items": [] },
+    "publicImage": {
+      "appearance": "Nữ cổ sư sắc sảo mặc chiến phục gọn gàng, ánh mắt tự tin.",
+      "apparentRank": 7,
+      "apparentAptitude": 74,
+      "regionRep": [
+        {
+          "regionTier": "Clan",
+          "regionName": "Cổ Nguyệt Sơn Trại",
+          "publicBio": "Tổ trưởng Mạc Nhan Tổ, một trong ba tiểu tổ mạnh nhất trại.",
+          "rep": 74
+        }
+      ]
+    }
+  },
+  {
+    "npcId": "npc_giac_tam",
+    "name": "Cổ Nguyệt Giác Tam",
+    "age": 31,
+    "rank": 6,
+    "aptitude": 48,
+    "currentEssence": 4.8,
+    "strength": 0.35,
+    "health": 100,
+    "status": "Alive",
+    "statusEffects": [],
+    "faction": "neutral",
+    "role": "Tổ trưởng Tạp Tổ ('Bệnh Xà')",
+    "personality": "Khôn ngoan, âm trầm, kín kẽ và thực dụng trong việc chọn người.",
+    "goals": "Chiêu mộ một tay công kích tốt cho tiểu tổ nhỏ không bối cảnh của mình.",
+    "locationId": "loc_rung_san_heo_rung",
+    "schedule": [
+      { "shichenRange": [4, 12], "locationId": "loc_rung_san_heo_rung", "activity": "Dẫn Tạp Tổ làm nhiệm vụ dã ngoại nhiều ngày ngoài núi" }
+    ],
+    "bio": "Cổ sư Nhị chuyển có biệt danh 'Bệnh Xà', cầm đầu một tạp tổ không hậu thuẫn lớn.",
+    "knowledge": { "paths": [{ "path": "Độc đạo", "mastery": "Ordinary" }], "recipes": [], "killerMoves": [] },
+    "ownedGu": [{ "guId": "gu_nguyet_quang", "isVital": true }],
+    "inventory": { "capacity": 20, "primevalStones": 120, "items": [] },
+    "publicImage": {
+      "appearance": "Nam nhân dáng trung bình, da vàng vọt như mang bệnh nhưng đôi mắt tam giác lóe tinh quang.",
+      "apparentRank": 6,
+      "apparentAptitude": 48,
+      "regionRep": [
+        {
+          "regionTier": "Clan",
+          "regionName": "Cổ Nguyệt Sơn Trại",
+          "publicBio": "Tổ trưởng tạp tổ biệt danh 'Bệnh Xà'.",
+          "rep": 35
+        }
+      ]
+    }
+  },
+  {
+    "npcId": "npc_co_phu",
+    "name": "Cổ Phú",
+    "age": 42,
+    "rank": 13,
+    "aptitude": 80,
+    "currentEssence": 8.0,
+    "strength": 0.5,
+    "health": 100,
+    "status": "Alive",
+    "statusEffects": [],
+    "faction": "outsider",
+    "role": "Đầu lĩnh Thương Đội Cổ Gia (Tứ chuyển)",
+    "personality": "Hòa nhã ngoài mặt nhưng cực kỳ sắc bén, trọng uy tín thương đoàn và quyền uy Cổ gia.",
+    "goals": "Hoàn tất chuyến giao thương tháng 5 tại Thanh Mao Sơn và điều tra tung tích em trai Cổ Kim Sinh.",
+    "locationId": "loc_quang_truong",
+    "schedule": [
+      { "shichenRange": [5, 10], "locationId": "loc_quang_truong", "activity": "Điều hành chợ phiên thương đội tháng 5" }
+    ],
+    "bio": "Cổ sư Tứ chuyển cưỡi Bảo Khí Hoàng Đồng Thiềm, người đứng đầu thương đội Cổ gia lên Thanh Mao Sơn vào tháng 5.",
+    "knowledge": { "paths": [{ "path": "Thổ đạo", "mastery": "Master" }], "recipes": [], "killerMoves": [] },
+    "ownedGu": [{ "guId": "gu_bao_khi_hoang_dong_thiem", "isVital": true }],
+    "inventory": {
+      "capacity": 100,
+      "primevalStones": 8000,
+      "items": [
+        { "itemId": "item_tri_tam_thao", "quantity": 30 },
+        { "itemId": "item_da_do_thach", "quantity": 50 }
+      ]
+    },
+    "publicImage": {
+      "appearance": "Nam nhân trung niên bụng tròn, mặt rỗ cười híp mắt, ngồi vắt chân trên đầu con thiềm vàng khổng lồ.",
+      "apparentRank": 13,
+      "apparentAptitude": 80,
+      "regionRep": [
+        {
+          "regionTier": "Region",
+          "regionName": "Thanh Mao Sơn",
+          "publicBio": "Đầu lĩnh thương đội Cổ gia giàu có, Tứ chuyển cường giả.",
+          "rep": 90
+        }
+      ]
+    }
+  },
+  {
+    "npcId": "npc_co_kim_sinh",
+    "name": "Cổ Kim Sinh",
+    "age": 27,
+    "rank": 6,
+    "aptitude": 68,
+    "currentEssence": 6.8,
+    "strength": 0.35,
+    "health": 100,
+    "status": "Alive",
+    "statusEffects": [],
+    "faction": "outsider",
+    "role": "Nhị thiếu gia Thương Đội Cổ Gia (Chủ Đổ Thạch Tràng)",
+    "personality": "Ngạo mạn, tham lam, thích mánh khóe làm ăn và hay đố kỵ với anh trai Cổ Phú.",
+    "goals": "Kiếm lợi nhuận lớn từ Đổ Thạch Tràng và tìm kiếm cơ duyên riêng tại Thanh Mao Sơn.",
+    "locationId": "loc_quang_truong",
+    "schedule": [
+      { "shichenRange": [5, 9], "locationId": "loc_quang_truong", "activity": "Trông coi Đổ Thạch Tràng tháng 5" },
+      { "shichenRange": [10, 11], "locationId": "loc_khach_san", "activity": "Uống rượu giải sầu tại tửu quán" }
+    ],
+    "bio": "Em trai Cổ Phú, điều hành Đổ Thạch Tràng có ẩn Lại Thổ Cáp Mô; từng bán Thối Thí Phì Trùng giả làm Hắc Thỉ Cổ gây bê bối.",
+    "knowledge": { "paths": [{ "path": "Thổ đạo", "mastery": "Ordinary" }], "recipes": [], "killerMoves": [] },
+    "ownedGu": [{ "guId": "gu_thoi_thi_phi_trung", "isVital": false }],
+    "inventory": {
+      "capacity": 40,
+      "primevalStones": 900,
+      "items": [{ "itemId": "item_da_do_thach", "quantity": 20 }]
+    },
+    "publicImage": {
+      "appearance": "Thanh niên mặc gấm vóc sang trọng, vẻ mặt kiêu căng thực dụng.",
+      "apparentRank": 6,
+      "apparentAptitude": 68,
+      "regionRep": [
+        {
+          "regionTier": "Clan",
+          "regionName": "Cổ Nguyệt Sơn Trại",
+          "publicBio": "Nhị thiếu gia thương đội Cổ gia, chủ sạp đổ thạch.",
+          "rep": 60
+        }
+      ]
+    }
+  },
+  {
+    "npcId": "npc_vuong_lao_han",
+    "name": "Vương Lão Hán",
+    "age": 52,
+    "rank": 0,
+    "aptitude": 0,
+    "currentEssence": 0,
+    "strength": 0.35,
+    "health": 100,
+    "status": "Alive",
+    "statusEffects": [],
+    "faction": "outsider",
+    "role": "Lão thợ săn phàm nhân chân núi",
+    "personality": "Cứng đầu, kiêu ngạo với dân làng, giàu kinh nghiệm săn sơn trư nhưng mù quáng trước nguy hiểm từ cổ sư.",
+    "goals": "Cùng con trai Vương Nhị săn bắn kiếm sống dưới chân núi.",
+    "locationId": "loc_thon_pham_nhan",
+    "schedule": [
+      { "shichenRange": [4, 8], "locationId": "loc_rung_san_heo_rung", "activity": "Đặt bẫy và săn sơn trư" },
+      { "shichenRange": [9, 12], "locationId": "loc_thon_pham_nhan", "activity": "Nghỉ tại nhà gỗ bìa thôn" }
+    ],
+    "bio": "Thợ săn lão luyện nổi tiếng nhất vùng chân núi; con trai cả là Vương Đại từng mất tích 3 năm trước trên núi.",
+    "knowledge": { "paths": [], "recipes": [], "killerMoves": [] },
+    "ownedGu": [],
+    "inventory": {
+      "capacity": 15,
+      "primevalStones": 3,
+      "items": [
+        { "itemId": "item_thit_lon_rung", "quantity": 4 },
+        { "itemId": "item_rang_lon_rung", "quantity": 2 }
+      ]
+    },
+    "publicImage": {
+      "appearance": "Lão thợ săn da sạm nắng, lưng đeo cung cứng và dao săn.",
+      "apparentRank": 0,
+      "apparentAptitude": 0,
+      "regionRep": [
+        {
+          "regionTier": "Clan",
+          "regionName": "Chân Núi Thanh Mao",
+          "publicBio": "Thợ săn lợn rừng lão luyện nhất thôn chân núi.",
+          "rep": 40
+        }
+      ]
+    }
+  },
+  {
+    "npcId": "npc_vuong_nhi",
+    "name": "Vương Nhị",
+    "age": 19,
+    "rank": 0,
+    "aptitude": 0,
+    "currentEssence": 0,
+    "strength": 0.32,
+    "health": 100,
+    "status": "Alive",
+    "statusEffects": [],
+    "faction": "outsider",
+    "role": "Thợ săn trẻ (Con thứ Vương Lão Hán)",
+    "personality": "Nóng nảy, gan lì, thiếu kính sợ trước đệ tử cổ sư trẻ tuổi.",
+    "goals": "Săn nhiều sơn trư và nuôi mộng rời khỏi Thanh Mao Sơn.",
+    "locationId": "loc_rung_san_heo_rung",
+    "schedule": [
+      { "shichenRange": [4, 9], "locationId": "loc_rung_san_heo_rung", "activity": "Đi săn sơn trư cùng nhóm thợ săn trẻ" }
+    ],
+    "bio": "Con thứ của Vương Lão Hán, em trai của Ma đạo Cổ sư Vương Đại.",
+    "knowledge": { "paths": [], "recipes": [], "killerMoves": [] },
+    "ownedGu": [],
+    "inventory": {
+      "capacity": 12,
+      "primevalStones": 1,
+      "items": [{ "itemId": "item_thit_lon_rung", "quantity": 2 }]
+    },
+    "publicImage": {
+      "appearance": "Thanh niên thợ săn cao ráo, mắt sáng, mang cung tên săn thú.",
+      "apparentRank": 0,
+      "apparentAptitude": 0,
+      "regionRep": [
+        {
+          "regionTier": "Clan",
+          "regionName": "Chân Núi Thanh Mao",
+          "publicBio": "Thợ săn trẻ nổi danh gan dạ ở thôn chân núi.",
+          "rep": 25
+        }
+      ]
+    }
+  },
+  {
+    "npcId": "npc_vuong_dai_ma_dao",
+    "name": "Vương Đại",
+    "age": 24,
+    "rank": 5,
+    "aptitude": 52,
+    "currentEssence": 5.2,
+    "strength": 0.45,
+    "health": 100,
+    "status": "Alive",
+    "statusEffects": [],
+    "faction": "outsider",
+    "role": "Ma Đạo Cổ Sư Nhị chuyển (Con cả nhà họ Vương)",
+    "personality": "Thâm độc, kiên nhẫn rình rập, mang mối thù sâu sắc khi hay tin nhà họ Vương gặp nạn.",
+    "goals": "Lẻn về Thanh Mao Sơn truy sát kẻ gây họa cho gia đình mình bằng U Ảnh Tùy Hành Cổ và Ái Sinh Ly.",
+    "locationId": "loc_rung_san_heo_rung",
+    "schedule": [
+      { "shichenRange": [10, 12], "locationId": "loc_rung_san_heo_rung", "activity": "Ẩn mình trong bóng tối rình rập con mồi" }
+    ],
+    "bio": "Con trai cả của Vương Lão Hán mất tích 3 năm trước khi đi săn; kỳ ngộ tu thành Ma đạo Nhị chuyển Cổ sư nắm U Ảnh Tùy Hành Cổ và Ái Sinh Ly.",
+    "knowledge": {
+      "paths": [
+        { "path": "Ám đạo", "mastery": "Ordinary" },
+        { "path": "Độc đạo", "mastery": "Ordinary" }
+      ],
+      "recipes": [],
+      "killerMoves": [{ "moveId": "move_u_anh_doc_sat", "proficiency": 78 }]
+    },
+    "ownedGu": [
+      { "guId": "gu_u_anh_tuy_hanh", "isVital": true },
+      { "guId": "gu_ai_sinh_ly", "isVital": false }
+    ],
+    "inventory": {
+      "capacity": 20,
+      "primevalStones": 60,
+      "items": [{ "itemId": "item_huyet_doc_thao", "quantity": 4 }]
+    },
+    "publicImage": {
+      "appearance": "Bóng người mặc áo choàng sẫm màu ẩn khuất trong rừng đêm, khí tức lạnh lẽo nguy hiểm.",
+      "apparentRank": 5,
+      "apparentAptitude": 52,
+      "regionRep": [
+        {
+          "regionTier": "Clan",
+          "regionName": "Thanh Mao Sơn",
+          "publicBio": "Bóng ma ma đạo ẩn hiện quanh rừng núi cuối mùa hạ.",
+          "rep": 15
+        }
+      ]
+    }
+  }
+]

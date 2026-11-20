@@ -1,0 +1,186 @@
+[
+  {
+    "itemId": "item_canh_hoa_nguyet_lan",
+    "name": "Cánh hoa Nguyệt Lan",
+    "type": "Food",
+    "description": "Cánh hoa tươi màu lam nhạt trồng trong vườn Nguyệt Lan của sơn trại. Thức ăn chính của Nguyệt Quang Cổ và Nguyệt Mang Cổ (1 nguyên thạch mua được 10 cánh, Nguyệt Quang Cổ tiêu hao 4 cánh/ngày theo nguyên tác).",
+    "size": 0.1,
+    "basePrice": 0.1
+  },
+  {
+    "itemId": "item_tri_tam_thao",
+    "name": "Tri Tâm Thảo",
+    "type": "Material",
+    "description": "Cỏ thảo dược hiếm từ thương đội Cổ gia; trộn cùng cánh hoa Nguyệt Lan giúp giảm một nửa khẩu phần ăn của Nguyệt Quang Cổ.",
+    "size": 0.2,
+    "basePrice": 2
+  },
+  {
+    "itemId": "item_ruou_gao",
+    "name": "Rượu Gạo Sơn Trại",
+    "type": "Food",
+    "description": "Rượu gạo bình dân bán tại 3 tửu quán trong Cổ Nguyệt Sơn Trại. Dùng nuôi Tửu Trùng thường ngày.",
+    "size": 1,
+    "basePrice": 0.5
+  },
+  {
+    "itemId": "item_thanh_truc_tuu",
+    "name": "Thanh Trúc Tửu",
+    "type": "Food",
+    "description": "Danh tửu ủ trong ống thanh mâu trúc của Cổ Nguyệt Sơn Trại, hương thơm thanh nhã cực kỳ hấp dẫn Tửu Trùng (giá 2 nguyên thạch một vò theo nguyên tác).",
+    "size": 1.5,
+    "basePrice": 2
+  },
+  {
+    "itemId": "item_hau_nhi_tuu",
+    "name": "Hầu Nhi Tửu",
+    "type": "Food",
+    "description": "Rượu quả quý do bầy khỉ núi ủ lâu năm, vị nồng dịu, nguyên liệu nuôi và hợp luyện Tứ Vị Tửu Trùng.",
+    "size": 1.5,
+    "basePrice": 5
+  },
+  {
+    "itemId": "item_thit_lon_rung",
+    "name": "Thịt Lợn Rừng",
+    "type": "Food",
+    "description": "Thịt sơn trư tươi săn được quanh sườn núi Thanh Mao. Thức ăn bắt buộc của Bạch Thỉ Cổ, Hắc Thỉ Cổ, Hoa Thỉ Cổ và Phấn Thỉ Cổ.",
+    "size": 1,
+    "basePrice": 0.5
+  },
+  {
+    "itemId": "item_rang_lon_rung",
+    "name": "Răng Nanh Lợn Rừng",
+    "type": "KeyItem",
+    "description": "Chiến lợi phẩm săn sơn trư ngoài trại, dùng làm chứng vật nộp điểm và đổi thưởng nguyên thạch trong Niên Trung Khảo Hạch cuối tháng 6.",
+    "size": 0.5,
+    "basePrice": 2
+  },
+  {
+    "itemId": "item_quang_ngoc_thach",
+    "name": "Quặng Ngọc Thạch",
+    "type": "Food",
+    "description": "Đá ngọc thô hoặc mắt ngọc của Ngọc Nhãn Thạch Hầu, dùng nuôi Ngọc Bì Cổ và Bạch Ngọc Cổ.",
+    "size": 1,
+    "basePrice": 4
+  },
+  {
+    "itemId": "item_vun_quang_sat_dong",
+    "name": "Vụn Quặng Đồng Sắt",
+    "type": "Food",
+    "description": "Vụn quặng sắt, đồng và đá cứng mua tại tiệm rèn. Thức ăn cho nhóm Đồng Bì Cổ, Thiết Bì Cổ và Thạch Bì Cổ.",
+    "size": 1,
+    "basePrice": 0.5
+  },
+  {
+    "itemId": "item_da_thu_tho",
+    "name": "Da Thú Thô",
+    "type": "Food",
+    "description": "Da sơn trư hoặc dã thú phơi khô; dùng nuôi Da Thú Cổ hoặc bán cho thương đội.",
+    "size": 1,
+    "basePrice": 1
+  },
+  {
+    "itemId": "item_bot_da_huynh_quang",
+    "name": "Bột Đá Huỳnh Quang",
+    "type": "Food",
+    "description": "Bột khoáng phát sáng nhẹ trong bóng tối. Thức ăn của Tiểu Quang Cổ và Thiểm Quang Cổ.",
+    "size": 0.3,
+    "basePrice": 0.5
+  },
+  {
+    "itemId": "item_duoc_thao_sinh_co",
+    "name": "Thảo Dược Sinh Cơ",
+    "type": "Food",
+    "description": "Cỏ dược liệu xanh mướt hái trên sườn núi hoặc mua ở Dược Đường. Dùng nuôi Sinh Tức Thảo, Cửu Diệp Sinh Cơ Thảo và điều chế thuốc.",
+    "size": 0.5,
+    "basePrice": 1
+  },
+  {
+    "itemId": "item_la_co_suong",
+    "name": "Lá Mâu Trúc & Sương Sớm",
+    "type": "Food",
+    "description": "Lá trúc non và thực vật dại dễ kiếm quanh sơn trại. Thức ăn cho Túi Cơm Thảo, Túi Rượu Hoa, Ôn Ti Chu, Thảo Nhân Cổ và nhóm Thiên Ngưu Cổ.",
+    "size": 0.5,
+    "basePrice": 0.2
+  },
+  {
+    "itemId": "item_bun_vang_linh",
+    "name": "Bùn Vàng Tinh Khiết",
+    "type": "Food",
+    "description": "Loại bùn khoáng vàng đặc biệt lắng đọng ven sông. Thức ăn chuyên biệt của Lại Thổ Cáp Mô.",
+    "size": 1.5,
+    "basePrice": 3
+  },
+  {
+    "itemId": "item_toc_den_linh",
+    "name": "Sợi Tơ & Tóc Dã Thú",
+    "type": "Food",
+    "description": "Lông bờm lợn rừng và tơ thú dùng nuôi Thanh Ti Cổ, Hắc Tông Cổ và làm phụ liệu luyện cổ.",
+    "size": 0.3,
+    "basePrice": 0.5
+  },
+  {
+    "itemId": "item_huyet_doc_thao",
+    "name": "Độc Thảo Đêm",
+    "type": "Food",
+    "description": "Cỏ độc mọc nơi khe đá ẩm lạnh. Dùng nuôi các cổ trùng Ám đạo / Độc đạo như U Ảnh Tùy Hành Cổ, Ái Sinh Ly.",
+    "size": 0.5,
+    "basePrice": 2
+  },
+  {
+    "itemId": "item_thao_nhan_con_roi",
+    "name": "Con Rối Thảo Nhân",
+    "type": "Consumable",
+    "description": "Bia hình người bện bằng rơm có thể tự mọc lại nhẹ, dùng luyện phóng Nguyệt Nhận trước kỳ kiểm tra học đường (giá 3 nguyên thạch theo nguyên tác).",
+    "size": 2,
+    "basePrice": 3
+  },
+  {
+    "itemId": "item_thuoc_kim_sang",
+    "name": "Thuốc Kim Sang Dược Đường",
+    "type": "Consumable",
+    "description": "Thuốc bột cầm máu và tiêu viêm do Dược Đường điều chế. Hồi 25% HP và hóa giải Ngoại thương.",
+    "size": 0.5,
+    "basePrice": 3
+  },
+  {
+    "itemId": "item_thuoc_giai_doc",
+    "name": "Đan Giải Độc Sơ Cấp",
+    "type": "Consumable",
+    "description": "Thuốc giải các loại độc thảo và độc trùng Nhất–Nhị chuyển phổ thông.",
+    "size": 0.5,
+    "basePrice": 5
+  },
+  {
+    "itemId": "item_luong_kho",
+    "name": "Lương Khô & Ống Nước",
+    "type": "Consumable",
+    "description": "Khẩu phần ăn uống dã ngoại đủ dùng cho 2 ngày khi đi săn hoặc khám phá ngoài sơn trại.",
+    "size": 1,
+    "basePrice": 0.5
+  },
+  {
+    "itemId": "item_giay_phep_ra_trai",
+    "name": "Giấy Phép Ra Trại Học Đường",
+    "type": "KeyItem",
+    "description": "Lệnh bài có ấn ký Học Đường Gia Lão cho phép đệ tử rời Cổ Nguyệt Sơn Trại đi săn hợp pháp mà không bị tính vắng học.",
+    "size": 0.1,
+    "basePrice": 0
+  },
+  {
+    "itemId": "item_da_do_thach",
+    "name": "Đá Thô Đổ Thạch",
+    "type": "Misc",
+    "description": "Khối đá nguyên khoáng bán tại Đổ Thạch Tràng của thương đội Cổ Phú (10 nguyên thạch/khối); đa số là đá rỗng nhưng hiếm hoi có thể ẩn chứa cổ trùng hóa thạch.",
+    "size": 3,
+    "basePrice": 10
+  },
+  {
+    "itemId": "item_nuoc_linh_suoi",
+    "name": "Nước Suối Tinh Khiết",
+    "type": "Food",
+    "description": "Nước suối lạnh thanh khiết hứng từ khe núi Hậu Sơn, thức ăn của Tịnh Thủy Cổ và nhóm Thủy đạo.",
+    "size": 1,
+    "basePrice": 0.3
+  }
+]

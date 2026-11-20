@@ -1,438 +1,240 @@
-# Cổ Nguyệt Sơn Trại (Cổ Chân Nhân AI Text-RPG)
-
-## 1. Tổng quan & Bối cảnh
-- **Tên trò chơi:** Cổ Nguyệt Sơn Trại
-- **Địa điểm:** Thanh Mao Sơn — Cổ Nguyệt Sơn Trại và vùng phụ cận trong tác phẩm *Cổ Chân Nhân*.
-- **Thời gian bắt đầu:** Sáng hôm sau **Khai Khiếu Đại Điển** (Năm thứ nhất — 15 tuổi; nhân vật chính trong nguyên tác là Phương Nguyên đóng vai trò NPC bạn học/kình địch cùng khóa, không phải nhân vật người chơi).
-- **Nội dung:** Người chơi nhập vai thành 1 trong 57 thiếu niên 15 tuổi thành công khai khiếu tại Học đường Cổ Nguyệt Sơn Trại và tự mở ra con đường tu hành của mình.
-- **Thời lượng:** 1 năm thời gian trong game (365 ngày, 4 mùa), kết thúc sau **Đại hội Niên Mạt Khảo Hạch** cuối năm (và lời mời phân bổ tiểu tổ).
-
----
-
-## 2. Lối chơi cốt lõi
-- Người chơi tự do viết ra quyết định/hành động của mình, quản trò AI kể tiếp diễn biến dựa trên dữ liệu thực tế và kết quả hệ thống tính toán.
-- **Cơ chế tung xúc xắc `d100` (chuẩn hóa theo Độ khó — `targetDC`):**
-  - Với hành động có rủi ro, tranh chấp hoặc khả năng thất bại, quản trò AI đánh giá **Độ khó khách quan (`baseDC`: 1–100)** (số càng nhỏ càng dễ, số càng lớn càng khó).
-  - Chương trình `dice100` tự động áp dụng điều chỉnh từ `luck` và `fatigue`/`statusEffects` để ra **Ngưỡng cần vượt cuối cùng (`targetDC`: 1–100)**, sau đó tung random `roll` từ 1–100 và trả về chênh lệch `margin = roll - targetDC`:
-    - `margin >= 0` (`0` đến `99`, trong đó `0` là thành công suýt soát): **Thành công**.
-    - `margin < 0` (`-99` đến `-1`): **Thất bại**.
-  - Quản trò AI dựa vào `margin` và cờ biên (1 hoặc 100) để suy diễn mức độ thành công/thất bại và hệ quả lên nhân vật lẫn thế giới.
-- **Hành động thường ngày (không tung dice):** Với các hành động không có rủi ro hay xung đột (đi lại trong khu vực an toàn, trò chuyện xã giao, xem túi đồ, mua bán đúng giá niêm yết...), quản trò AI không gọi `dice100` để giữ nhịp truyện mượt và tiết kiệm lượt gọi API.
-- **Thế giới cố định bám nguyên tác:** Bản đồ và phân phối tài nguyên là dữ liệu cố định (không random map). Người chơi hoàn toàn có thể tận dụng kiến thức nguyên tác để tìm cơ duyên hoặc đối phó biến cố trước khi có manh mối, miễn là đưa ra kế hoạch hợp lý và vượt qua các rào cản thực tế.
-- **Cơ chế Chiến đấu (Combat Loop):**
-  - Khi bước vào giao tranh giữa cổ sư hoặc với dã thú nguy hiểm, game chuyển sang **nhịp chiến đấu ngắn (theo hiệp / vài nhịp thở)** thay vì cắt theo canh giờ.
-  - Mỗi hiệp, người chơi mô tả tổ hợp chiêu thức/cổ trùng sử dụng; `essenceCalc` trừ chân nguyên trực tiếp cho tất cả cổ trùng/sát chiêu kích hoạt trong hiệp đó, `dice100` phân định kết quả pha giao tranh, sau đó AI mô tả diễn biến hiệp đấu.
-  - Khi kết thúc trận đánh, tổng thời gian trận đấu (tính bằng phút) mới cộng vào đồng hồ thế giới và quy đổi mệt mỏi (`fatigue`)/thương tích.
+Tên trò chơi: Cổ nguyệt sơn trại
+Bối cảnh:
+- địa điểm:    thanh mao sơn - cổ nguyệt sơn trại trong tác phẩm "Cổ Chân Nhân"
+- thời gian:   sau 1 đêm sau khi nhân vật chính trong truyện Phương Nguyên (đây không phải là nhân vật chính trò chơi) chính là khai khiếu đại điển
+- nội dung:    người chơi nhập vai thành 1 trong những thiếu niên thành công khai khiếu và mở ra con đường tu hành của mình.
+- thời lượng:  game hiện có thời lượng là 1 năm thời gian trong game, kết thúc sau đại hội sát hạch
+Lối chơi:
+- bạn viết ra quyết định của mình và để quản trò AI kể về diễn biến tiếp theo sau hành động của bạn.
+  quyết định của bạn có tính khả thi như thế nào sẽ được AI tính thành điểm từ 1-100 và sau đó AI gọi lệnh tung dice 100 mặt và so sánh giá trị chênh lệch để quyết định bạn thành công (chênh lệch điểm là 0 đến 99, trong đó 0 là thành công suýt soát) hay thất bại (chênh lệch điểm là -99 đến -1), sau đó quản trò AI suy diễn ra mức độ ảnh hưởng của hành động ấy đối với bạn và với thế giới.
+- với những hành động sinh hoạt bình thường, không có rủi ro hay xung đột (đi lại trong trại, trò chuyện xã giao, xem túi đồ, mua bán đúng giá...) thì quản trò AI không cần tung dice để giữ nhịp truyện và tiết kiệm lượt gọi AI.
 
 ---
-
-## 3. Yêu cầu đối với quản trò AI
-- Kể chuyện bằng văn phong lạnh lùng, thực tế, đậm chất mưu lược và tàn khốc của tác phẩm *Cổ Chân Nhân*.
-- Chỉ đánh giá **Độ khó khách quan (`baseDC`)** cho hành động cần tung dice (không tự cộng/trừ `luck` để tránh trùng lặp với `dice100`).
-- Ước lượng thời gian tiêu tốn hợp lý cho mỗi hành động (tính bằng **phút** hoặc **canh giờ**) rồi trả về trong JSON để chương trình cập nhật đồng hồ thế giới.
-- Suy luận tầm ảnh hưởng của hành động (thay đổi chỉ số, vật phẩm, quan hệ, cờ sự kiện, tin đồn, dòng tóm tắt ký ức) và trả về qua Structured Output để code kiểm tra hợp lệ trước khi ghi.
-- Tuyệt đối không tự ý nói, suy nghĩ hay quyết định hành động thay cho người chơi.
-- Bám sát 100% dữ liệu hiện có của thế giới và nhân vật (không tự bịa ra cổ trùng, nguyên thạch, cổ phương hay thông tin không tồn tại trong database/state).
+Yêu cầu đối với quản trò AI:
+- kể chuyện với văn phong tác phẩm "Cổ Chân Nhân"
+- tính điểm d100 bạn cần đạt để hành động bạn đưa ra thành công
+- suy luận tầm ảnh hưởng của hành động của bạn và ghi điều đó vào dữ liệu game
+- không tự ý nói, suy nghĩ hay quyết định hành động thay cho người chơi
+- bám sát dữ liệu hiện có của thế giới và nhân vật (không tự bịa ra cổ trùng, nguyên thạch hay thông tin mà nhân vật không có cách nào biết)
 
 ---
-
-## 4. Các chương trình hỗ trợ AI (Game Engine bằng Code)
-- **`dice100`:** Nhận `baseDC` (1–100) từ quản trò AI; tự tính điều chỉnh theo `luck` (`-50` đến `50`: `luck` dương **giảm** `targetDC`, `luck` âm **tăng** `targetDC`, biên độ tối đa khoảng ±10 điểm), cộng thêm phạt từ `fatigue` cao và `statusEffects`; chốt `targetDC` trong `[1, 100]`, tung random `1–100` và trả về `{ roll, targetDC, margin, isCritSuccess (roll === 100), isCritFail (roll === 1) }`.
-- **`essenceCalc`:** Quy đổi và tính toán chân nguyên theo đơn vị **"thành"** dựa trên `rank` tiểu cảnh giới (`1–20`) của người dùng và `essenceCost` chuẩn của cổ trùng/sát chiêu (`{ amount, baseRank }`):
-  - Kiểm tra có đủ chân nguyên hay không rồi trừ trực tiếp vào `currentEssence`.
-  - Hỗ trợ kiểm tra tổng tiêu hao khi kích hoạt nhiều cổ trùng cùng lúc trong 1 hiệp chiến đấu.
-- **`timeTick`:** Nhận thời gian hành động (quy về **phút**). Cộng vào `currentTime` (`0–119` phút trong canh giờ hiện tại); mỗi khi vượt qua mốc 120 phút (sang 1 **canh giờ** mới), chạy 1 lát cắt mô phỏng bằng code mà không tốn API:
-  - Cập nhật `fatigue`, hồi phục `currentEssence` theo `aptitude`, trừ `hunger` của từng cổ trùng theo `feedingCycleDays`, xử lý tác động mỗi canh giờ của `statusEffects`, cập nhật `spreadRumor`, và kiểm tra `worldEffects` của các sự kiện theo ngày.
-  - Kiểm tra **3 nhóm điều kiện ngắt quãng** (nội tại & tài nguyên, môi trường & sự kiện, nghĩa vụ xã hội). Chỉ dừng vòng lặp và gọi AI kể chuyện 1 lần khi bị ngắt hoặc hoàn thành trọn hành động.
-- **`updateState`:** Kiểm tra điều kiện hợp lệ (không trừ âm nguyên thạch/chân nguyên, không vượt sức chứa túi đồ, không dùng cổ chưa luyện hóa, không phá hủy Bản Mệnh Cổ khi hợp luyện thất bại) rồi mới ghi thay đổi vào trạng thái nhân vật, NPC, túi đồ, bản đồ, quan hệ, danh vọng phe phái và `worldFlags`. Tự động kích hoạt Game Over nếu `health <= 0` hoặc `apertureStatus === "Crippled"`.
-- **`spreadRumor`:** Quản lý bảng `activeRumors` tập trung theo khu vực và thời gian; khi người chơi gặp NPC mới, kiểm tra xem NPC đó đã nằm trong `knownByNpcIds` chưa (nếu chưa thì xét xác suất nghe phong phanh 1 lần rồi lưu kết quả lại để tránh mâu thuẫn giữa các lần gặp). Chỉ khi `spreadLevel >= 70` mới kết tinh thành 1 dòng cố định trong `publicImage.regionRep[].publicBio`.
-- **`contextLoader`:** Trước mỗi lượt chỉ nạp dữ liệu địa điểm hiện tại, NPC đang có mặt (chỉ đưa phần `publicImage` ra mặt giao diện, đưa dữ liệu thật vào ngữ cảnh ẩn cho AI nhập vai), sự kiện đang hoạt động, tin đồn liên quan, `memoryLog` nén và `6–10` lượt hội thoại nguyên văn gần nhất để tiết kiệm token.
+Các chương trình hỗ trợ AI:
+- dice100: lấy điểm d100 quản trò AI đưa ra (đã tính ảnh hưởng từ luck) sau đó tung dice random 1-100 và trả về cho quản trò giá trị chênh lệch (kèm cờ đặc biệt nếu tung ra 1 hoặc 100)
+- timeTick: cộng thời gian sau hành động, tự động giảm hunger của cổ trùng, hồi phục chân nguyên theo tư chất, và kiểm tra các sự kiện trong năm đến hạn kích hoạt
+- updateState: cập nhật chỉ số người chơi, túi đồ, cổ trùng, thương tích, vị trí, quan hệ NPC và kiểm tra điều kiện hợp lệ (không trừ âm nguyên thạch/chân nguyên, không vượt giới hạn)
+- spreadRumor: ghi nhận tin đồn vào publicBio và tính toán mức độ lan truyền theo thời gian/khu vực mà không cần AI phải đọc ghi toàn bộ danh sách NPC
+- contextLoader: trước mỗi lượt chỉ nạp dữ liệu địa điểm hiện tại, NPC đang có mặt, sự kiện gần nhất và tóm tắt ký ức liên quan để giảm lượng token gửi cho AI
 
 ---
+Các vấn đề gặp phải và cách giải quyết:
+- tính khả thi được chuyển thành điểm như thế nào?
+   - vì sao có vấn đề này?:
+   1 việc ở 1 hoàn cảnh khác nhau sẽ có tính khả thi khác nhau nên cách tính điểm khả thi không thể là 1 cách quy đổi cứng nhắc mà phải là 1 cách phân tích các yêu cầu cần có để hoàn thành việc ấy
+   - phương pháp mà người phát triển nghĩ:
+   trước khi chốt 1 con số từ 1-100, quản trò AI phải tự phân tích nhanh theo 4 lớp điều kiện thực tế:
+      - tương quan thực lực: chênh lệch rank, cổ trùng đang sở hữu, lượng chân nguyên còn lại, thương tích hiện có
+      - độ hợp lý của kế hoạch: lời nói có thuyết phục không, có nắm đúng điểm yếu đối phương không, có chuẩn bị trước hay làm liều
+      - bối cảnh xung quanh: địa hình, thời điểm, có người chứng kiến hay không, lợi thế từ danh tiếng hoặc quan hệ với NPC
+      - yếu tố khí vận (luck): chương trình hỗ trợ dựa trên chỉ số luck (-50 đến 50) để cộng hoặc trừ một biên độ nhỏ vào điểm khả thi cần đạt
+      - khung điểm tham khảo để AI đỡ định giá cảm tính: thuận lợi (20-35), trung bình (40-55), khó (60-75), rất khó (80-92), tuyệt cảnh (93-99), bất khả thi (100)
+      - quy tắc biên: tung được 100 vẫn có cơ hội tạo kỳ tích suýt soát ở việc cực khó; tung ra 1 luôn phát sinh biến cố bất lợi dù việc rất dễ
 
-## 5. Giải quyết các bài toán thiết kế cốt lõi
+- ảnh hưởng của hành động người chơi đối với thế giới như thế nào:
+   - giải thích câu hỏi:
+   mỗi hành động của ta đều tác động ít hoặc nhiều đến thế giới và trong game điều đó nghĩa là mỗi tác động của ta đều ảnh hưởng đến dữ liệu game. và bởi vì dữ liệu thay đổi trong quá trình chơi là ngẫu nhiên, không cố định nên phải để AI đánh giá cái gì cần thay đổi cái gì không. nếu 1 lần hành động mà thay đổi toàn bộ dữ liệu game thì quả là 1 thảm họa với ví tiền của người chơi nên ta phải tìm cách để đảm bảo thế giới trong game được điều chỉnh hợp lý mà ví tiền của người chơi vẫn an toàn
+   - phương pháp mà người phát triển nghĩ:
+   hành động của người chơi sẽ ảnh hưởng đến 2 mục tiêu là npc và mạch truyện vì vậy quản trò AI phải xét được mức độ ảnh hưởng của hành động người chơi với npc và hành động đấy ảnh hưởng đến mạch truyện
+      - để biết mức ảnh hưởng với npc ta có 2 cơ chế: tin đồn và truyền người này sang người nọ
+      tin đồn xuất hiện khi người chơi điều khiển nhân vật làm gì đó đáng chú ý, quản trò xử lý như sau:
+      - chỉ ghi vào publicBio của người chơi về việc người chơi có tin đồn về sự kiện này (khi người chơi làm việc đáng chú ý 1 mình nhưng không vượt qua được điểm khả thi của việc giấu kín không để ai phát hiện)
+      - ghi vào publicBio của người chơi và các npc tham gia sự kiện rằng họ có tin đồn về sự kiện này (khi có npc trực tiếp chứng kiến, tham gia vào sự kiện và sự việc đủ lớn để gây chú ý trong sơn trại)
+      - cơ chế truyền người này sang người nọ (tiết kiệm token):
+      không cập nhật hàng loạt cho toàn bộ npc ngay trong lượt đó. thay vào đó, mỗi tin đồn gắn với 1 khu vực và mức độ lan rộng; khi thời gian trôi qua hoặc khi người chơi gặp 1 npc khác cùng khu vực/cùng phe phái, chương trình hỗ trợ sẽ xét xem npc đó đã nghe phong phanh tin đồn này chưa rồi mới nạp vào ngữ cảnh cho AI (tin đồn truyền qua nhiều người có thể bị lệch bớt chi tiết so với sự thật)
+      - cơ chế ảnh hưởng đến mạch truyện:
+      không viết lại toàn bộ kịch bản mà dùng danh sách cờ trạng thái (worldFlags) và trạng thái sống/chết/thái độ của npc quan trọng. nếu hành động người chơi làm thay đổi 1 mắt xích quan trọng (ví dụ làm mất lòng gia lão, giết 1 npc, lấy mất tài nguyên trước thời hạn) thì AI chỉ cần ghi thêm 1 dòng ngắn vào worldFlags; khi tới mốc sự kiện trong năm, AI đọc các cờ này để tự rẽ nhánh diễn biến
 
-### 5.1. Quy đổi độ khó hành động (`baseDC` → `targetDC`)
-Trước khi chốt `baseDC` (1–100), quản trò AI phân tích nhanh 3 lớp điều kiện khách quan:
-1. **Tương quan thực lực:** Chênh lệch `rank`, cổ trùng đang sở hữu, lượng `currentEssence` còn lại, chỉ số khí lực (`strength`), thương tích hiện có.
-2. **Độ hợp lý của kế hoạch:** Lời nói có thuyết phục không, có nắm đúng điểm yếu đối phương không, có chuẩn bị trước hay làm liều.
-3. **Bối cảnh xung quanh:** Địa hình, thời điểm, có người chứng kiến hay không, lợi thế từ danh tiếng (`regionRep`, `factionRep`) hoặc quan hệ với NPC.
-4. **Điều chỉnh tự động bởi `dice100` (code xử lý):**
-   - `luck` (`-50` đến `50`): điều chỉnh `targetDC` theo công thức `round(-luck / 5)` (tối đa giảm 10 khi `luck = +50`, tăng 10 khi `luck = -50`).
-   - `fatigue` cao (ví dụ `> 70`) và `statusEffects`: cộng thêm `dcPenalty` vào `targetDC`.
-- **Khung tham chiếu `baseDC`:**
-  - Rất dễ: `10–25`
-  - Dễ: `26–45`
-  - Trung bình: `46–65`
-  - Khó: `66–80`
-  - Cực khó: `81–95`
-  - Gần như bất khả thi: `96–100`
-- **Quy tắc biên:** Tung được `100` luôn có cơ hội tạo kỳ tích suýt soát ngay cả ở việc cực khó; tung ra `1` luôn phát sinh biến cố bất lợi dù việc rất dễ.
-
-### 5.2. Tác động của người chơi lên thế giới (tiết kiệm token)
-- **Với NPC (Tin đồn & Lan truyền):**
-  - Khi người chơi làm việc đáng chú ý (bị NPC chứng kiến, hoặc làm 1 mình nhưng thất bại trong việc che giấu), hệ thống tạo 1 bản ghi trong bảng `activeRumors` kèm `originLocationId`, `regionName`, `spreadLevel`, `truthNote` và `involvedIds`.
-  - Không cập nhật hàng loạt vào hồ sơ toàn bộ NPC trong lượt đó. Tin đồn tự tăng/giảm `spreadLevel` theo ngày trong `timeTick`. Khi người chơi gặp NPC cùng khu vực/phe phái, `spreadRumor` xét 1 lần và ghi nhận vào `knownByNpcIds` trước khi nạp vào ngữ cảnh (tin đồn truyền xa có thể sai lệch chi tiết so với `truthNote`).
-  - Khi tin đồn đủ lớn (`spreadLevel >= 70`), hệ thống mới ghi nhận thành sự tích lâu dài vào `publicImage.regionRep[].publicBio`.
-- **Với mạch truyện (`worldFlags` & `worldEffects`):**
-  - Không viết lại kịch bản dài; dùng danh sách cờ trạng thái `worldFlags` và trạng thái sống/chết/thái độ của NPC cốt cán.
-  - Các mốc trong bảng `Sự kiện trong năm` có thể đính kèm `worldEffects` tự động (ví dụ: đến ngày X nếu người chơi chưa lấy Tửu Trùng ở Động Hoa Tửu thì code tự đánh dấu `isTaken = true, takenBy = "npc_phuong_nguyen"`).
-
-### 5.3. Nén ký ức xuyên suốt 1 năm (`memoryLog`)
-- Chỉ gửi nguyên văn **6–10 lượt hội thoại gần nhất** cho AI.
-- **Cách nén không tốn thêm API:** Ở mỗi lượt có sự kiện quan trọng (gặp nhân vật mới, kết thù, giao dịch lớn, phát hiện bí mật, đột phá, thay đổi cốt truyện), AI tự đính kèm trường tùy chọn `memorySummary` (1–2 câu ngắn) ngay trong JSON đầu ra của lượt đó để `updateState` thêm vào `memoryLog`.
-- Khi `memoryLog` vượt quá ngưỡng (ví dụ > 60 dòng), `contextLoader` chỉ ưu tiên nạp các dòng liên quan đến NPC/địa điểm hiện tại cùng bản tóm tắt theo mùa (Xuân/Hạ/Thu/Đông).
-
-### 5.4. Quản lý thời gian & 3 nhóm điều kiện ngắt quãng (`timeTick`)
-- Đơn vị nhỏ nhất để ghi nhận là **phút** (`currentTime: 0–119`), đơn vị mô phỏng là **1 canh giờ = 120 phút** (1 ngày = 12 canh giờ).
-- Khi hành động kéo dài nhiều canh giờ/ngày (bế quan, đi săn, đi đường), `timeTick` tự chạy vòng lặp qua từng canh giờ bằng code và chỉ ngắt để gọi AI khi chạm 1 trong 3 nhóm điều kiện:
-  - **Nhóm 1 — Nội tại & Tài nguyên:** `fatigue >= 90` (kiệt sức), `hunger <= 20%` ở bất kỳ cổ trùng nào, cạn tiền/vật tư duy trì sinh hoạt, `statusEffects` khiến `health` tụt xuống ngưỡng nguy hiểm (`<= 30%`), hoặc `cultivationProgress >= 100%` cần người chơi quyết định đột phá.
-  - **Nhóm 2 — Môi trường & Sự kiện thế giới:** Chạm mốc `timelineEvent` trong ngày, hoặc đang ở địa điểm có `dangerLevel > 0` và tung dice biến cố môi trường/dã thú/người lạ trúng ngưỡng xảy ra (nơi an toàn có `dangerLevel = 0` như ký túc xá/phòng riêng không tung dice sự cố ngẫu nhiên).
-  - **Nhóm 3 — Nghĩa vụ xã hội & Gia tộc:** Đối chiếu trực tiếp với bảng `obligations` (lịch học đường, điểm danh, khảo hạch, nhiệm vụ gia tộc). Nếu tự ý vắng mặt vượt ngưỡng cho phép mà chưa xin phép hoặc mất tích nhiều ngày sẽ kích hoạt người đi tìm, trừ `clanContribution` / `factionRep`, bị phạt hoặc sinh tin đồn khả nghi.
-
-### 5.5. Các công thức định lượng chuẩn (cho `essenceCalc` & `timeTick`)
-- **Quy ước cảnh giới:**
-  - **Nhân vật (Người chơi & NPC phàm giới):** `rank` tính theo **tiểu cảnh giới** (`0` = phàm nhân; `1–4` = Nhất chuyển sơ/trung/cao/đỉnh; `5–8` = Nhị chuyển sơ/trung/cao/đỉnh; ...; `17–20` = Ngũ chuyển; `21–24` = 6–9 chuyển tiên giới). Đổi sang số chuyển ở phàm giới: `tier = ceil(rank / 4)`.
-  - **Cổ trùng, cổ phương, sát chiêu:** `rank` tính theo **số chuyển (`1–9`)**; riêng `essenceCost` ghi rõ `{ amount, baseRank }` trong đó `baseRank` là **tiểu cảnh giới chuẩn (`1–20`)** (ví dụ: `baseRank = 1` là Thanh Đồng sơ giai, `baseRank = 5` là Xích Thiết sơ giai, `baseRank = 9` là Bạch Ngân sơ giai).
-- **Quy đổi chân nguyên trong `essenceCalc`:**
-  - Chênh lệch cùng đại cảnh giới (cùng số chuyển): mỗi 1 tiểu cảnh giới cao hơn giúp giảm 15% lượng thành tiêu hao (tối thiểu nhân hệ số `0.55`), mỗi 1 tiểu cảnh giới thấp hơn tăng 25% lượng thành tiêu hao.
-  - Chênh lệch vượt đại cảnh giới (khác số chuyển): cao hơn 1 chuyển giảm mạnh tiêu hao (hệ số `× 0.25` mỗi chuyển), thấp hơn 1 chuyển tăng vọt tiêu hao (hệ số `× 4` mỗi chuyển) và dễ gây phản phệ nếu vượt quá 1 chuyển.
-- **Hồi phục chân nguyên mỗi canh giờ (nghỉ ngơi / không chiến đấu):**
-  - Hồi tự nhiên: `(aptitude / 10) × 0.08` thành/canh giờ (khoảng 12–13 canh giờ đầy lại từ 0; tư chất càng cao hồi càng nhanh theo đúng nguyên tác).
-  - Hấp thu nguyên thạch trực tiếp: mỗi 1 nguyên thạch tiêu thụ trong 1 canh giờ hồi thêm khoảng `1.5–2.0` thành chân nguyên (tùy cảnh giới).
-- **Tiến độ tu luyện (`cultivationProgress`) & Đột phá:**
-  - Ôn dưỡng không khiếu tiêu hao chân nguyên để tăng `cultivationProgress` (tư chất càng cao hoặc có phụ trợ như Tửu Trùng thì tăng càng nhanh).
-  - Khi đạt `100%`: người chơi có thể chọn **Đột phá** (tung `dice100`; đột phá tiểu cảnh giới độ khó trung bình, đột phá đại cảnh giới từ đỉnh phong lên chuyển tiếp theo độ khó cao và đòi hỏi tích lũy/nguyên thạch; thất bại giảm một phần `cultivationProgress` và có thể gây chấn thương nhẹ không khiếu).
-- **Độ mệt mỏi (`fatigue`):**
-  - Hoạt động bình thường: `+3` đến `+5`/canh giờ; đi đường/săn bắn/tu luyện cường độ cao: `+8` đến `+12`/canh giờ; chiến đấu căng thẳng: `+10` đến `+20`/trận.
-  - Ngủ nghỉ ở nơi an toàn: `-15` đến `-20`/canh giờ.
-  - Mức phạt: `fatigue >= 70` cộng `+10` vào `targetDC`; `fatigue >= 90` cộng `+25` vào `targetDC` và tự động ngắt `timeTick`.
-- **Độ đói cổ trùng (`hunger`):**
-  - Giảm mỗi canh giờ: `100 / (feedingCycleDays × 12)` %.
-  - Ngưỡng cảnh báo ngắt `timeTick`: `hunger <= 20%`. Xuống `0%` cổ trùng chết đói (nếu là Bản Mệnh Cổ thì gây phản phệ nặng, tổn hại/phế không khiếu).
-  - Cho ăn 1 suất thức ăn chuẩn (`food`) hồi lại `100%` (hoặc theo tỷ lệ nếu ăn thiếu).
-
-### 5.6. Luật Bản Mệnh Cổ & Luyện hóa Cổ trùng
-- **Bản Mệnh Cổ (`isVital: true`):**
-  - Khoảng 7 ngày sau Khai Khiếu Đại Điển, học viên vào Cổ Thất chọn 1 con Cổ Nhất chuyển làm Bản Mệnh Cổ (Nguyệt Quang Cổ, Đồng Bì Cổ, Hoa Thỉ Cổ, Sinh Tức Thảo...).
-  - **Đặc quyền bất tử khi hợp luyện:** Khi hợp luyện nâng cấp thất bại, cổ phụ liệu và vật liệu bị hủy, nhưng **Bản Mệnh Cổ tuyệt đối không chết**, tối đa chỉ rơi vào trạng thái trọng thương/suy yếu cần dưỡng lại.
-  - **Cảnh báo sinh mệnh:** Có thể rung động cảnh báo sớm khi gặp nguy hiểm sinh tử cận kề.
-  - **Rủi ro đồng quy:** Nếu Bản Mệnh Cổ bị tiêu diệt hoàn toàn trong chiến đấu hoặc chết đói, cổ sư chịu phản phệ cực nặng (tụt mạnh `health`, `apertureStatus` chuyển sang `Damaged` hoặc `Crippled`).
-- **Luyện hóa cổ mới:** Cổ hoang dã hoặc cổ mới mua cần trải qua quá trình luyện hóa bằng chân nguyên (`isRefined: true`) mới sử dụng được.
+- chơi suốt 1 năm thì lịch sử hội thoại rất dài, làm sao để AI không quên mà vẫn tiết kiệm tiền API?:
+   - giải thích câu hỏi:
+   1 năm trong game có thể kéo dài hàng trăm lượt chơi, nếu gửi toàn bộ nội dung chat từ đầu tới cuối cho AI thì chi phí tăng vọt và AI dễ bị nhiễu thông tin cũ
+   - phương pháp mà người phát triển nghĩ:
+   chỉ gửi nguyên văn vài lượt hội thoại gần nhất cho AI, còn các diễn biến cũ sẽ được nén thành từng dòng tóm tắt ngắn trong memoryLog (chỉ giữ lại các sự kiện quan trọng, bí mật, lời hứa, ân oán) và nạp kèm dữ liệu của địa điểm hiện tại
 
 ---
-
-## 6. Kết nối Google AI Studio (Gemini API), Tối ưu chi phí & Định hướng Kỹ thuật
-- **BYOK (Bring Your Own Key):** Người chơi dán trực tiếp API key từ Google AI Studio vào giao diện game (lưu cục bộ trên trình duyệt/máy, chỉ gọi thẳng tới API Google).
-- **Tùy chọn Model:** Mặc định bản **Gemini Flash** (nhanh, rẻ), cho phép đổi sang **Gemini Pro** nếu muốn văn phong sâu hơn; kèm nút kiểm tra kết nối và bộ đếm ước lượng token mỗi lượt.
-- **Structured Output & Tối ưu số lượt gọi:**
-  - Dùng Structured Output (JSON Schema) / Function Calling tách riêng phần dữ liệu (`needDice`, `baseDC`, `durationMinutes`, `usedGuIds`, `stateUpdates`, `memorySummary`) khỏi phần văn bản kể chuyện.
-  - Hành động thường ngày: **1 lần gọi API**.
-  - Hành động có tung dice hoặc chiến đấu: tối đa **2 bước** (Bước 1 xuất JSON rất ngắn để code chạy `dice100`/`essenceCalc`/`timeTick`; Bước 2 kể chuyện theo kết quả đã chốt).
-- **Context Caching:** Tách cố định phần System Prompt (luật thế giới, văn phong *Cổ Chân Nhân*, quy tắc chống phá game) khỏi ngữ cảnh động (`contextLoader`) để tận dụng Context Caching của Gemini.
-- **An toàn khi lỗi mạng / Rate Limit (429):** Ghi state theo kiểu transaction (chỉ lưu khi lượt hoàn tất); lỗi giữa chừng không trừ oan chân nguyên hay thời gian, cho phép thử lại lượt hoặc đổi model/API key ngay lập tức.
-- **Định hướng nền tảng & Giao diện:**
-  - **Web App chạy cục bộ trên trình duyệt** (TypeScript + React + Vite, không cần server backend; dữ liệu tĩnh nằm trong thư mục `database/*.json`, file save lưu cục bộ ở `localStorage`/`IndexedDB` kèm xuất/nhập `.json`).
-  - **Bố cục UI:** Thiết kế theo phong cách Chatbox AI 2 cột (thanh điều hướng thu gọn bên trái + khung chat đọc truyện ở giữa), mặc định Dark Mode dịu mắt (chi tiết xem mục **11.4**).
+Người chơi không thể làm gì:
+- không thể tự quyết định kết quả hành động (tự tuyên bố mình đánh thắng, thuyết phục thành công) hoặc tự điều khiển lời nói, hành động của NPC thay quản trò AI
+- không thể tự tạo ra cổ trùng, nguyên thạch, cổ phương, sát chiêu hay tài sản không có trong dữ liệu nhân vật
+- không thể thực hiện hành động trái hoàn toàn quy luật thế giới Cổ Chân Nhân (phàm nhân chống lại cổ sư, dùng cổ khi cạn chân nguyên, vượt giới hạn không khiếu...)
+- không thể nhìn thấy thông tin thật (rank, aptitude, bio) của NPC đang che giấu; chỉ thấy phần publicImage trừ khi dùng thủ đoạn trinh sát hoặc điều tra thành công
 
 ---
-
-## 7. Giới hạn của người chơi & Safeguard
-- Không thể tự quyết định kết quả hành động (tự tuyên bố đánh thắng, thuyết phục thành công) hoặc tự điều khiển lời nói, hành động của NPC thay quản trò AI.
-- Không thể tự tạo ra cổ trùng, nguyên thạch, cổ phương, sát chiêu hay tài sản không có trong dữ liệu nhân vật (nếu người chơi cố tình nhập lệnh "ăn gian", AI từ chối thực thi theo logic thế giới thực tế trong game).
-- Không thể thực hiện hành động trái quy luật thế giới *Cổ Chân Nhân* (phàm nhân chống lại cổ sư, thúc giục cổ khi cạn chân nguyên, vượt giới hạn không khiếu...).
-- Không thể nhìn thấy thông tin thật (`rank`, `aptitude`, `currentEssence`, `bio`) của NPC đang che giấu; giao diện chỉ hiển thị phần `publicImage` trừ khi dùng thủ đoạn trinh sát hoặc điều tra thành công.
+Điều kiện kết thúc trò chơi:
+- hoàn thành 1 năm: vượt qua đại hội sát hạch cuối năm, hệ thống tổng kết chặng đường tu hành (cảnh giới đạt được, cổ trùng sở hữu, danh tiếng, những dấu ấn đã tạo ra tại Cổ Nguyệt sơn trại)
+- kết thúc sớm (thất bại): nhân vật tử vong (health về 0), bị phế không khiếu, hoặc phạm trọng tội bị gia tộc xử tử
 
 ---
-
-## 8. Điều kiện kết thúc trò chơi
-- **Hoàn thành 1 năm:** Vượt qua **Đại hội Niên Mạt Khảo Hạch** cuối năm (vòng đo tu vi + lôi đài đối kháng + lời mời tiểu tổ theo `factionRep`), hệ thống tổng kết chặng đường tu hành (cảnh giới, cổ trùng, khí lực, danh tiếng, dấu ấn tại Cổ Nguyệt Sơn Trại).
-- **Kết thúc sớm (Thất bại):** Nhân vật tử vong (`health <= 0`), bị phế không khiếu (`apertureStatus === "Crippled"`), hoặc phạm trọng tội bị Hình Đường/gia tộc xử tử.
-
----
-
-## 9. Khởi tạo nhân vật & Lưu tiến trình
-- **Khởi tạo đầu game:** Người chơi tạo nhân vật trong phạm vi cho phép: tên, tuổi cố định **15** (khóa Khai Khiếu Năm 1), ngoại hình, xuất thân trong Cổ Nguyệt Sơn Trại, tư chất **`20–79%`** (Đinh/Bính/Ất đẳng, không vượt Giáp đẳng của Phương Chính), khí vận **`-50` đến `50`**, tiểu sử ban đầu — rồi bước vào sáng hôm sau Khai Khiếu Đại Điển.
-- **Lưu tiến trình (1 slot duy nhất — Ironman):** Chỉ dùng 1 slot lưu duy nhất (JSON cục bộ), tự động lưu ngay sau mỗi lượt / mỗi lần tung dice để mọi lựa chọn đều có sức nặng thật; chỉ có thể chơi tiếp hoặc xóa để chơi lại từ đầu (hỗ trợ xuất/nhập file `.json` để sao lưu sang máy khác).
-
----
-
-## 10. Thiết kế dữ liệu chuẩn hóa (Database & Save Schema)
-
-> **Quy ước chung:** Mọi thực thể dùng khóa định danh riêng (`guId`, `npcId`, `itemId`, `locationId`, `recipeId`, `moveId`, `eventId`, `rumorId`), trường tên thống nhất là `name`, trường cảnh giới thống nhất là `rank`, trường vị trí thống nhất là `locationId`, và đơn vị thời gian được gắn rõ ngay trong tên trường (`Minutes`, `Shichen`, `Days`).
-
-### 10.1. Dữ liệu Người chơi (`player`)
-- `name`: Tên nhân vật
-- `age`: `15` (bắt đầu Năm 1; tăng lên `16` khi qua mốc năm)
-- `rank`: `1–8` (tiểu cảnh giới; trong Năm 1 phổ biến `1–4`, mở trần tới `8` nếu có cơ duyên lớn)
-- `aptitude`: `20–79` (%, tối đa chứa `aptitude / 10` thành chân nguyên, vd `44%` = `4.4` thành)
-- `currentEssence`: `0` đến `aptitude / 10` (đơn vị "thành")
-- `apertureStatus`: `Normal / Damaged / Crippled` (trạng thái không khiếu; `Crippled` = kết thúc sớm)
-- `cultivationProgress`: `0–100` (% tiến độ ôn dưỡng không khiếu lên `rank` kế tiếp)
-- `strength`: Chỉ số khí lực / thể chất tính theo đơn vị **trư lực** (mặc định người thường `0.2`, có thể tăng vĩnh viễn nhờ Bạch Thỉ Cổ / Hắc Thỉ Cổ...)
-- `health`: `0–100` (%, tử vong khi `<= 0`)
-- `fatigue`: `0–100` (`0` sung sức, `100` kiệt sức)
-- `*statusEffects`: Danh sách trạng thái cơ thể đang chịu:
-  - `effectId`: Mã trạng thái
-  - `name`: Tên (Trúng độc, Trọng thương, Đói khát, Suy yếu...)
-  - `severity`: `Mild / Moderate / Severe`
-  - `hpDeltaPerShichen`: Mức thay đổi `health` mỗi canh giờ
-  - `fatigueDeltaPerShichen`: Mức thay đổi `fatigue` mỗi canh giờ
-  - `dcPenalty`: Điểm phạt cộng thêm vào `targetDC`
-  - `durationShichen`: Số canh giờ còn lại (`-1` nếu chỉ hết khi được chữa trị)
-  - `cureCondition`: Điều kiện hóa giải (dùng cổ trị liệu, thuốc giải, nghỉ ngơi...)
-- `luck`: `-50` đến `50`
-- `locationId`: Mã địa điểm hiện tại
-- `clanContribution`: Điểm cống hiến gia tộc
-- `factionRep`: Thiện cảm với 4 khối ghế Hội Đồng Gia Lão (`-100` đến `100`):
-  - `clanLeader`: Phe Tộc Trưởng (6 ghế)
-  - `chiFaction`: Phe Xích Mạch (5 ghế)
-  - `moFaction`: Phe Mạc Mạch (5 ghế)
-  - `neutral`: Phe Trung Lập (4 ghế)
-- `bio`: Tiểu sử thật
-- `knowledge`:
-  - `*paths`: `{ path, mastery: Ordinary / Master / Grandmaster / Great Grandmaster / Supreme Grandmaster }`
-  - `*recipes`: `{ recipeId, completeness: 0–100 }`
-  - `*killerMoves`: `{ moveId, proficiency: 0–100 }`
-- `*ownedGu`: Danh sách cổ trùng đang giữ:
-  - `guId`: Mã cổ trùng (nối sang bảng Cổ trùng)
-  - `isVital`: `true / false` (Bản Mệnh Cổ)
-  - `isRefined`: `true / false` (đã luyện hóa hay chưa)
-  - `condition`: `Healthy / Injured` (Bản Mệnh Cổ bị trọng thương khi hợp luyện thất bại)
-  - `hunger`: `0–100` (%, chết đói khi về `0`)
-- `inventory`:
-  - `capacity`: Sức chứa tối đa
-  - `primevalStones`: Số nguyên thạch
-  - `*items`: `{ itemId, quantity }`
-- `*relationships`: (chỉ tạo khi có tương tác/ân oán đáng kể với NPC để tiết kiệm token)
-  - `npcId`: Mã NPC
-  - `attitude`: `-100` đến `100` (thù hận – trung lập – tin cậy)
-  - `privateNote`: 1 dòng ngắn gộp ân oán riêng và bí mật NPC biết về người chơi
-- `publicImage`:
-  - `appearance`: Mô tả ngoại hình
-  - `apparentRank`: `1–8` (cảnh giới biểu hiện bên ngoài)
-  - `apparentAptitude`: `20–100` (tư chất biểu hiện bên ngoài)
-  - `*regionRep`: `{ regionTier: Clan / Province / Region / Realm, regionName, publicBio, rep: 0–100 }`
-
-### 10.2. Dữ liệu NPC Phàm giới (`npcs`)
-- `npcId`: Mã định danh NPC
-- `name`: Tên
-- `age`: Tuổi
-- `rank`: `0–20` (tiểu cảnh giới: `0` phàm nhân → `20` Ngũ chuyển đỉnh phong)
-- `aptitude`: `0–100` (%, `0` với phàm nhân; ẩn khỏi giao diện người chơi)
-- `currentEssence`: `0` đến `aptitude / 10` (dùng khi giao đấu)
-- `strength`: Chỉ số khí lực (đơn vị trư lực)
-- `health`: `0–100` (`0` ⇔ `status = Dead`)
-- `status`: `Alive / Missing / Dead`
-- `*statusEffects`: (cùng cấu trúc với người chơi, dùng khi đang bị thương/trúng độc)
-- `faction`: Thế lực / mạch phái (`clanLeader / chiFaction / moFaction / neutral / outsider`)
-- `role`: Vai trò / chức vụ
-- `personality`: Tính cách cốt lõi để AI nhập vai đúng chất
-- `goals`: Mục tiêu, động cơ hiện tại
-- `locationId`: Mã địa điểm hiện tại
-- `*schedule`: Lịch trình thường xuất hiện `{ shichenRange, locationId, activity }`
-- `bio`: Tiểu sử thật (ẩn khỏi giao diện người chơi)
-- `knowledge`:
-  - `*paths`: `{ path, mastery }`
-  - `*recipes`: `{ recipeId, completeness }`
-  - `*killerMoves`: `{ moveId, proficiency }`
-- `*ownedGu`: `{ guId, isVital }` (nối trực tiếp bảng Cổ trùng)
-- `inventory`: `{ capacity, primevalStones, *items: { itemId, quantity } }`
-- `publicImage`:
-  - `appearance`: Mô tả ngoại hình
-  - `apparentRank`: `0–20`
-  - `apparentAptitude`: `0–100`
-  - `*regionRep`: `{ regionTier, regionName, publicBio, rep: 0–100 }`
-
-### 10.3. Dữ liệu NPC Tiên giới (mở rộng tương lai)
-- `npcId`, `name`, `rank` (`21–24`: 6–9 chuyển), `locationId`, `status` (`Alive / Missing / Dead`)
-- `currentEssence`, `essenceCapacity`, `essenceRegeneration` (tiên nguyên)
-- `immortalAperture`: `{ area, production, *daoMarks: { path, count } }`
-- `personality`, `goals`, `bio`
-- `knowledge`: `{ *paths, *recipes, *killerMoves }`
-- `*ownedGu`: `{ guId, isVital }`
-- `publicImage`: `{ appearance, apparentRank: 0–24, apparentAptitude: 0–100, *regionRep }`
-
-### 10.4. Dữ liệu Cổ trùng (`gu`)
-- `guId`: Mã cổ trùng
-- `name`: Tên cổ trùng
-- `rank`: `1–9` (số chuyển)
-- `path`: Lưu phái
-- `category`: `Attack / Defense / Movement / Investigation / Healing / Control / Support / Storage / Refinement`
-- `effect`: Mô tả công dụng, phạm vi và điều kiện/giới hạn sử dụng (bao gồm hiệu quả thụ động/vĩnh viễn nếu có)
-- `essenceCost`: `{ amount, baseRank }` (số "thành" tiêu hao chuẩn ở tiểu cảnh giới `baseRank` `1–20`; `amount = 0` nếu là cổ tiêu hao/lực đạo thụ động)
-- `food`: `{ itemId, quantityPerFeed }` (thức ăn nối sang bảng Vật phẩm)
-- `feedingCycleDays`: Chu kỳ cần cho ăn tính theo **ngày**
-- `basePrice`: Giá thị trường tham khảo (nguyên thạch)
-- `refinementNote`: Ghi chú nguồn gốc tự nhiên hoặc lộ tuyến hợp luyện
-
-### 10.5. Dữ liệu Cổ phương (`recipes`)
-- `recipeId`: Mã cổ phương
-- `name`: Tên cổ phương
-- `resultGuId`: Mã cổ trùng tạo thành
-- `rank`: `1–9` (số chuyển của cổ trùng kết quả)
-- `path`: Lưu phái
-- `*requiredGu`: `{ guId, quantity }`
-- `*materials`: `{ itemId, quantity }` (nối sang bảng Vật phẩm)
-- `baseDifficulty`: `1–100` (độ khó nền theo chuẩn `targetDC` — càng nhỏ càng dễ; thực tế điều chỉnh theo cảnh giới Luyện đạo, `completeness` và `dice100`)
-- `essenceRequirement`: `{ amount, baseRank }` (tổng chân nguyên yêu cầu để hợp luyện, tính bằng `essenceCalc`)
-- `timeRequiredShichen`: Thời gian hợp luyện tính theo **canh giờ**
-- `failurePenalty`: Hậu quả khi thất bại (mất nguyên liệu, cổ phụ liệu nổ chết, phản phệ thương tích — **lưu ý:** Bản Mệnh Cổ không chết, chỉ chuyển `condition = Injured`)
-- `sourceNote`: Nguồn gốc (gia tộc lưu truyền, bí phương, tàn phương...)
-
-### 10.6. Dữ liệu Sát chiêu (`killerMoves`)
-- `moveId`: Mã sát chiêu
-- `name`: Tên sát chiêu
-- `rank`: `1–9` (số chuyển sát chiêu)
-- `path`: Lưu phái chính
-- `category`: `Attack / Defense / Movement / Investigation / Healing / Control / Support`
-- `coreGuId`: Mã cổ trùng hạch tâm
-- `*supportGuIds`: Danh sách mã cổ trùng phụ trợ
-- `effect`: Mô tả uy lực, phạm vi và nhược điểm
-- `essenceCost`: `{ amount, baseRank }` (tổng mức tiêu hao tính qua `essenceCalc`)
-- `activationTime`: Thời gian thúc giục (tức thời hay cần vài nhịp thở chuẩn bị)
-- `baseDifficulty`: `1–100` (độ khó nền theo chuẩn `targetDC`, giảm dần theo `proficiency`)
-- `backlash`: Hậu quả phản phệ khi thúc giục thất bại
-
-### 10.7. Dữ liệu Vật phẩm (`items`)
-- `itemId`: Mã vật phẩm
-- `name`: Tên vật phẩm
-- `type`: `Food / Material / Consumable / KeyItem / Misc`
-- `description`: Mô tả công dụng ngắn
-- `size`: Độ chiếm chỗ trong `inventory.capacity`
-- `basePrice`: Giá tham khảo bằng nguyên thạch
-
-### 10.8. Dữ liệu Địa điểm & Phân phối tài nguyên (`locations`)
-- `locationId`: Mã địa điểm
-- `name`: Tên địa điểm (Cổ Nguyệt Sơn Trại / Thanh Mao Sơn)
-- `regionName`: Khu vực trực thuộc (nối với `regionRep`)
-- `coordinates`: `{ x, y, z }` — tọa độ cố định đồng bộ với [ban_do_2d_thanh_mao_son.md](file:///d:/qoder/CoChanNhanRolePlay/ban_do_2d_thanh_mao_son.md) (`z = -1` hầm ngầm Động Hoa Tửu/Lăng Mộ; `z = 0` chân núi; `z = 1` sườn núi/Sơn trại; `z = 2` vách đá; `z = 3` đỉnh núi)
-- `description`: Mô tả ngắn cảnh quan, không khí
-- `dangerLevel`: `0–100` (quyết định xác suất tung dice biến cố mỗi canh giờ trong `timeTick`)
-- `*connectedLocations`: `{ targetLocationId, travelMinutes }` (thời gian di chuyển cơ bản tính thống nhất bằng **phút**)
-- `*resourceNodes`: Điểm tài nguyên/cơ duyên cố định (không random):
-  - `nodeId`: Mã điểm tài nguyên
-  - `name`: Tên tài nguyên, cổ hoang, dã thú hoặc cơ duyên/truyền thừa
-  - `resourceType`: `Gu / Material / Herb / Beast / Inheritance / Service`
-  - `refId`: Mã liên kết tùy chọn tới `guId` / `itemId` / `recipeId` (giúp `updateState` tự động cộng vào túi đồ)
-  - `isUnique`: `true / false`
-  - `isTaken`: `true / false` (đã bị người chơi hoặc NPC như Phương Nguyên lấy chưa)
-  - `takenBy`: `player` hoặc `npcId` (dùng để suy diễn phản ứng mạch truyện)
-  - `respawnDays`: Số ngày hồi lại (`0` nếu `isUnique = true`)
-  - `hiddenDifficulty`: `0–100` (độ khó tìm ra theo chuẩn `targetDC`; có kiến thức nguyên tác và kế hoạch rõ sẽ được giảm mạnh độ khó)
-
-### 10.9. Dữ liệu Thế giới, Thời gian & Ký ức (`worldState`)
-- `currentDay`: `1–365`
-- `currentShichen`: `1–12` (Tý, Sửu, Dần, Mão, Thìn, Tỵ, Ngọ, Mùi, Thân, Dậu, Tuất, Hợi; mỗi canh giờ = 120 phút)
-- `currentTime`: `0–119` (số phút đã trôi qua trong canh giờ hiện tại)
-- `timeOfDay`: `Morning / Noon / Afternoon / Evening / Night` (suy ra từ `currentShichen`)
-- `season`: `Spring / Summer / Autumn / Winter`
-- `*worldFlags`: `{ flagId, description, createdDay }`
-- `*memoryLog`: `{ day, summary, *involvedNpcIds }`
-- `*activeRumors`: Danh sách tin đồn đang lan truyền (chi tiết ở mục 10.10)
-
-### 10.10. Dữ liệu Tin đồn (`activeRumors`)
-- `rumorId`: Mã tin đồn
-- `content`: Nội dung tin đồn lan truyền trong dân gian/sơn trại
-- `truthNote`: Sự thật gốc ngắn gọn để AI biết tin đồn bị lệch đi chỗ nào
-- `originLocationId`: Địa điểm phát sinh
-- `regionName`: Khu vực lan truyền (nối với `regionRep`)
-- `spreadLevel`: `0–100` (tăng/giảm dần theo ngày; đạt `>= 70` sẽ kết tinh vào `publicBio`)
-- `createdDay`: `1–365`
-- `*involvedIds`: Mã người chơi và các NPC liên quan trực tiếp
-- `*knownByNpcIds`: Danh sách `npcId` đã được `spreadRumor` xác định là đã nghe tin đồn (tránh mâu thuẫn khi gặp lại cùng 1 NPC)
-
-### 10.11. Dữ liệu Nghĩa vụ & Lịch trình Gia tộc (`obligations`)
-- `obligationId`: Mã nghĩa vụ (vd: điểm danh học đường, nhận trợ cấp tuần, nhiệm vụ gia tộc...)
-- `name`: Tên nghĩa vụ
-- `locationId`: Địa điểm cần có mặt
-- `frequency`: `Daily / Weekly / OneTime`
-- `requiredDays`: Các ngày áp dụng (vd: thứ trong tuần hoặc ngày cụ thể)
-- `shichenRange`: Khung canh giờ bắt buộc có mặt (vd: `5–6`, giờ Thìn–Tỵ)
-- `maxMissedAllowed`: Số buổi vắng không phép tối đa trước khi kích hoạt ngắt Nhóm 3
-- `missedCount`: Số buổi đã vắng liên tiếp
-- `isExcused`: `true / false` (đã xin giấy phép ra trại hay chưa)
-- `penaltyNote`: Hậu quả khi vi phạm (cử người đi tìm, trừ `clanContribution`/`factionRep`, phạt nguyên thạch, sinh tin đồn)
-
-### 10.12. Dữ liệu Sự kiện trong năm (`timelineEvents`)
-- `eventId`: Mã sự kiện
-- `name`: Tên sự kiện (vd: nhận Bản Mệnh Cổ ngày 7, phát trợ cấp **3 nguyên thạch/tuần**, khảo hạch bắn bia thảo nhân, Thương đội Cổ Phú, Niên Mạt Khảo Hạch...)
-- `triggerDay`: `1–365` (hoặc quy tắc lặp `recurrenceDays` như mỗi 7 ngày)
-- `isMajor`: `true / false`
-- `condition`: Điều kiện kích hoạt hoặc điều kiện rẽ nhánh dựa trên `worldFlags`
-- `summary`: Nội dung cốt lõi để AI dẫn truyện
-- `*worldEffects`: Các thay đổi dữ liệu tự động khi sự kiện kích hoạt nếu người chơi chưa can thiệp (vd: đánh dấu `resourceNode.isTaken = true, takenBy = "npc_phuong_nguyen"`, mở khóa địa điểm, cập nhật vị trí NPC, cộng trợ cấp tuần)
-- `status`: `Pending / Active / Completed / Altered`
-
+Thiết kế dữ liệu người chơi
+- name: (tên)
+- age: 15/16 (tuổi)
+- rank: 1-8 (từ 1 chuyển sơ giai đến 2 chuyển đỉnh phong)
+- aptitude: 20-79% (có thể tu luyện nhưng tư chất không đến giáp đẳng)
+- currentEssence: 0-100% (lượng chân nguyên hiện có trong không khiếu, trần tối đa phụ thuộc aptitude)
+- cultivationProgress: 0-100% (tiến độ ôn dưỡng không khiếu để đột phá lên rank tiếp theo)
+- health: 0-100% (thể trạng hiện tại, chết khi xuống 0)
+- *statusEffects: (trạng thái cơ thể đang chịu: trúng độc, trọng thương, suy yếu...)
+- luck: -50 - 50 (có 1 cơ chế thêm hoặc giảm điểm khả thi với luck)
+- locationId: (mã địa điểm hiện tại đang đứng)
+- clanContribution: (điểm cống hiến gia tộc)
+- bio: (tiểu sử)
+- knowledge: (tri thức)
+   - *paths: (các lưu phái)
+      - path: (tên lưu phái)
+      - mastery: Ordinary/Master/Grandmaster/Great Grandmaster/Supreme Grandmaster (cảnh giới lưu phái)
+   - *recipes: (cổ phương)
+      - recipeId: (mã cổ phương)
+      - recipeName: (tên cổ phương)
+      - materials: (nguyên liệu)
+   - *killerMoves: (sát chiêu)
+      - moveName: (tên sát chiêu)
+      - moveRank: (bậc sát chiêu)
+      - requiredGu: (cổ trùng cần thiết)
+         - *nameGu: (tên cổ trùng)
+- ownedGu: (danh sách cổ trùng sở hữu)
+   - *gu: (cổ)
+      - guId: (mã cổ trùng, nối với bảng cổ trùng)
+      - nameGu: (tên cổ)
+      - pathGu: (lưu phái)
+      - isVital: True/False (cổ bản mệnh)
+      - hunger: 0 - 100% (độ đói, chết đói khi xuống 0)
+- inventory: (túi đồ)
+   - capacity: (sức chứa)
+   - primevalStones: (số nguyên thạch)
+   - *item: (vật phẩm)
+- *relationships: (quan hệ riêng với từng NPC - tách biệt với hình ảnh công khai)
+   - npcId: (mã NPC)
+   - attitude: -100 - 100 (thù hận - trung lập - tin cậy)
+   - knownSecrets: (bí mật riêng tư NPC này biết về người chơi)
+   - note: (ghi chú ngắn về ân oán / ấn tượng gần nhất)
+- publicImage: (hình ảnh bên ngoài)
+   - appearance: (mô tả ngoại hình)
+   - apparentRank: 1-8 (cảnh giới biểu hiện bên ngoài)
+   - apparentAptitude: 20-100% (tư chất biểu hiện bên ngoài ----- chuẩn bị nếu tương lai mở rộng)
+   - *regionRep: (danh tiếng theo khu vực - chuẩn bị nếu tương lai mở rộng)
+      - regionTier: Clan-Province-Region-Realm (cấp độ khu vực)
+      - regionName: (tên khu vực)
+      - publicBio: (sự tích công khai mọi người biết)
+      - rep: 0-100 (vô danh - không ai không biết)
 
 ---
+Thiết kế dữ liệu npc phàm giới
+- npcId: (mã định danh NPC)
+- name: (tên)
+- rank: 0-20 (phàm nhân - 5 chuyển đỉnh phong)
+- health: 0-100% (thể trạng hiện tại)
+- status: Alive/Injured/Missing/Dead (trạng thái hiện tại)
+- faction: (thế lực / mạch phái trong sơn trại)
+- role: (vai trò / chức vụ)
+- personality: (tính cách cốt lõi để AI nhập vai đúng chất)
+- goals: (mục tiêu, động cơ hiện tại)
+- currentLocation: (địa điểm hiện tại hoặc lịch trình thường xuất hiện)
+- bio: (tiểu sử)
+- knowledge: (tri thức)
+   - *paths: (các lưu phái)
+      - path: (tên lưu phái)
+      - mastery: Ordinary/Master/Grandmaster/Great Grandmaster/Supreme Grandmaster (cảnh giới lưu phái)
+   - *recipeId: (mã cổ phương)
+   - *killerMovesName: (sát chiêu)
+- *nameGu: (tên cổ)
+- inventory: (túi đồ)
+   - capacity: (sức chứa)
+   - primevalStones: (số nguyên thạch)
+   - *item: (vật phẩm)
+- publicImage: (hình ảnh bên ngoài)
+   - appearance: (mô tả ngoại hình)
+   - apparentRank: 0-20 (cảnh giới biểu hiện bên ngoài)
+   - apparentAptitude: 20-100% (tư chất biểu hiện bên ngoài ----- chuẩn bị nếu tương lai mở rộng)
+   - *regionRep: (danh tiếng theo khu vực - chuẩn bị nếu tương lai mở rộng)
+      - regionTier: Clan-Province-Region-Realm (cấp độ khu vực)
+      - regionName: (tên khu vực)
+      - publicBio: (sự tích công khai mọi người biết)
+      - rep: 0-100 (vô danh - không ai không biết)
 
-## 11. Kiến trúc Triển khai (Ngôn ngữ, Cơ sở dữ liệu & Danh sách Chương trình)
+---
+Thiết kế npc tiên giới (tương lai phát triển thêm)
+- npcId: (mã định danh NPC)
+- name: (tên)
+- rank: 21-24 (6-9 chuyển)
+- currentEssence: (số lượng tiên nguyên)
+- essenceCapacity: (sức chứa tiên nguyên)
+- essenceRegeneration: (tốc độ sản sinh tiên nguyên)
+- immortalAperture: (tiên khiếu)
+   - area: (kích thước tính theo mẫu)
+   - production: (sản lượng tài nguyên)
+   - *daoMarks: (các chủng đạo ngân)
+      - path: (lưu phái)
+      - count: (số lượng đạo ngân)
+- personality: (tính cách cốt lõi)
+- goals: (mục tiêu, động cơ)
+- bio: (tiểu sử)
+- knowledge: (tri thức)
+   - *paths: (các lưu phái)
+      - path: (tên lưu phái)
+      - mastery: Ordinary/Master/Grandmaster/Great Grandmaster/Supreme Grandmaster (cảnh giới lưu phái)
+   - *recipeId: (mã cổ phương)
+   - *killerMovesName: (sát chiêu)
+- *nameGu: (tên cổ)
+- publicImage: (hình ảnh bên ngoài)
+   - appearance: (mô tả ngoại hình)
+   - apparentRank: 0-24 (cảnh giới biểu hiện bên ngoài - có thể giả làm phàm nhân hoặc cổ tiên)
+   - apparentAptitude: 20-100% (tư chất biểu hiện bên ngoài ----- chuẩn bị nếu tương lai mở rộng)
+   - *regionRep: (danh tiếng theo khu vực - chuẩn bị nếu tương lai mở rộng)
+      - regionTier: Clan-Province-Region-Realm (cấp độ khu vực)
+      - regionName: (tên khu vực)
+      - publicBio: (sự tích công khai mọi người biết)
+      - rep: 0-100 (vô danh - không ai không biết)
 
-### 11.1. Ngôn ngữ lập trình sử dụng trong dự án
-- **Ngôn ngữ duy nhất:** **TypeScript** (chạy trên trình duyệt với **React + Vite**).
-- **Lý do tối ưu cho yêu cầu của game:**
-  - **Đồng nhất 1 ngôn ngữ toàn bộ dự án:** Cả Game Engine (`dice100`, `essenceCalc`, `timeTick`, `updateState`...), lớp kết nối Gemini API lẫn giao diện Web đều viết bằng TypeScript — không phải chia đôi Backend Python + Frontend JS hay đồng bộ schema hai nơi.
-  - **An toàn kiểu dữ liệu tuyệt đối (Static Typing):** Game có 9 bảng JSON liên kết khóa ngoại, 1 file Save Delta và JSON Structured Output từ Gemini API; TypeScript bắt lỗi sai tên trường/sai kiểu ngay lúc lập trình.
-  - **Thuần Client-side chuẩn BYOK:** Chạy hoàn toàn cục bộ trên trình duyệt, lưu API key và `save.json` ngay trên máy người chơi (`localStorage`/`IndexedDB`), gọi trực tiếp Google AI Studio API không cần server trung gian, và có thể xuất bản miễn phí lên GitHub Pages để mở link chơi ngay.
-  - **Hiệu năng mượt:** Vòng lặp `timeTick` xử lý hàng trăm canh giờ trong chưa tới 1ms và hỗ trợ tốt vẽ bản đồ 2D theo tầng `Z` tương tác trực tiếp.
+---
+Thiết kế dữ liệu cổ trùng
+- guId: (mã cổ trùng)
+- nameGu: (tên cổ trùng)
+- rank: 1-9 (1 chuyển - 9 chuyển)
+- path: (lưu phái)
+- category: Attack/Defense/Movement/Investigation/Healing/Support/Storage (nhóm công năng)
+- effect: (mô tả công dụng và điều kiện/giới hạn sử dụng)
+- essenceCost: (mức hao phí chân nguyên mỗi lần kích hoạt)
+- food: (thức ăn của cổ trùng)
+- feedingCycleDays: (chu kỳ cần cho ăn theo ngày, dùng để tính tốc độ tụt hunger)
+- basePrice: (giá tham khảo bằng nguyên thạch)
+- refinementNote: (ghi chú cách thu được hoặc hợp luyện)
 
-### 11.2. Các cơ sở dữ liệu cần tạo
-Sử dụng mô hình **Static Database (Read-only) + 1 File Save Động (Delta/Overlay)** để tuyệt đối không làm biến đổi dữ liệu gốc sau mỗi lượt chơi:
+---
+Thiết kế dữ liệu thế giới và thời gian
+- currentDay: 1-365 (ngày hiện tại trong năm)
+- timeOfDay: Morning/Noon/Afternoon/Evening/Night (buổi trong ngày)
+- season: Spring/Summer/Autumn/Winter (mùa hiện tại)
+- *worldFlags: (các cờ trạng thái thể hiện tác động của người chơi lên mạch truyện)
+   - flagId: (mã cờ)
+   - description: (mô tả ngắn biến cố hoặc thay đổi đã xảy ra)
+- *memoryLog: (nhật ký tóm tắt các sự kiện quan trọng đã qua để tiết kiệm token)
+   - day: (ngày xảy ra)
+   - summary: (tóm tắt 1-2 câu)
+   - *involvedNpcIds: (mã các NPC liên quan)
 
-**A. 9 file cơ sở dữ liệu tĩnh trong `database/` (chỉ đọc, tạo theo thứ tự phụ thuộc khóa ngoại):**
-1. `database/game_rules.json` — Hằng số cân bằng (`essenceCalc`, hồi chân nguyên, `fatigue`, `hunger`, `luck`), danh mục mẫu `statusEffects` chuẩn, khung khởi tạo nhân vật & danh sách Cổ Thất khởi đầu.
-2. `database/items.json` — Vật phẩm (thức ăn cổ trùng, nguyên liệu luyện cổ, thảo dược, vật phẩm tiêu hao, vật phẩm cốt truyện).
-3. `database/gu.json` — Danh mục Cổ trùng Nhất chuyển, Nhị chuyển (và cổ cốt cán Tam/Tứ chuyển của Gia Lão/Tộc trưởng), liên kết `items.json` qua `food.itemId`.
-4. `database/recipes.json` — Cổ phương hợp luyện, liên kết `gu.json` và `items.json`.
-5. `database/killer_moves.json` — Sát chiêu phàm đạo, liên kết `gu.json`.
-6. `database/locations.json` — Bản đồ cố định 3 trục `{ x, y, z }`, kết nối `travelMinutes`, `dangerLevel`, và `resourceNodes` cố định (liên kết `gu.json`, `items.json`, `recipes.json`).
-7. `database/npcs.json` — Hồ sơ NPC (Tộc trưởng, 5 Gia lão cốt cán, Hội đồng gia lão 4 phe, học viên cùng khóa, tiền bối, thương đội, phàm nhân), tách dữ liệu thật với `publicImage` và `schedule`.
-8. `database/obligations.json` — Lịch học đường, điểm danh, trợ cấp 3 nguyên thạch/tuần, quy định xin giấy phép ra trại (nuôi Nhóm ngắt 3 của `timeTick`).
-9. `database/timeline_events.json` — Biên niên sự kiện 4 mùa Năm 1 kèm `condition` và `worldEffects` tự động.
+---
+Thiết kế dữ liệu địa điểm
+- locationId: (mã địa điểm)
+- name: (tên địa điểm trong Cổ Nguyệt sơn trại / Thanh Mao sơn)
+- regionName: (thuộc khu vực nào, nối với regionRep)
+- description: (mô tả ngắn cảnh quan, không khí)
+- dangerLevel: 0-100 (mức độ nguy hiểm)
+- *connectedLocations: (mã các địa điểm liền kề có thể di chuyển tới)
+- *availableResources: (tài nguyên, dịch vụ hoặc điểm đáng chú ý tại đây)
 
-**B. 1 cấu trúc file Save động (`save.json` — 1 slot lưu duy nhất, sinh mới khi New Game):**
-- Chỉ lưu phần thay đổi (Delta): `player`, `worldState`, `npcStates`, `nodeStates`, `eventStates`, `obligationStates`, và `recentTurns` (`6–10` lượt gần nhất). Hỗ trợ xuất/nhập 1 file `.json` duy nhất và ghi kiểu transaction an toàn.
-
-### 11.3. Các chương trình (Module) cần tạo
-
-**Tầng 1 — Dữ liệu & Lưu trữ (Data Layer):**
-1. `dbLoader`: Nạp 9 file `database/*.json`, kiểm tra toàn vẹn khóa ngoại và cache dạng chỉ đọc trên RAM.
-2. `saveManager`: Khởi tạo `save.json` khi New Game, lưu transaction sau mỗi lượt hoàn tất, xóa save chơi lại, và xuất/nhập file `.json`.
-3. `stateResolver`: Ghép dữ liệu tĩnh từ `dbLoader` với phần delta trong `save.json` trên RAM để cung cấp trạng thái đầy đủ của NPC, địa điểm, cổ trùng và tài nguyên.
-
-**Tầng 2 — Lõi Luật Chơi (Game Engine — Code thuần, không tốn API):**
-4. `dice100`: Nhận `baseDC` từ AI → tự áp modifier từ `luck`, `fatigue`, `statusEffects` → chốt `targetDC` → tung `1–100` → trả `{ roll, targetDC, margin, isCritSuccess, isCritFail }`.
-5. `essenceCalc`: Quy đổi và kiểm tra tiêu hao chân nguyên cho 1 cổ trùng, sát chiêu hoặc tổ hợp nhiều cổ trong 1 hiệp chiến đấu; tính hồi phục chân nguyên tự nhiên và từ nguyên thạch.
-6. `timeTick`: Cộng phút (`currentTime`), mô phỏng từng canh giờ (`fatigue`, hồi chân nguyên, `hunger`, `statusEffects`, hồi sinh tài nguyên, chạy `worldEffects`) và kiểm tra 3 nhóm điều kiện ngắt quãng.
-7. `cultivationAndGu`: Xử lý ôn dưỡng tăng `cultivationProgress`, đột phá cảnh giới, luyện hóa cổ mới (`isRefined`), cho cổ ăn (`feedGu`) và hợp luyện theo `recipes.json` (bảo vệ đặc quyền bất tử của Bản Mệnh Cổ).
-8. `spreadRumor`: Quản lý `activeRumors`, cập nhật `spreadLevel` theo ngày, kiểm tra/lưu `knownByNpcIds` khi gặp NPC, và kết tinh sang `publicBio` khi `spreadLevel >= 70`.
-9. `updateState`: Xác thực mọi `stateUpdates` từ AI, áp thay đổi vào bản nháp state và kiểm tra điều kiện Game Over / kết thúc Năm 1.
-
-**Tầng 3 — Điều phối AI & Gemini API (AI Layer):**
-10. `contextLoader`: Lọc địa điểm hiện tại, NPC đang có mặt, tin đồn liên quan, nghĩa vụ sắp tới, `memoryLog` nén và `6–10` lượt chat gần nhất để tối ưu token.
-11. `geminiClient`: Kết nối Gemini API (BYOK), chọn model (Flash/Pro), tách System Prompt cố định (Context Caching), ép Structured Output JSON, ước lượng token và xử lý lỗi mạng / rate limit (`429`).
-12. `turnOrchestrator`: Điều phối trọn vẹn 1 lượt chơi (1 bước gọi AI với hành động thường ngày; tối đa 2 bước với hành động tung dice/chiến đấu) rồi ghi state qua `saveManager`.
-
-**Tầng 4 — Giao diện Người chơi (UI Layer):**
-13. Màn hình Thiết lập API & Khởi tạo nhân vật.
-14. Màn hình Chơi chính (thiết kế chi tiết ở mục **11.4**).
-
-### 11.4. Thiết kế Giao diện Người dùng (UI/UX)
-- **Phong cách & Màu sắc:** Mặc định **Dark Mode dịu mắt** (nền than chì trầm không đen gắt, chữ xám ngà dễ đọc truyện dài, điểm nhấn cổ phong nhẹ bằng sắc ngọc bích / vàng đồng trầm).
-- **Bố cục tổng thể (giống Chatbox AI — 2 cột):**
-  - **Thanh điều hướng bên trái (Sidebar có thể thu gọn/mở rộng):**
-    - Toàn thanh có nút đóng/mở gọn gàng để ưu tiên không gian đọc truyện khi cần.
-    - Các nhóm thông tin nhân vật đặt thành nút điều hướng dạng **xổ xuống khi bấm / thu gọn khi nhấn lại (Accordion)** ngay trong sidebar, không che khung chat:
-      1. *Nhân vật & Chỉ số* (Cảnh giới, Tư chất, Khí lực, Trạng thái không khiếu, `statusEffects`, `fatigue`, Điểm cống hiến & Danh vọng 4 phe Hội Đồng Gia Lão).
-      2. *Cổ trùng & Cổ phương* (danh sách `ownedGu`, đánh dấu Bản Mệnh Cổ, trạng thái luyện hóa, thanh `hunger`, cổ phương & sát chiêu đã biết).
-      3. *Túi đồ* (Nguyên thạch, sức chứa `capacity`, danh sách vật phẩm).
-      4. *NPC & Quan hệ* (chỉ hiển thị `publicImage`, thái độ & ghi chú riêng đã biết).
-      5. *Ký ức & Tin đồn* (`memoryLog`, tin đồn đang lan truyền, nghĩa vụ học đường/gia tộc).
-    - **Nút Bản đồ:** Mặc định **thu gọn / đóng kín** khi không mở; khi bấm mới bật **Popup (Modal)** hiển thị bản đồ 2D có chuyển tầng `Z` (`-1` hầm ngầm → `3` đỉnh núi), vị trí hiện tại, các địa điểm liền kề và thời gian di chuyển (`travelMinutes`); đóng lại sẽ thu về nút gọn như cũ.
-    - **Nút Cài đặt & Save (đáy sidebar):** Mở Popup quản lý Gemini API Key, chọn model (Flash/Pro), kiểm tra kết nối, ước lượng token, Xuất/Nhập `save.json` và Xóa để chơi lại.
-  - **Khu vực chính bên phải (Khung Chatbox AI):**
-    - **Thanh mỏng trên đỉnh khung chat:** Hiển thị **Ngày / Mùa / Canh giờ (giờ:phút)**, **Địa điểm hiện tại** (bấm vào tên địa điểm có thể mở nhanh Popup Bản đồ) và 2 chỉ số sinh tồn siêu gọn (`HP` · `Chân nguyên`) để dễ quan sát khi giao tranh.
-    - **Luồng kể chuyện (Chat Stream):** Tập trung đọc thuần như tiểu thuyết. Toàn bộ **thông tin hệ thống** (`d100`, độ khó `targetDC`, chân nguyên tiêu hao, thời gian trôi qua, thay đổi chỉ số/vật phẩm) **mặc định ẩn hoàn toàn**, chỉ bung ra khi người chơi bấm vào nút chi tiết nhỏ/mờ bên dưới lượt kể chuyện tương ứng.
-    - **Ô nhập lệnh ở đáy khung chat:** Nhập hành động tự do (Enter gửi, Shift+Enter xuống dòng), kèm chỉ báo đang xử lý và nút **Thử lại** khi gặp lỗi mạng hoặc rate limit (`429`).
-- **Màn hình Khởi tạo (khi chưa có Save):** 2 bước gọn trên cùng nền Dark Mode — Bước 1 dán Gemini API Key & chọn model, Bước 2 tạo nhân vật 15 tuổi (tên, ngoại hình, xuất thân, tư chất `20–79%`, khí vận `-50..50`, tiểu sử ban đầu).
+---
+Thiết kế dữ liệu sự kiện trong năm
+- eventId: (mã sự kiện)
+- name: (tên sự kiện: phát nguyên thạch hàng tháng, khảo hạch học đường, đại hội sát hạch...)
+- triggerDay: 1-365 (ngày dự kiến xảy ra)
+- isMajor: True/False (sự kiện lớn cố định hay sự kiện nhỏ/phụ)
+- condition: (điều kiện kích hoạt hoặc điều kiện rẽ nhánh dựa trên worldFlags)
+- summary: (nội dung cốt lõi của sự kiện để AI dẫn truyện)
+- status: Pending/Active/Completed/Altered (trạng thái sự kiện)
