@@ -363,3 +363,57 @@ Trước khi chốt `baseDC` (1–100), quản trò AI phân tích nhanh 3 lớp
 - `summary`: Nội dung cốt lõi để AI dẫn truyện
 - `*worldEffects`: Các thay đổi dữ liệu tự động khi sự kiện kích hoạt nếu người chơi chưa can thiệp (vd: đánh dấu `resourceNode.isTaken = true, takenBy = "npc_phuong_nguyen"`, mở khóa địa điểm, cập nhật vị trí NPC, cộng trợ cấp tuần)
 - `status`: `Pending / Active / Completed / Altered`
+
+
+---
+
+## 11. Kiến trúc Triển khai (Ngôn ngữ, Cơ sở dữ liệu & Danh sách Chương trình)
+
+### 11.1. Ngôn ngữ lập trình sử dụng trong dự án
+- **Ngôn ngữ duy nhất:** **TypeScript** (chạy trên trình duyệt với **React + Vite**).
+- **Lý do tối ưu cho yêu cầu của game:**
+  - **Đồng nhất 1 ngôn ngữ toàn bộ dự án:** Cả Game Engine (`dice100`, `essenceCalc`, `timeTick`, `updateState`...), lớp kết nối Gemini API lẫn giao diện Web đều viết bằng TypeScript — không phải chia đôi Backend Python + Frontend JS hay đồng bộ schema hai nơi.
+  - **An toàn kiểu dữ liệu tuyệt đối (Static Typing):** Game có 9 bảng JSON liên kết khóa ngoại, 1 file Save Delta và JSON Structured Output từ Gemini API; TypeScript bắt lỗi sai tên trường/sai kiểu ngay lúc lập trình.
+  - **Thuần Client-side chuẩn BYOK:** Chạy hoàn toàn cục bộ trên trình duyệt, lưu API key và `save.json` ngay trên máy người chơi (`localStorage`/`IndexedDB`), gọi trực tiếp Google AI Studio API không cần server trung gian, và có thể xuất bản miễn phí lên GitHub Pages để mở link chơi ngay.
+  - **Hiệu năng mượt:** Vòng lặp `timeTick` xử lý hàng trăm canh giờ trong chưa tới 1ms và hỗ trợ tốt vẽ bản đồ 2D theo tầng `Z` tương tác trực tiếp.
+
+### 11.2. Các cơ sở dữ liệu cần tạo
+Sử dụng mô hình **Static Database (Read-only) + 1 File Save Động (Delta/Overlay)** để tuyệt đối không làm biến đổi dữ liệu gốc sau mỗi lượt chơi:
+
+**A. 9 file cơ sở dữ liệu tĩnh trong `database/` (chỉ đọc, tạo theo thứ tự phụ thuộc khóa ngoại):**
+1. `database/game_rules.json` — Hằng số cân bằng (`essenceCalc`, hồi chân nguyên, `fatigue`, `hunger`, `luck`), danh mục mẫu `statusEffects` chuẩn, khung khởi tạo nhân vật & danh sách Cổ Thất khởi đầu.
+2. `database/items.json` — Vật phẩm (thức ăn cổ trùng, nguyên liệu luyện cổ, thảo dược, vật phẩm tiêu hao, vật phẩm cốt truyện).
+3. `database/gu.json` — Danh mục Cổ trùng Nhất chuyển, Nhị chuyển (và cổ cốt cán Tam/Tứ chuyển của Gia Lão/Tộc trưởng), liên kết `items.json` qua `food.itemId`.
+4. `database/recipes.json` — Cổ phương hợp luyện, liên kết `gu.json` và `items.json`.
+5. `database/killer_moves.json` — Sát chiêu phàm đạo, liên kết `gu.json`.
+6. `database/locations.json` — Bản đồ cố định 3 trục `{ x, y, z }`, kết nối `travelMinutes`, `dangerLevel`, và `resourceNodes` cố định (liên kết `gu.json`, `items.json`, `recipes.json`).
+7. `database/npcs.json` — Hồ sơ NPC (Tộc trưởng, 5 Gia lão cốt cán, Hội đồng gia lão 4 phe, học viên cùng khóa, tiền bối, thương đội, phàm nhân), tách dữ liệu thật với `publicImage` và `schedule`.
+8. `database/obligations.json` — Lịch học đường, điểm danh, trợ cấp 3 nguyên thạch/tuần, quy định xin giấy phép ra trại (nuôi Nhóm ngắt 3 của `timeTick`).
+9. `database/timeline_events.json` — Biên niên sự kiện 4 mùa Năm 1 kèm `condition` và `worldEffects` tự động.
+
+**B. 1 cấu trúc file Save động (`save.json` — 1 slot lưu duy nhất, sinh mới khi New Game):**
+- Chỉ lưu phần thay đổi (Delta): `player`, `worldState`, `npcStates`, `nodeStates`, `eventStates`, `obligationStates`, và `recentTurns` (`6–10` lượt gần nhất). Hỗ trợ xuất/nhập 1 file `.json` duy nhất và ghi kiểu transaction an toàn.
+
+### 11.3. Các chương trình (Module) cần tạo
+
+**Tầng 1 — Dữ liệu & Lưu trữ (Data Layer):**
+1. `dbLoader`: Nạp 9 file `database/*.json`, kiểm tra toàn vẹn khóa ngoại và cache dạng chỉ đọc trên RAM.
+2. `saveManager`: Khởi tạo `save.json` khi New Game, lưu transaction sau mỗi lượt hoàn tất, xóa save chơi lại, và xuất/nhập file `.json`.
+3. `stateResolver`: Ghép dữ liệu tĩnh từ `dbLoader` với phần delta trong `save.json` trên RAM để cung cấp trạng thái đầy đủ của NPC, địa điểm, cổ trùng và tài nguyên.
+
+**Tầng 2 — Lõi Luật Chơi (Game Engine — Code thuần, không tốn API):**
+4. `dice100`: Nhận `baseDC` từ AI → tự áp modifier từ `luck`, `fatigue`, `statusEffects` → chốt `targetDC` → tung `1–100` → trả `{ roll, targetDC, margin, isCritSuccess, isCritFail }`.
+5. `essenceCalc`: Quy đổi và kiểm tra tiêu hao chân nguyên cho 1 cổ trùng, sát chiêu hoặc tổ hợp nhiều cổ trong 1 hiệp chiến đấu; tính hồi phục chân nguyên tự nhiên và từ nguyên thạch.
+6. `timeTick`: Cộng phút (`currentTime`), mô phỏng từng canh giờ (`fatigue`, hồi chân nguyên, `hunger`, `statusEffects`, hồi sinh tài nguyên, chạy `worldEffects`) và kiểm tra 3 nhóm điều kiện ngắt quãng.
+7. `cultivationAndGu`: Xử lý ôn dưỡng tăng `cultivationProgress`, đột phá cảnh giới, luyện hóa cổ mới (`isRefined`), cho cổ ăn (`feedGu`) và hợp luyện theo `recipes.json` (bảo vệ đặc quyền bất tử của Bản Mệnh Cổ).
+8. `spreadRumor`: Quản lý `activeRumors`, cập nhật `spreadLevel` theo ngày, kiểm tra/lưu `knownByNpcIds` khi gặp NPC, và kết tinh sang `publicBio` khi `spreadLevel >= 70`.
+9. `updateState`: Xác thực mọi `stateUpdates` từ AI, áp thay đổi vào bản nháp state và kiểm tra điều kiện Game Over / kết thúc Năm 1.
+
+**Tầng 3 — Điều phối AI & Gemini API (AI Layer):**
+10. `contextLoader`: Lọc địa điểm hiện tại, NPC đang có mặt, tin đồn liên quan, nghĩa vụ sắp tới, `memoryLog` nén và `6–10` lượt chat gần nhất để tối ưu token.
+11. `geminiClient`: Kết nối Gemini API (BYOK), chọn model (Flash/Pro), tách System Prompt cố định (Context Caching), ép Structured Output JSON, ước lượng token và xử lý lỗi mạng / rate limit (`429`).
+12. `turnOrchestrator`: Điều phối trọn vẹn 1 lượt chơi (1 bước gọi AI với hành động thường ngày; tối đa 2 bước với hành động tung dice/chiến đấu) rồi ghi state qua `saveManager`.
+
+**Tầng 4 — Giao diện Người chơi (UI Layer):**
+13. Màn hình Thiết lập API & Khởi tạo nhân vật.
+14. Màn hình Chơi chính (bố cục, phong cách và thành phần chi tiết sẽ thiết kế theo thảo luận cụ thể trước khi lập trình).
